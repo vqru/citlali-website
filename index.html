@@ -44,6 +44,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 182, 193, 0.3);
         }
 
         .nav-btn {
@@ -84,6 +94,18 @@
             top: -200px;
             right: -200px;
             animation: float 20s infinite ease-in-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.1), transparent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 25s infinite ease-in-out reverse;
         }
 
         @keyframes float {
@@ -242,6 +264,14 @@
             display: inline-block;
         }
 
+        .feature-icon-svg {
+            width: 48px;
+            height: 48px;
+            color: #ffb6c1;
+            margin-bottom: 1.5rem;
+            stroke-width: 2;
+        }
+
         .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
@@ -251,6 +281,84 @@
         .feature-card p {
             color: #b0b0b0;
             line-height: 1.6;
+        }
+
+        .commands {
+            padding: 6rem 5%;
+            background: rgba(25, 25, 25, 0.5);
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .command-card {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 182, 193, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 182, 193, 0.5);
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+        }
+
+        .command-card:hover::before {
+            opacity: 1;
+        }
+
+        .command-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .command-icon {
+            width: 32px;
+            height: 32px;
+            color: #ffb6c1;
+        }
+
+        .command-card h3 {
+            font-size: 1.3rem;
+            color: #ffb6c1;
+            font-family: 'Courier New', monospace;
+        }
+
+        .command-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .command-example {
+            background: rgba(20, 20, 20, 0.6);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #ffb6c1;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
         }
 
         .stats {
@@ -335,8 +443,11 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">Citlali AI</div>
-            <a href="#invite" class="nav-btn">Add to Discord</a>
+            <div class="logo">
+                <img src="https://cdn.discordapp.com/avatars/1333324950127378453/a_e8f5c8b7d6e5f4a3b2c1d0e9f8a7b6c5.gif" alt="Citlali AI" class="logo-img" onerror="this.style.display='none'">
+                <span>Citlali AI</span>
+            </div>
+            <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&scope=bot" class="nav-btn" target="_blank">Add to Discord</a>
         </div>
     </nav>
 
@@ -345,7 +456,7 @@
             <h1>Citlali AI</h1>
             <p>Advanced AI Chat Bot with Custom Personalities • Completely Free Forever</p>
             <div class="cta-buttons">
-                <a href="#invite" class="btn-primary">Add to Server</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&scope=bot" class="btn-primary" target="_blank">Add to Server</a>
                 <a href="#features" class="btn-secondary">Explore Features</a>
             </div>
         </div>
@@ -358,39 +469,140 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
+                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        <path d="M9 10h.01M15 10h.01"></path>
+                        <path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path>
+                    </svg>
                     <h3>AI Chat with Personality</h3>
                     <p>Engage with an advanced AI that adapts to different personalities. Choose from pre-made personalities or create your own custom ones.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
+                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <path d="M12 19v3"></path>
+                    </svg>
                     <h3>Custom Personalities</h3>
                     <p>Fully customizable personality system. Make your AI companion behave exactly how you want - serious, playful, creative, or anything in between.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🖼️</div>
+                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <path d="M21 15l-5-5L5 21"></path>
+                    </svg>
                     <h3>AI Image Generation</h3>
                     <p>Generate stunning AI images completely free. Create artwork, characters, and visuals with advanced AI technology at no cost.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🔓</div>
+                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="5" y="11" width="14" height="10" rx="2" ry="2"></rect>
+                        <circle cx="12" cy="16" r="1"></circle>
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                    </svg>
                     <h3>NSFW Features (18+)</h3>
                     <p>Age-restricted NSFW chat and image generation for adult users. Fully free with no hidden costs or limitations.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">💎</div>
+                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
                     <h3>100% Free Forever</h3>
                     <p>No premium tiers, no paywalls, no subscriptions. Every feature is completely free for all users, forever.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
+                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
                     <h3>Lightning Fast</h3>
                     <p>Optimized for speed with minimal latency. Get instant responses and quick image generation without the wait.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="commands" id="commands">
+        <div class="features-content">
+            <h2 class="section-title">Bot Commands</h2>
+            <p class="section-subtitle">Simple and powerful commands to get you started</p>
+            
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <h3>/chat</h3>
+                    </div>
+                    <p class="command-description">Start a conversation with Citlali AI. The bot will respond with the active personality and remember context throughout the conversation.</p>
+                    <div class="command-example">Example: /chat Hello! How are you today?</div>
+                </div>
+
+                <div class="command-card">
+                    <div class="command-header">
+                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <h3>/personality</h3>
+                    </div>
+                    <p class="command-description">Set or create custom AI personalities. Choose from pre-made options like friendly, professional, creative, or define your own unique personality traits.</p>
+                    <div class="command-example">Example: /personality set friendly</div>
+                </div>
+
+                <div class="command-card">
+                    <div class="command-header">
+                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <path d="M9 3v18M15 3v18M3 9h18M3 15h18"></path>
+                        </svg>
+                        <h3>/toggle</h3>
+                    </div>
+                    <p class="command-description">Enable or disable specific bot features in your server. Control NSFW content, image generation, auto-responses, and more on a per-channel basis.</p>
+                    <div class="command-example">Example: /toggle nsfw on</div>
+                </div>
+
+                <div class="command-card">
+                    <div class="command-header">
+                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M9 12l2 2 4-4"></path>
+                        </svg>
+                        <h3>/translate</h3>
+                    </div>
+                    <p class="command-description">Translate text between any languages instantly. Supports 100+ languages with accurate AI-powered translation. Perfect for international communities.</p>
+                    <div class="command-example">Example: /translate Spanish Hello, how are you?</div>
+                </div>
+
+                <div class="command-card">
+                    <div class="command-header">
+                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="14" rx="2" ry="2"></rect>
+                            <path d="M3 10h18"></path>
+                        </svg>
+                        <h3>/imagine</h3>
+                    </div>
+                    <p class="command-description">Generate AI images from text descriptions. Create stunning artwork, characters, landscapes, and more - completely free with no limits.</p>
+                    <div class="command-example">Example: /imagine a futuristic cyberpunk city at night</div>
+                </div>
+
+                <div class="command-card">
+                    <div class="command-header">
+                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4M12 8h.01"></path>
+                        </svg>
+                        <h3>/help</h3>
+                    </div>
+                    <p class="command-description">Display a complete list of all available commands with detailed explanations, usage examples, and tips for getting the most out of Citlali AI.</p>
+                    <div class="command-example">Example: /help</div>
                 </div>
             </div>
         </div>
@@ -451,7 +663,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.feature-card').forEach(card => {
+        document.querySelectorAll('.feature-card, .command-card').forEach(card => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
             card.style.transition = 'all 0.6s ease';
