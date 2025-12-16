@@ -1,0 +1,658 @@
+<!-- BOT STATUS SECTION - INSERT THIS BETWEEN YOUR FEATURES/COMMANDS SECTION AND FOOTER -->
+
+<section class="bot-status" id="status">
+    <div class="features-content">
+        <h2 class="section-title">Bot Status Monitor</h2>
+        <p class="section-subtitle">Real-time performance and uptime tracking</p>
+
+        <!-- Live Status Card -->
+        <div class="live-status-card">
+            <div class="status-indicator-group">
+                <div class="status-dot-animated" id="mainStatusDot"></div>
+                <div class="status-text-group">
+                    <h3 id="mainStatusText">Operational</h3>
+                    <p>All systems running smoothly</p>
+                </div>
+            </div>
+            <div class="last-updated-text">
+                Last checked: <span id="lastChecked">Just now</span>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="status-stats-grid">
+            <div class="status-stat-card">
+                <div class="status-stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <div class="status-stat-value" id="botUptime">99.8%</div>
+                <div class="status-stat-label">Uptime</div>
+                <div class="status-stat-sublabel">Last 30 days</div>
+            </div>
+
+            <div class="status-stat-card">
+                <div class="status-stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                    </svg>
+                </div>
+                <div class="status-stat-value" id="botResponseTime">45ms</div>
+                <div class="status-stat-label">Response Time</div>
+                <div class="status-stat-sublabel">Average</div>
+            </div>
+
+            <div class="status-stat-card">
+                <div class="status-stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <div class="status-stat-value" id="botRequests">1.2M</div>
+                <div class="status-stat-label">Total Requests</div>
+                <div class="status-stat-sublabel">This month</div>
+            </div>
+
+            <div class="status-stat-card">
+                <div class="status-stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                    </svg>
+                </div>
+                <div class="status-stat-value" id="botRestarts">3</div>
+                <div class="status-stat-label">Restarts</div>
+                <div class="status-stat-sublabel">Last 7 days</div>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="status-charts-grid">
+            <div class="status-chart-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    </svg>
+                    Response Time (24h)
+                </h3>
+                <div class="status-chart-container">
+                    <canvas id="statusResponseChart"></canvas>
+                </div>
+            </div>
+
+            <div class="status-chart-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                    </svg>
+                    Requests Per Hour
+                </h3>
+                <div class="status-chart-container">
+                    <canvas id="statusRequestsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Events -->
+        <div class="status-events-card">
+            <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                Recent Events
+            </h3>
+            <div class="status-events-list" id="statusEventsList">
+                <div class="status-event-item online">
+                    <div class="status-event-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="status-event-details">
+                        <div class="status-event-title">Bot Started</div>
+                        <div class="status-event-time">2 hours ago</div>
+                    </div>
+                </div>
+
+                <div class="status-event-item restart">
+                    <div class="status-event-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                        </svg>
+                    </div>
+                    <div class="status-event-details">
+                        <div class="status-event-title">System Restart</div>
+                        <div class="status-event-time">8 hours ago</div>
+                    </div>
+                </div>
+
+                <div class="status-event-item online">
+                    <div class="status-event-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="status-event-details">
+                        <div class="status-event-title">Bot Online</div>
+                        <div class="status-event-time">8 hours ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ADD THIS CSS TO YOUR <style> TAG -->
+<style>
+    /* Bot Status Section */
+    .bot-status {
+        padding: 6rem 5%;
+        background: rgba(20, 20, 20, 0.5);
+    }
+
+    .live-status-card {
+        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
+        padding: 2.5rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 182, 193, 0.3);
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .live-status-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.05), transparent);
+        pointer-events: none;
+    }
+
+    .status-indicator-group {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        z-index: 1;
+    }
+
+    .status-dot-animated {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #4ade80;
+        box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+        position: relative;
+        animation: pulse-status 2s infinite;
+    }
+
+    .status-dot-animated.offline {
+        background: #ef4444;
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+        animation: none;
+    }
+
+    @keyframes pulse-status {
+        0% {
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+        }
+        50% {
+            box-shadow: 0 0 0 15px rgba(74, 222, 128, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+        }
+    }
+
+    .status-text-group {
+        z-index: 1;
+    }
+
+    .status-text-group h3 {
+        font-size: 2rem;
+        color: #ffb6c1;
+        margin-bottom: 0.3rem;
+    }
+
+    .status-text-group p {
+        color: #b0b0b0;
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .last-updated-text {
+        color: #808080;
+        font-size: 0.9rem;
+        z-index: 1;
+    }
+
+    .status-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .status-stat-card {
+        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 182, 193, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .status-stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .status-stat-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(255, 182, 193, 0.5);
+        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+    }
+
+    .status-stat-card:hover::before {
+        opacity: 1;
+    }
+
+    .status-stat-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 105, 180, 0.1));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .status-stat-icon svg {
+        width: 28px;
+        height: 28px;
+        color: #ffb6c1;
+    }
+
+    .status-stat-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+    }
+
+    .status-stat-label {
+        color: #b0b0b0;
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .status-stat-sublabel {
+        color: #808080;
+        font-size: 0.85rem;
+    }
+
+    .status-charts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .status-chart-card {
+        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 182, 193, 0.2);
+    }
+
+    .status-chart-card h3 {
+        color: #ffb6c1;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .status-chart-card h3 svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .status-chart-container {
+        position: relative;
+        height: 300px;
+    }
+
+    .status-events-card {
+        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 182, 193, 0.2);
+    }
+
+    .status-events-card h3 {
+        color: #ffb6c1;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .status-events-card h3 svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .status-events-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .status-event-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(30, 30, 30, 0.5);
+        border-radius: 10px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .status-event-item:hover {
+        background: rgba(40, 40, 40, 0.7);
+        transform: translateX(5px);
+    }
+
+    .status-event-item.restart {
+        border-left-color: #fbbf24;
+    }
+
+    .status-event-item.online {
+        border-left-color: #4ade80;
+    }
+
+    .status-event-item.offline {
+        border-left-color: #ef4444;
+    }
+
+    .status-event-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .status-event-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .status-event-item.restart .status-event-icon {
+        background: rgba(251, 191, 36, 0.2);
+        color: #fbbf24;
+    }
+
+    .status-event-item.online .status-event-icon {
+        background: rgba(74, 222, 128, 0.2);
+        color: #4ade80;
+    }
+
+    .status-event-item.offline .status-event-icon {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    .status-event-details {
+        flex: 1;
+    }
+
+    .status-event-title {
+        color: #e0e0e0;
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+    }
+
+    .status-event-time {
+        color: #808080;
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+        .live-status-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .status-charts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .status-chart-container {
+            height: 250px;
+        }
+    }
+</style>
+
+<!-- ADD THIS SCRIPT AT THE BOTTOM BEFORE </body> -->
+<!-- NOTE: Make sure Chart.js is loaded first -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    // Bot Status Configuration
+    const BOT_STATUS_CONFIG = {
+        statusCheckUrl: 'YOUR_API_ENDPOINT_HERE', // Replace with your actual status API
+        updateInterval: 30000, // Update every 30 seconds
+    };
+
+    // Initialize charts
+    function initBotStatusCharts() {
+        const responseCtx = document.getElementById('statusResponseChart');
+        const requestsCtx = document.getElementById('statusRequestsChart');
+
+        if (!responseCtx || !requestsCtx) return;
+
+        // Response Time Chart
+        window.botResponseChart = new Chart(responseCtx.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                datasets: [{
+                    label: 'Response Time (ms)',
+                    data: generateChartData(24, 30, 80),
+                    borderColor: '#ffb6c1',
+                    backgroundColor: 'rgba(255, 182, 193, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#ffb6c1',
+                    pointBorderColor: '#1a1a1a',
+                    pointBorderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 26, 0.95)',
+                        titleColor: '#ffb6c1',
+                        bodyColor: '#e0e0e0',
+                        borderColor: 'rgba(255, 182, 193, 0.3)',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 182, 193, 0.1)' },
+                        ticks: {
+                            color: '#b0b0b0',
+                            callback: (value) => value + 'ms'
+                        }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255, 182, 193, 0.1)' },
+                        ticks: {
+                            color: '#b0b0b0',
+                            maxRotation: 0,
+                            autoSkip: true,
+                            maxTicksLimit: 12
+                        }
+                    }
+                }
+            }
+        });
+
+        // Requests Chart
+        window.botRequestsChart = new Chart(requestsCtx.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                datasets: [{
+                    label: 'Requests',
+                    data: generateChartData(24, 1000, 5000),
+                    backgroundColor: 'rgba(255, 182, 193, 0.6)',
+                    borderColor: '#ffb6c1',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(26, 26, 26, 0.95)',
+                        titleColor: '#ffb6c1',
+                        bodyColor: '#e0e0e0',
+                        borderColor: 'rgba(255, 182, 193, 0.3)',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 182, 193, 0.1)' },
+                        ticks: {
+                            color: '#b0b0b0',
+                            callback: (value) => (value / 1000).toFixed(1) + 'K'
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            color: '#b0b0b0',
+                            maxRotation: 0,
+                            autoSkip: true,
+                            maxTicksLimit: 12
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Generate random data for demo
+    function generateChartData(count, min, max) {
+        return Array.from({length: count}, () => 
+            Math.floor(Math.random() * (max - min + 1)) + min
+        );
+    }
+
+    // Update bot status
+    async function updateBotStatus() {
+        try {
+            // REPLACE THIS WITH YOUR ACTUAL API CALL
+            // const response = await fetch(BOT_STATUS_CONFIG.statusCheckUrl);
+            // const data = await response.json();
+            
+            // Simulate status (replace with real data from your API)
+            const isOnline = true; // Get this from your API
+            
+            const statusDot = document.getElementById('mainStatusDot');
+            const statusText = document.getElementById('mainStatusText');
+            
+            if (statusDot && statusText) {
+                if (isOnline) {
+                    statusDot.className = 'status-dot-animated';
+                    statusText.textContent = 'Operational';
+                } else {
+                    statusDot.className = 'status-dot-animated offline';
+                    statusText.textContent = 'Offline';
+                }
+            }
+            
+            // Update timestamp
+            const lastChecked = document.getElementById('lastChecked');
+            if (lastChecked) {
+                lastChecked.textContent = new Date().toLocaleTimeString();
+            }
+            
+            // Update charts with new data (if they exist)
+            if (window.botResponseChart && window.botRequestsChart) {
+                const newResponseTime = Math.floor(Math.random() * 50) + 30;
+                const newRequests = Math.floor(Math.random() * 4000) + 1000;
+                
+                window.botResponseChart.data.datasets[0].data.shift();
+                window.botResponseChart.data.datasets[0].data.push(newResponseTime);
+                window.botResponseChart.update('none');
+                
+                window.botRequestsChart.data.datasets[0].data.shift();
+                window.botRequestsChart.data.datasets[0].data.push(newRequests);
+                window.botRequestsChart.update('none');
+            }
+            
+        } catch (error) {
+            console.error('Failed to update bot status:', error);
+        }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initBotStatusCharts();
+            updateBotStatus();
+            setInterval(updateBotStatus, BOT_STATUS_CONFIG.updateInterval);
+        });
+    } else {
+        initBotStatusCharts();
+        updateBotStatus();
+        setInterval(updateBotStatus, BOT_STATUS_CONFIG.updateInterval);
+    }
+</script>
