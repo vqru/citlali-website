@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Citlali AI</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 0.8rem 5%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 182, 193, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+            border: none;
+            border-radius: 25px;
+            color: #1a1a1a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 5% 4rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+        }
+
+        .last-updated {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 105, 180, 0.1));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            border-radius: 20px;
+            color: #ffb6c1;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 182, 193, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #ffb6c1;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        h2 svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #ffb6c1;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            color: #b0b0b0;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #ffb6c1;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(255, 105, 180, 0.05));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            border-left: 4px solid #ffb6c1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .contact-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 105, 180, 0.1));
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .contact-box h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            color: #ffb6c1;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #ff69b4;
+            text-decoration: underline;
+        }
+
+        .footer {
+            padding: 3rem 5%;
+            background: rgba(15, 15, 15, 0.8);
+            border-top: 1px solid rgba(255, 182, 193, 0.1);
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            color: #808080;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-card {
+                padding: 2rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .container {
+                padding: 6rem 5% 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <img src="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp" alt="Citlali AI" class="logo-img" onerror="this.style.display='none'">
+                <span>Citlali AI</span>
+            </a>
+            <a href="/" class="nav-btn">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy matters to us</p>
+            <span class="last-updated">Last Updated: January 7, 2026</span>
+        </div>
+
+        <div class="content-card">
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    Introduction
+                </h2>
+                <p>Welcome to Citlali AI. We are committed to protecting your privacy and ensuring transparency about how we handle your data. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data when you use our Discord bot.</p>
+                <p>By using Citlali AI, you agree to the collection and use of information in accordance with this policy.</p>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Information We Collect
+                </h2>
+                
+                <h3>Automatically Collected Information</h3>
+                <p>When you interact with Citlali AI on Discord, we automatically collect:</p>
+                <ul>
+                    <li>Discord User ID (for identifying users)</li>
+                    <li>Discord Server ID (for server-specific settings)</li>
+                    <li>Channel ID (for managing bot permissions)</li>
+                    <li>Message content when you use bot commands</li>
+                    <li>Timestamps of interactions</li>
+                </ul>
+
+                <h3>Information You Provide</h3>
+                <p>You may provide additional information when using our features:</p>
+                <ul>
+                    <li>Custom personality settings you create</li>
+                    <li>Prompts and queries sent to the AI</li>
+                    <li>Image generation requests</li>
+                    <li>Translation requests</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Note:</strong> We do not collect or store your Discord password, email address, or any payment information. Citlali AI is completely free and does not process payments.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    How We Use Your Information
+                </h2>
+                <p>We use the collected information for the following purposes:</p>
+                <ul>
+                    <li><strong>Provide Bot Functionality:</strong> Process your commands and deliver AI responses, image generation, and other features</li>
+                    <li><strong>Personalization:</strong> Remember your custom personality settings and preferences</li>
+                    <li><strong>Improve Services:</strong> Analyze usage patterns to enhance bot performance and features</li>
+                    <li><strong>Moderation:</strong> Ensure compliance with Discord's Terms of Service and our usage policies</li>
+                    <li><strong>Technical Operations:</strong> Maintain bot uptime, fix bugs, and prevent abuse</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    Data Sharing and Third Parties
+                </h2>
+                <p>We value your privacy and limit data sharing to essential services only:</p>
+                
+                <h3>Third-Party Services</h3>
+                <ul>
+                    <li><strong>AI Service Providers:</strong> We use external AI APIs (like Groq) to process your prompts and generate responses. These providers may temporarily process your data but do not store it permanently</li>
+                    <li><strong>Discord Platform:</strong> We operate through Discord's infrastructure and comply with their data handling requirements</li>
+                    <li><strong>Hosting Services:</strong> Our bot is hosted on cloud servers that may process data for operational purposes</li>
+                </ul>
+
+                <h3>We Do NOT:</h3>
+                <ul>
+                    <li>Sell your personal data to third parties</li>
+                    <li>Share your data with advertisers</li>
+                    <li>Use your data for marketing purposes</li>
+                    <li>Provide your information to data brokers</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Data Security
+                </h2>
+                <p>We implement appropriate security measures to protect your information:</p>
+                <ul>
+                    <li>Encrypted data transmission</li>
+                    <li>Secure server infrastructure</li>
+                    <li>Regular security audits and updates</li>
+                    <li>Access controls and authentication</li>
+                    <li>Monitoring for unauthorized access</li>
+                </ul>
+                <div class="highlight-box">
+                    <p><strong>Important:</strong> While we strive to protect your data, no method of transmission over the internet is 100% secure. We cannot guarantee absolute security but continuously work to improve our protections.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    Data Retention
+                </h2>
+                <p>We retain different types of data for varying periods:</p>
+                <ul>
+                    <li><strong>Chat Messages:</strong> Stored temporarily for context (typically 24-48 hours) then deleted</li>
+                    <li><strong>User Preferences:</strong> Retained until you delete them or remove the bot from your server</li>
+                    <li><strong>Server Settings:</strong> Stored while the bot remains in your server</li>
+                    <li><strong>Usage Analytics:</strong> Aggregated and anonymized data may be retained indefinitely for improvement purposes</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                    </svg>
+                    Your Rights
+                </h2>
+                <p>You have the following rights regarding your data:</p>
+                <ul>
+                    <li><strong>Access:</strong> Request a copy of the data we have about you</li>
+                    <li><strong>Deletion:</strong> Request deletion of your personal data</li>
+                    <li><strong>Correction:</strong> Request correction of inaccurate data</li>
+                    <li><strong>Portability:</strong> Request your data in a portable format</li>
+                    <li><strong>Opt-Out:</strong> Stop using the bot at any time by removing it from your server</li>
+                </ul>
+                <p>To exercise any of these rights, please contact us using the information below.</p>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    </svg>
+                    Age Restrictions
+                </h2>
+                <p>Citlali AI's general features are available to users of all ages in compliance with Discord's Terms of Service (13+ or applicable age in your region).</p>
+                <div class="highlight-box">
+                    <p><strong>NSFW Content:</strong> Our NSFW features are strictly restricted to users who are 18 years of age or older. By using NSFW features, you confirm that you meet this age requirement. We do not knowingly collect or process data from minors using NSFW features.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                    </svg>
+                    Changes to This Policy
+                </h2>
+                <p>We may update this Privacy Policy from time to time. When we do, we will:</p>
+                <ul>
+                    <li>Update the "Last Updated" date at the top of this page</li>
+                    <li>Notify users through our Discord support server (if available)</li>
+                    <li>Continue to honor the privacy commitments made in previous versions</li>
+                </ul>
+                <p>We encourage you to review this Privacy Policy periodically for any changes.</p>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Contact Us
+                </h2>
+                <p>If you have any questions, concerns, or requests regarding this Privacy Policy or your data, please contact us:</p>
+                
+                <div class="contact-box">
+                    <h3>Get in Touch</h3>
+                    <p>Discord: <a href="#" class="contact-link">.vqru</a></p>
+                    <p>For privacy-related inquiries, data requests, or general support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Citlali AI. All rights reserved. | <a href="/" style="color: #ffb6c1; text-decoration: none;">Home</a></p>
+    </footer>
+</body>
+</html>
