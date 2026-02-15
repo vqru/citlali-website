@@ -1,34 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citlali AI - Advanced Discord Bot</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp">
-    <link rel="shortcut icon" type="image/png" href="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp">
-    
-    <!-- SEO & Social Media -->
-    <meta name="description" content="Citlali AI - Free Discord bot with AI chat, custom personalities, image generation & NSFW features. 100% free forever.">
-    <meta name="keywords" content="discord bot, ai chatbot, free discord bot, ai image generation, custom personality bot, nsfw discord bot">
-    <meta property="og:title" content="Citlali AI - Advanced Discord Bot">
-    <meta property="og:description" content="Free AI chat bot with custom personalities & image generation. 100% free forever.">
-    <meta property="og:image" content="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp">
-    <meta property="og:url" content="https://citlali-website.vercel.app/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Citlali AI - Advanced Discord Bot">
-    <meta name="twitter:description" content="Free AI chat bot with custom personalities & image generation">
-    <meta name="twitter:image" content="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCQJGYCGEK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XCQJGYCGEK');
-    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#C5497C" />
+    <title>Nekotina - Your adorable neko companion for Discord!</title>
+    <meta name="description" content="Nekotina, your adorable neko companion for Discord! Music, anime, currency, games and more!" />
     
     <style>
         * {
@@ -36,1809 +13,501 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #e0e0e0;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
         }
-
-        .navbar {
-            position: fixed;
+        
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            position: sticky;
             top: 0;
-            width: 100%;
-            padding: 0.8rem 5%;
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 182, 193, 0.1);
+            z-index: 20;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .nav-content {
+        
+        .header-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
-            font-size: 1.4rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .logo-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 182, 193, 0.3);
-        }
-
-        .nav-btn {
-            padding: 0.6rem 1.5rem;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            border: none;
-            border-radius: 25px;
-            color: #1a1a1a;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
-        }
-
-      .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 5% 4rem;
-    position: relative;
-    overflow: hidden;
-    background-image: url('https://i.pinimg.com/originals/88/00/a6/8800a6b4b7dae9cd53ff1ae4f4c31db4.gif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(26, 26, 26, 0.4); /* Dark overlay for readability */
-    z-index: 0;
-}
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 105, 180, 0.1), transparent);
-            border-radius: 50%;
-            bottom: -150px;
-            left: -150px;
-            animation: float 25s infinite ease-in-out reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-50px, 50px) scale(1.1); }
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #ffb6c1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: #b0b0b0;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1s ease 0.2s backwards;
-        }
-        .banner-section {
-            padding: 4rem 5%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .banner-container {
-            max-width: 900px;
-            width: 70%;
-            position: relative;
-            animation: fadeInUp 1s ease 0.6s backwards;
-        }
-
-        .banner-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 110%;
-            height: 110%;
-            background: radial-gradient(circle, rgba(255, 182, 193, 0.3), transparent 70%);
-            filter: blur(40px);
-            z-index: 0;
-            animation: pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
-        }
-
-        .banner-gif {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
-            position: relative;
-            z-index: 1;
-            border: 2px solid rgba(255, 182, 193, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .banner-container {
-                width: 90%;
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.4s backwards;
-        }
-
-        .btn-primary {
-            padding: 1.2rem 3rem;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            border: none;
-            border-radius: 30px;
-            color: #1a1a1a;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
-        }
-
-        .btn-secondary {
-            padding: 1.2rem 3rem;
-            background: transparent;
-            border: 2px solid #ffb6c1;
-            border-radius: 30px;
-            color: #ffb6c1;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 182, 193, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .features {
-            padding: 6rem 5%;
-            background: rgba(20, 20, 20, 0.5);
-        }
-
-        .features-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #ffb6c1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #b0b0b0;
-            font-size: 1.2rem;
-            margin-bottom: 4rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 182, 193, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 182, 193, 0.5);
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        .feature-icon-svg {
-            width: 48px;
-            height: 48px;
-            color: #ffb6c1;
-            margin-bottom: 1.5rem;
-            stroke-width: 2;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #ffb6c1;
-        }
-
-        .feature-card p {
-            color: #b0b0b0;
-            line-height: 1.6;
-        }
-
-        .commands {
-            padding: 6rem 5%;
-            background: rgba(25, 25, 25, 0.5);
-        }
-
-        .commands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .command-card {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 182, 193, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .command-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .command-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 182, 193, 0.5);
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
-        }
-
-        .command-card:hover::before {
-            opacity: 1;
-        }
-
-        .command-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .command-icon {
-            width: 32px;
-            height: 32px;
-            color: #ffb6c1;
-        }
-
-        .command-card h3 {
-            font-size: 1.3rem;
-            color: #ffb6c1;
-            font-family: 'Courier New', monospace;
-        }
-
-        .command-description {
-            color: #b0b0b0;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .command-example {
-            background: rgba(20, 20, 20, 0.6);
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            border-left: 3px solid #ffb6c1;
-            color: #e0e0e0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-
-        .stats {
-            padding: 6rem 5%;
-            text-align: center;
-        }
-
-        .stats-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-        }
-
-        .stat-item {
-            padding: 2rem;
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
+            text-decoration: none;
+            color: #333;
             font-weight: bold;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
-
-        .stat-label {
-            color: #b0b0b0;
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #12323C;
+            color: #EE7FD3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        nav a, nav button {
+            text-decoration: none;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .cta-button {
+            background: #C5497C;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        
+        .cta-button:hover {
+            background: #A63A5F;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #C5497C 100%);
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #C5497C;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            border: 2px solid white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #C5497C;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Commands Section */
+        .commands {
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+        }
+        
+        .commands-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .commands h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .commands-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .command-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .command-item h4 {
+            color: #C5497C;
+            margin-bottom: 0.5rem;
             font-size: 1.1rem;
         }
-
-        .footer {
-            padding: 3rem 5%;
-            background: rgba(15, 15, 15, 0.8);
-            border-top: 1px solid rgba(255, 182, 193, 0.1);
+        
+        .command-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 2rem;
             text-align: center;
         }
-
+        
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
         }
-
-        .footer p {
-            color: #808080;
-            margin-bottom: 1rem;
-        }
-
-        .age-warning {
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(255, 105, 180, 0.1));
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-top: 1rem;
-            color: #ffb6c1;
-            font-size: 0.9rem;
-        }
-
-        .chat-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
-        }
-
-        .chat-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+        
+        .footer-links {
             display: flex;
-            align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            position: relative;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-
-        .chat-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(255, 105, 180, 0.6);
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
         }
-
-        .chat-button svg {
-            width: 28px;
-            height: 28px;
-            color: #1a1a1a;
+        
+        .footer-links a:hover {
+            color: white;
         }
-
-        .chat-tooltip {
-            position: absolute;
-            right: 70px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(40, 40, 40, 0.95);
-            color: #ffb6c1;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            white-space: nowrap;
+        
+        .footer-copyright {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            color: #666;
             font-size: 0.9rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            border: 1px solid rgba(255, 182, 193, 0.3);
         }
-
-        .chat-button:hover .chat-tooltip {
-            opacity: 1;
-        }
-
-        .chat-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 380px;
-            height: 550px;
-            background: rgba(26, 26, 26, 0.98);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .chat-window.active {
-            display: flex;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .chat-header {
-            padding: 1.2rem;
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 105, 180, 0.1));
-            border-bottom: 1px solid rgba(255, 182, 193, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h3 {
-            color: #ffb6c1;
-            font-size: 1.1rem;
-            margin: 0;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: #ffb6c1;
-            cursor: pointer;
-            font-size: 1.5rem;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .chat-close:hover {
-            background: rgba(255, 182, 193, 0.2);
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .chat-messages::-webkit-scrollbar-track {
-            background: rgba(40, 40, 40, 0.5);
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 182, 193, 0.5);
-            border-radius: 3px;
-        }
-
-        .message {
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            max-width: 85%;
-            word-wrap: break-word;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.bot {
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 105, 180, 0.1));
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            align-self: flex-start;
-            color: #e0e0e0;
-        }
-
-        .message.user {
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            align-self: flex-end;
-            color: #1a1a1a;
-        }
-
-        .message.bot strong {
-            color: #ffb6c1;
-        }
-
-        .typing-indicator {
-            display: none;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 105, 180, 0.1));
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            align-self: flex-start;
-            max-width: 85%;
-        }
-
-        .typing-indicator.active {
-            display: block;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-        }
-
-        .typing-dots span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ffb6c1;
-            animation: bounce 1.4s infinite;
-        }
-
-        .typing-dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes bounce {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-10px); }
-        }
-
-        .chat-input-area {
-            padding: 1rem;
-            border-top: 1px solid rgba(255, 182, 193, 0.3);
-            background: rgba(20, 20, 20, 0.8);
-        }
-
-        .chat-input-wrapper {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 0.8rem;
-            background: rgba(40, 40, 40, 0.8);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 10px;
-            color: #e0e0e0;
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .chat-input:focus {
-            border-color: #ffb6c1;
-            background: rgba(40, 40, 40, 1);
-        }
-
-        .chat-send {
-            padding: 0.8rem 1.2rem;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            border: none;
-            border-radius: 10px;
-            color: #1a1a1a;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .chat-send:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
-        }
-
-        .chat-send:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .api-key-prompt {
-            padding: 1rem;
-            background: rgba(255, 182, 193, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            margin-bottom: 1rem;
-        }
-
-        .api-key-prompt p {
-            color: #b0b0b0;
-            font-size: 0.85rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .api-key-input {
-            width: 100%;
-            padding: 0.7rem;
-            background: rgba(40, 40, 40, 0.8);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 8px;
-            color: #e0e0e0;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .api-key-save {
-            width: 100%;
-            padding: 0.7rem;
-            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            border: none;
-            border-radius: 8px;
-            color: #1a1a1a;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            .chat-window {
-                width: calc(100vw - 2rem);
-                right: 1rem;
-                left: 1rem;
-            }
-
-            .chat-widget {
-                right: 1rem;
-                bottom: 1rem;
-            }
-        }
-
+        
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
             }
-
-            .hero p {
-                font-size: 1.1rem;
+            
+            nav ul {
+                gap: 1rem;
             }
-
-            .cta-buttons {
+            
+            .header-container {
                 flex-direction: column;
-                align-items: center;
-            }
-
-            .section-title {
-                font-size: 2rem;
+                gap: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">
-                <img src="https://external-cdn.top.gg/discord/bots/1333324950127378453/58ea55a0cd9e105c908e98fb303e8ef2.webp" alt="Citlali AI" class="logo-img" onerror="this.style.display='none'">
-                <span>Citlali AI</span>
-            </div>
-            <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&scope=bot" class="nav-btn" target="_blank">Add to Discord</a>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">NK</div>
+                <span>Nekotina</span>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="/commands">Commands</a></li>
+                    <li><button type="button">Modules ▼</button></li>
+                    <li><button type="button">Resources ▼</button></li>
+                </ul>
+            </nav>
+            
+            <button class="cta-button">Invite Bot</button>
         </div>
-    </nav>
+    </header>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Citlali AI</h1>
-            <p>Advanced AI Chat Bot with Custom Personalities • Completely Free Forever</p>
-            <div class="cta-buttons">
-                <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&scope=bot" class="btn-primary" target="_blank">Add to Server</a>
-                <a href="#features" class="btn-secondary">Explore Features</a>
+        <div>
+            <h1>Welcome to Nekotina</h1>
+            <p>Your adorable neko companion for Discord</p>
+            <p style="font-size: 1rem; opacity: 0.85;">Music • Anime • Currency • Games • and much more</p>
+            
+            <div class="hero-buttons">
+                <a href="/invite" class="btn-primary">Add to Discord</a>
+                <a href="/commands" class="btn-secondary">View Commands</a>
             </div>
         </div>
-   </section>
+    </section>
 
-    <section class="features" id="features">
-        <div class="features-content">
-            <h2 class="section-title">Powerful Features</h2>
-            <p class="section-subtitle">Everything you need, absolutely free</p>
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>Music Player</h3>
+                <p>High-quality music streaming with advanced playlist management</p>
+            </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        <path d="M9 10h.01M15 10h.01"></path>
-                        <path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path>
-                    </svg>
-                    <h3>AI Chat with Personality</h3>
-                    <p>Engage with an advanced AI that adapts to different personalities. Choose from pre-made personalities or create your own custom ones.</p>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Currency System</h3>
+                <p>Economy system with trading, banking, and daily rewards</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>Games</h3>
+                <p>Interactive games to earn rewards and have fun with friends</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Customization</h3>
+                <p>Fully customizable settings for your server</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Moderation</h3>
+                <p>Powerful moderation tools to keep your server safe</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics</h3>
+                <p>Server activity tracking and member statistics</p>
+            </div>
+        </div>
+    </section>
 
-                <div class="feature-card">
-                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                        <path d="M12 19v3"></path>
-                    </svg>
-                    <h3>Custom Personalities</h3>
-                    <p>Fully customizable personality system. Make your AI companion behave exactly how you want - serious, playful, creative, or anything in between.</p>
+    <!-- Commands Section -->
+    <section class="commands">
+        <div class="commands-container">
+            <h2>Popular Commands</h2>
+            <div class="commands-list">
+                <div class="command-item">
+                    <h4>/play [song]</h4>
+                    <p>Play a song from YouTube or Spotify</p>
                 </div>
-
-                <div class="feature-card">
-                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <path d="M21 15l-5-5L5 21"></path>
-                    </svg>
-                    <h3>AI Image Generation</h3>
-                    <p>Generate stunning AI images completely free. Create artwork, characters, and visuals with advanced AI technology at no cost.</p>
+                <div class="command-item">
+                    <h4>/daily</h4>
+                    <p>Claim your daily currency reward</p>
                 </div>
-
-                <div class="feature-card">
-                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="5" y="11" width="14" height="10" rx="2" ry="2"></rect>
-                        <circle cx="12" cy="16" r="1"></circle>
-                        <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
-                    </svg>
-                    <h3>NSFW Features (18+)</h3>
-                    <p>Age-restricted NSFW chat and image generation for adult users. Fully free with no hidden costs or limitations.</p>
+                <div class="command-item">
+                    <h4>/slots</h4>
+                    <p>Play slot machine game for rewards</p>
                 </div>
-
-                <div class="feature-card">
-                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                    <h3>100% Free Forever</h3>
-                    <p>No premium tiers, no paywalls, no subscriptions. Every feature is completely free for all users, forever.</p>
+                <div class="command-item">
+                    <h4>/balance</h4>
+                    <p>Check your account balance</p>
                 </div>
-
-                <div class="feature-card">
-                    <svg class="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                    </svg>
-                    <h3>Lightning Fast</h3>
-                    <p>Optimized for speed with minimal latency. Get instant responses and quick image generation without the wait.</p>
+                <div class="command-item">
+                    <h4>/anime [name]</h4>
+                    <p>Search for anime information</p>
+                </div>
+                <div class="command-item">
+                    <h4>/mute [@user]</h4>
+                    <p>Mute a user temporarily</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="commands" id="commands">
-        <div class="features-content">
-            <h2 class="section-title">Bot Commands</h2>
-            <p class="section-subtitle">Simple and powerful commands to get you started</p>
-            
-            <div class="commands-grid">
-                <div class="command-card">
-                    <div class="command-header">
-                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        <h3>/toggle</h3>
-                    </div>
-                    <p class="command-description">Start a conversation with Citlali AI. The bot will respond with the active personality and remember context throughout the conversation.</p>
-                    <div class="command-example">Example: /toggle {click enable button} prompt: Hello! How are you today?</div>
-                </div>
-
-                <div class="command-card">
-                    <div class="command-header">
-                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <h3>/personality</h3>
-                    </div>
-                    <p class="command-description">Set or create custom AI personalities. Choose from pre-made options like Warm, Citlali, NSFW, each having their own humor or create your own unique personality traits!.</p>
-                    <div class="command-example">Example: /personality {choose one}</div>
-                </div>
-
-                <div class="command-card">
-                    <div class="command-header">
-                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <path d="M9 3v18M15 3v18M3 9h18M3 15h18"></path>
-                        </svg>
-                        <h3>/toggle</h3>
-                    </div>
-                    <p class="command-description">Enable or disable the bot in your server and specific channel. Toggle on/off on a per-channel basis.</p>
-                    <div class="command-example">Example: /toggle nsfw on</div>
-                </div>
-
-                <div class="command-card">
-                    <div class="command-header">
-                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            <path d="M9 12l2 2 4-4"></path>
-                        </svg>
-                        <h3>/translate</h3>
-                    </div>
-                    <p class="command-description">Translate text between any languages instantly. Supports 100+ languages with accurate AI-powered translation. Perfect for international communities.</p>
-                    <div class="command-example">Example: /translate Spanish Hello, how are you?</div>
-                </div>
-
-                <div class="command-card">
-                    <div class="command-header">
-                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="14" rx="2" ry="2"></rect>
-                            <path d="M3 10h18"></path>
-                        </svg>
-                        <h3>/imagine</h3>
-                    </div>
-                    <p class="command-description">Generate AI images from text descriptions. Create stunning artwork, characters, landscapes, and more - completely free with no limits.</p>
-                    <div class="command-example">Example: /imagine a futuristic cyberpunk city at night</div>
-                </div>
-
-                <div class="command-card">
-                    <div class="command-header">
-                        <svg class="command-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M12 16v-4M12 8h.01"></path>
-                        </svg>
-                        <h3>/help</h3>
-                    </div>
-                    <p class="command-description">Display a complete list of all available commands with detailed explanations, usage examples, and tips for getting the most out of Citlali AI.</p>
-                    <div class="command-example">Example: /help</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats">
-        <h2 class="section-title">Trusted by the Community</h2>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Free Messages</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Free Images</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Uptime</div>
-            </div>
-        </div>
-    </section>
-    <!-- BOT STATUS SECTION - INSERT THIS BETWEEN YOUR FEATURES/COMMANDS SECTION AND FOOTER -->
-
-<section class="bot-status" id="status">
-    <div class="features-content">
-        <h2 class="section-title">Bot Status Monitor</h2>
-        <p class="section-subtitle">Real-time performance and uptime tracking</p>
-
-        <!-- Live Status Card -->
-        <div class="live-status-card">
-            <div class="status-indicator-group">
-                <div class="status-dot-animated" id="mainStatusDot"></div>
-                <div class="status-text-group">
-                    <h3 id="mainStatusText">Operational</h3>
-                    <p>All systems running smoothly</p>
-                </div>
-            </div>
-            <div class="last-updated-text">
-                Last checked: <span id="lastChecked">Just now</span>
-            </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="status-stats-grid">
-            <div class="status-stat-card">
-                <div class="status-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                </div>
-                <div class="status-stat-value" id="botUptime">99.8%</div>
-                <div class="status-stat-label">Uptime</div>
-                <div class="status-stat-sublabel">Last 30 days</div>
-            </div>
-
-            <div class="status-stat-card">
-                <div class="status-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                    </svg>
-                </div>
-                <div class="status-stat-value" id="botResponseTime">45ms</div>
-                <div class="status-stat-label">Response Time</div>
-                <div class="status-stat-sublabel">Average</div>
-            </div>
-
-            <div class="status-stat-card">
-                <div class="status-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                </div>
-                <div class="status-stat-value" id="botRequests">1.2M</div>
-                <div class="status-stat-label">Total Requests</div>
-                <div class="status-stat-sublabel">This month</div>
-            </div>
-
-            <div class="status-stat-card">
-                <div class="status-stat-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 20V10M12 20V4M6 20v-6"></path>
-                    </svg>
-                </div>
-                <div class="status-stat-value" id="botRestarts">3</div>
-                <div class="status-stat-label">Restarts</div>
-                <div class="status-stat-sublabel">Last 7 days</div>
-            </div>
-        </div>
-
-        <!-- Charts Grid -->
-        <div class="status-charts-grid">
-            <div class="status-chart-card">
-                <h3>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                    </svg>
-                    Response Time (24h)
-                </h3>
-                <div class="status-chart-container">
-                    <canvas id="statusResponseChart"></canvas>
-                </div>
-            </div>
-
-            <div class="status-chart-card">
-                <h3>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="3" width="7" height="7"></rect>
-                    </svg>
-                    Requests Per Hour
-                </h3>
-                <div class="status-chart-container">
-                    <canvas id="statusRequestsChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recent Events -->
-        <div class="status-events-card">
-            <h3>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                Recent Events
-            </h3>
-            <div class="status-events-list" id="statusEventsList">
-                <div class="status-event-item online">
-                    <div class="status-event-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="status-event-details">
-                        <div class="status-event-title">Bot Started</div>
-                        <div class="status-event-time">2 hours ago</div>
-                    </div>
-                </div>
-
-                <div class="status-event-item restart">
-                    <div class="status-event-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
-                        </svg>
-                    </div>
-                    <div class="status-event-details">
-                        <div class="status-event-title">System Restart</div>
-                        <div class="status-event-time">8 hours ago</div>
-                    </div>
-                </div>
-
-                <div class="status-event-item online">
-                    <div class="status-event-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <div class="status-event-details">
-                        <div class="status-event-title">Bot Online</div>
-                        <div class="status-event-time">8 hours ago</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ADD THIS CSS TO YOUR <style> TAG -->
-<style>
-    /* Bot Status Section */
-    .bot-status {
-        padding: 6rem 5%;
-        background: rgba(20, 20, 20, 0.5);
-    }
-
-    .live-status-card {
-        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
-        padding: 2.5rem;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 182, 193, 0.3);
-        margin-bottom: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 2rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .live-status-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(255, 182, 193, 0.05), transparent);
-        pointer-events: none;
-    }
-
-    .status-indicator-group {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        z-index: 1;
-    }
-
-    .status-dot-animated {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: #4ade80;
-        box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
-        position: relative;
-        animation: pulse-status 2s infinite;
-    }
-
-    .status-dot-animated.offline {
-        background: #ef4444;
-        box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
-        animation: none;
-    }
-
-    @keyframes pulse-status {
-        0% {
-            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
-        }
-        50% {
-            box-shadow: 0 0 0 15px rgba(74, 222, 128, 0);
-        }
-        100% {
-            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
-        }
-    }
-
-    .status-text-group {
-        z-index: 1;
-    }
-
-    .status-text-group h3 {
-        font-size: 2rem;
-        color: #ffb6c1;
-        margin-bottom: 0.3rem;
-    }
-
-    .status-text-group p {
-        color: #b0b0b0;
-        font-size: 1rem;
-        margin: 0;
-    }
-
-    .last-updated-text {
-        color: #808080;
-        font-size: 0.9rem;
-        z-index: 1;
-    }
-
-    .status-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .status-stat-card {
-        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
-        padding: 2rem;
-        border-radius: 15px;
-        border: 1px solid rgba(255, 182, 193, 0.2);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .status-stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .status-stat-card:hover {
-        transform: translateY(-5px);
-        border-color: rgba(255, 182, 193, 0.5);
-        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
-    }
-
-    .status-stat-card:hover::before {
-        opacity: 1;
-    }
-
-    .status-stat-icon {
-        width: 48px;
-        height: 48px;
-        background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 105, 180, 0.1));
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-    }
-
-    .status-stat-icon svg {
-        width: 28px;
-        height: 28px;
-        color: #ffb6c1;
-    }
-
-    .status-stat-value {
-        font-size: 2.5rem;
-        font-weight: bold;
-        background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 0.5rem;
-    }
-
-    .status-stat-label {
-        color: #b0b0b0;
-        font-size: 1rem;
-        margin-bottom: 0.3rem;
-    }
-
-    .status-stat-sublabel {
-        color: #808080;
-        font-size: 0.85rem;
-    }
-
-    .status-charts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .status-chart-card {
-        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
-        padding: 2rem;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 182, 193, 0.2);
-    }
-
-    .status-chart-card h3 {
-        color: #ffb6c1;
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .status-chart-card h3 svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .status-chart-container {
-        position: relative;
-        height: 300px;
-    }
-
-    .status-events-card {
-        background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(50, 50, 50, 0.6));
-        padding: 2rem;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 182, 193, 0.2);
-    }
-
-    .status-events-card h3 {
-        color: #ffb6c1;
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .status-events-card h3 svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .status-events-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .status-event-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: rgba(30, 30, 30, 0.5);
-        border-radius: 10px;
-        border-left: 3px solid transparent;
-        transition: all 0.3s ease;
-    }
-
-    .status-event-item:hover {
-        background: rgba(40, 40, 40, 0.7);
-        transform: translateX(5px);
-    }
-
-    .status-event-item.restart {
-        border-left-color: #fbbf24;
-    }
-
-    .status-event-item.online {
-        border-left-color: #4ade80;
-    }
-
-    .status-event-item.offline {
-        border-left-color: #ef4444;
-    }
-
-    .status-event-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .status-event-icon svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .status-event-item.restart .status-event-icon {
-        background: rgba(251, 191, 36, 0.2);
-        color: #fbbf24;
-    }
-
-    .status-event-item.online .status-event-icon {
-        background: rgba(74, 222, 128, 0.2);
-        color: #4ade80;
-    }
-
-    .status-event-item.offline .status-event-icon {
-        background: rgba(239, 68, 68, 0.2);
-        color: #ef4444;
-    }
-
-    .status-event-details {
-        flex: 1;
-    }
-
-    .status-event-title {
-        color: #e0e0e0;
-        font-weight: 500;
-        margin-bottom: 0.2rem;
-    }
-
-    .status-event-time {
-        color: #808080;
-        font-size: 0.85rem;
-    }
-
-    @media (max-width: 768px) {
-        .live-status-card {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .status-charts-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .status-chart-container {
-            height: 250px;
-        }
-    }
-</style>
-
-<!-- ADD THIS SCRIPT AT THE BOTTOM BEFORE </body> -->
-<!-- NOTE: Make sure Chart.js is loaded first -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script>
-    // Bot Status Configuration
-    const BOT_STATUS_CONFIG = {
-        statusCheckUrl: 'YOUR_API_ENDPOINT_HERE', // Replace with your actual status API
-        updateInterval: 30000, // Update every 30 seconds
-    };
-
-    // Initialize charts
-    function initBotStatusCharts() {
-        const responseCtx = document.getElementById('statusResponseChart');
-        const requestsCtx = document.getElementById('statusRequestsChart');
-
-        if (!responseCtx || !requestsCtx) return;
-
-        // Response Time Chart
-        window.botResponseChart = new Chart(responseCtx.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
-                datasets: [{
-                    label: 'Response Time (ms)',
-                    data: generateChartData(24, 30, 80),
-                    borderColor: '#ffb6c1',
-                    backgroundColor: 'rgba(255, 182, 193, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 3,
-                    pointHoverRadius: 6,
-                    pointBackgroundColor: '#ffb6c1',
-                    pointBorderColor: '#1a1a1a',
-                    pointBorderWidth: 2,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(26, 26, 26, 0.95)',
-                        titleColor: '#ffb6c1',
-                        bodyColor: '#e0e0e0',
-                        borderColor: 'rgba(255, 182, 193, 0.3)',
-                        borderWidth: 1,
-                        padding: 12,
-                        displayColors: false,
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: 'rgba(255, 182, 193, 0.1)' },
-                        ticks: {
-                            color: '#b0b0b0',
-                            callback: (value) => value + 'ms'
-                        }
-                    },
-                    x: {
-                        grid: { color: 'rgba(255, 182, 193, 0.1)' },
-                        ticks: {
-                            color: '#b0b0b0',
-                            maxRotation: 0,
-                            autoSkip: true,
-                            maxTicksLimit: 12
-                        }
-                    }
-                }
-            }
-        });
-
-        // Requests Chart
-        window.botRequestsChart = new Chart(requestsCtx.getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
-                datasets: [{
-                    label: 'Requests',
-                    data: generateChartData(24, 1000, 5000),
-                    backgroundColor: 'rgba(255, 182, 193, 0.6)',
-                    borderColor: '#ffb6c1',
-                    borderWidth: 1,
-                    borderRadius: 5,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(26, 26, 26, 0.95)',
-                        titleColor: '#ffb6c1',
-                        bodyColor: '#e0e0e0',
-                        borderColor: 'rgba(255, 182, 193, 0.3)',
-                        borderWidth: 1,
-                        padding: 12,
-                        displayColors: false,
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: 'rgba(255, 182, 193, 0.1)' },
-                        ticks: {
-                            color: '#b0b0b0',
-                            callback: (value) => (value / 1000).toFixed(1) + 'K'
-                        }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: {
-                            color: '#b0b0b0',
-                            maxRotation: 0,
-                            autoSkip: true,
-                            maxTicksLimit: 12
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // Generate random data for demo
-    function generateChartData(count, min, max) {
-        return Array.from({length: count}, () => 
-            Math.floor(Math.random() * (max - min + 1)) + min
-        );
-    }
-
-    // Update bot status
-    async function updateBotStatus() {
-        try {
-            // REPLACE THIS WITH YOUR ACTUAL API CALL
-            // const response = await fetch(BOT_STATUS_CONFIG.statusCheckUrl);
-            // const data = await response.json();
-            
-            // Simulate status (replace with real data from your API)
-            const isOnline = true; // Get this from your API
-            
-            const statusDot = document.getElementById('mainStatusDot');
-            const statusText = document.getElementById('mainStatusText');
-            
-            if (statusDot && statusText) {
-                if (isOnline) {
-                    statusDot.className = 'status-dot-animated';
-                    statusText.textContent = 'Operational';
-                } else {
-                    statusDot.className = 'status-dot-animated offline';
-                    statusText.textContent = 'Offline';
-                }
-            }
-            
-            // Update timestamp
-            const lastChecked = document.getElementById('lastChecked');
-            if (lastChecked) {
-                lastChecked.textContent = new Date().toLocaleTimeString();
-            }
-            
-            // Update charts with new data (if they exist)
-            if (window.botResponseChart && window.botRequestsChart) {
-                const newResponseTime = Math.floor(Math.random() * 50) + 30;
-                const newRequests = Math.floor(Math.random() * 4000) + 1000;
-                
-                window.botResponseChart.data.datasets[0].data.shift();
-                window.botResponseChart.data.datasets[0].data.push(newResponseTime);
-                window.botResponseChart.update('none');
-                
-                window.botRequestsChart.data.datasets[0].data.shift();
-                window.botRequestsChart.data.datasets[0].data.push(newRequests);
-                window.botRequestsChart.update('none');
-            }
-            
-        } catch (error) {
-            console.error('Failed to update bot status:', error);
-        }
-    }
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            initBotStatusCharts();
-            updateBotStatus();
-            setInterval(updateBotStatus, BOT_STATUS_CONFIG.updateInterval);
-        });
-    } else {
-        initBotStatusCharts();
-        updateBotStatus();
-        setInterval(updateBotStatus, BOT_STATUS_CONFIG.updateInterval);
-    }
-</script>
-
-    <footer class="footer">
+    <!-- Footer -->
+    <footer>
         <div class="footer-content">
-            <p>&copy; 2024 Citlali AI. All rights reserved.</p>
-            <div class="age-warning">
-                ⚠️ NSFW features are restricted to users 18 years and older. By using these features, you confirm you meet the age requirement.
+            <div class="footer-links">
+                <a href="/commands">Commands</a>
+                <a href="/support">Support</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+                <a href="https://discord.gg/support">Discord</a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2026 Nekotina. All rights reserved. Made with ❤️ for Discord communities</p>
             </div>
         </div>
     </footer>
 
-    <div class="chat-widget">
-        <button class="chat-button" id="chatToggle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
-            <span class="chat-tooltip">Need Help?</span>
-        </button>
-
-        <div class="chat-window" id="chatWindow">
-            <div class="chat-header">
-                <h3>Citlali Support</h3>
-                <button class="chat-close" id="chatClose">×</button>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot">
-                    <strong>Citlali AI</strong><br>
-                    Hi! I'm here to help you with bot setup, commands, troubleshooting, and any questions about features. How can I assist you today?
-                </div>
-            </div>
-            <div class="typing-indicator" id="typingIndicator">
-                <div class="typing-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-<div class="chat-input-area">
-    <div class="chat-input-wrapper">
-        <input type="text" class="chat-input" id="chatInput" placeholder="Ask about setup, commands, features...">
-        <button class="chat-send" id="chatSend">Send</button>
-    </div>
-</div>
-        </div>
-    </div>
-
     <script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+        // Prototype: Basic Module Functionality
+        class NekoBot {
+            constructor(name) {
+                this.name = name;
+                this.modules = {};
+                this.commands = new Map();
+            }
+            
+            registerModule(name, handler) {
+                this.modules[name] = handler;
+                console.log(`Module registered: ${name}`);
+            }
+            
+            registerCommand(name, description, callback) {
+                this.commands.set(name, { description, callback });
+                console.log(`Command registered: ${name}`);
+            }
+            
+            executeCommand(name, args) {
+                if (this.commands.has(name)) {
+                    const cmd = this.commands.get(name);
+                    return cmd.callback(args);
+                }
+                return `Unknown command: ${name}`;
+            }
+            
+            getModules() {
+                return Object.keys(this.modules);
+            }
+            
+            getCommands() {
+                return Array.from(this.commands.keys());
+            }
+        }
+        
+        // Initialize Bot
+        const nekotina = new NekoBot('Nekotina');
+        
+        // Register Modules
+        nekotina.registerModule('music', {
+            play: (song) => console.log(`Playing: ${song}`),
+            stop: () => console.log('Stopped music')
+        });
+        
+        nekotina.registerModule('economy', {
+            addBalance: (user, amount) => console.log(`Added ${amount} to ${user}`),
+            getBalance: (user) => console.log(`Checking balance for ${user}`)
+        });
+        
+        nekotina.registerModule('games', {
+            slots: () => console.log('Spinning slots...'),
+            flip: () => console.log('Flipping coin...')
+        });
+        
+        // Register Sample Commands
+        nekotina.registerCommand('play', 'Play a song', (args) => `Playing: ${args.join(' ')}`);
+        nekotina.registerCommand('balance', 'Check balance', () => 'Your balance is 1000 coins');
+        nekotina.registerCommand('slots', 'Play slots', () => 'You won 500 coins!');
+        
+        // Interactive Features
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log(`${nekotina.name} loaded successfully!`);
+            console.log('Modules:', nekotina.getModules());
+            console.log('Commands:', nekotina.getCommands());
+            
+            // Button interactions
+            document.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.type === 'button' && !this.classList.contains('cta-button')) {
+                        alert('Module dropdown - Coming soon!');
+                    }
                 });
-            }
-        });
-    });
-
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.feature-card, .command-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-    });
-
-    // Chat Widget - WITH GROQ API KEY HARDCODED
-    const GROQ_API_KEY = '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'; // <-- PUT YOUR GROQ API KEY HERE
-    
-    const chatToggle = document.getElementById('chatToggle');
-    const chatWindow = document.getElementById('chatWindow');
-    const chatClose = document.getElementById('chatClose');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
-    const typingIndicator = document.getElementById('typingIndicator');
-
-    chatToggle.addEventListener('click', () => {
-        chatWindow.classList.toggle('active');
-    });
-
-    chatClose.addEventListener('click', () => {
-        chatWindow.classList.remove('active');
-    });
-
-    function addMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}`;
-        if (sender === 'bot') {
-            messageDiv.innerHTML = `<strong>Citlali AI</strong><br>${text}`;
-        } else {
-            messageDiv.textContent = text;
-        }
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    async function sendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-
-        addMessage(message, 'user');
-        chatInput.value = '';
-        chatSend.disabled = true;
-        typingIndicator.classList.add('active');
-
-        try {
-            const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${GROQ_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    model: 'llama-3.3-70b-versatile',
-                    messages: [
-                        {
-                            role: 'system',
-                            content: 'You are Citlali AI support assistant. Help users with bot setup, Discord commands, troubleshooting, and answer questions about features. Be friendly, concise, and helpful. The bot has commands like /chat, /personality, /imagine, /toggle, /translate, and /help. The bot is completely free with NSFW features for 18+ users.'
-                        },
-                        {
-                            role: 'user',
-                            content: message
-                        }
-                    ],
-                    temperature: 0.7,
-                    max_tokens: 500
-                })
             });
-
-            const data = await response.json();
-
-            if (data.error) {
-                addMessage(`Error: ${data.error.message || 'Something went wrong'}. Please contact .vqru on Discord for help.`, 'bot');
-            } else {
-                const reply = data.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
-                addMessage(reply, 'bot');
-            }
-        } catch (error) {
-            console.error('Chat error:', error);
-            addMessage('Sorry, something went wrong. Please try again or contact .vqru on Discord for assistance.', 'bot');
-        } finally {
-            typingIndicator.classList.remove('active');
-            chatSend.disabled = false;
-        }
-    }
-
-    chatSend.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
-</script>
+        });
+    </script>
 </body>
 </html>
-
