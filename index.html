@@ -1,513 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html dir="ltr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#C5497C" />
     <title>Nekotina - Your adorable neko companion for Discord!</title>
-    <meta name="description" content="Nekotina, your adorable neko companion for Discord! Music, anime, currency, games and more!" />
-    
+    <meta name="description" content="Nekotina, adorable neko companion for Discord!" />
+    <link rel="icon" href="/favicon.ico" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
-        }
-        
-        /* Header */
-        header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #12323C;
-            color: #EE7FD3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        
-        nav ul {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        
-        nav a, nav button {
-            text-decoration: none;
-            color: #333;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: background-color 0.3s;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        
-        nav a:hover, nav button:hover {
-            background-color: #f0f0f0;
-        }
-        
-        .cta-button {
-            background: #C5497C;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: 600;
-        }
-        
-        .cta-button:hover {
-            background: #A63A5F;
-        }
-        
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #C5497C 100%);
-            color: white;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .btn-primary {
-            background: white;
-            color: #C5497C;
-            padding: 0.75rem 2rem;
-            border-radius: 6px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.3s;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 6px;
-            text-decoration: none;
-            border: 2px solid white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .btn-secondary:hover {
-            background: white;
-            color: #C5497C;
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .features h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        
-        .feature-card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-        
-        /* Commands Section */
-        .commands {
-            padding: 4rem 2rem;
-            background: #f9f9f9;
-        }
-        
-        .commands-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .commands h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-        
-        .commands-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .command-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .command-item h4 {
-            color: #C5497C;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-        
-        .command-item p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        /* Footer */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .footer-copyright {
-            border-top: 1px solid #333;
-            padding-top: 2rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        header { background: white; border-bottom: 1px solid #e0e0e0; padding: 1rem 0; position: sticky; top: 0; z-index: 20; }
+        nav { display: flex; gap: 2rem; list-style: none; }
+        nav a { color: #333; text-decoration: none; }
+        .hero { padding: 6rem 2rem; text-align: center; background: linear-gradient(135deg, #667eea, #C5497C); color: white; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .section { padding: 4rem 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        footer { background: #1a1a1a; color: white; padding: 3rem 2rem; text-align: center; }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
     <header>
-        <div class="header-container">
-            <a href="/" class="logo">
-                <div class="logo-icon">NK</div>
-                <span>Nekotina</span>
-            </a>
-            
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" style="color: #333; text-decoration: none; font-weight: bold; font-size: 1.5rem;">NK Nekotina</a>
             <nav>
-                <ul>
-                    <li><a href="/commands">Commands</a></li>
-                    <li><button type="button">Modules ▼</button></li>
-                    <li><button type="button">Resources ▼</button></li>
-                </ul>
+                <li><a href="/commands">Commands</a></li>
+                <li><a href="/modules">Modules</a></li>
+                <li><a href="/resources">Resources</a></li>
             </nav>
-            
-            <button class="cta-button">Invite Bot</button>
+            <button style="background: #C5497C; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 6px; cursor: pointer;">Invite</button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div>
+    <main>
+        <section class="hero">
             <h1>Welcome to Nekotina</h1>
             <p>Your adorable neko companion for Discord</p>
-            <p style="font-size: 1rem; opacity: 0.85;">Music • Anime • Currency • Games • and much more</p>
-            
-            <div class="hero-buttons">
-                <a href="/invite" class="btn-primary">Add to Discord</a>
-                <a href="/commands" class="btn-secondary">View Commands</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <h2>Key Features</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎵</div>
-                <h3>Music Player</h3>
-                <p>High-quality music streaming with advanced playlist management</p>
+        <section class="section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Features</h2>
+            <div class="grid">
+                <div class="card"><h3>🎵 Music</h3><p>High-quality music streaming</p></div>
+                <div class="card"><h3>💰 Economy</h3><p>Currency system with rewards</p></div>
+                <div class="card"><h3>🎮 Games</h3><p>Interactive games</p></div>
             </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3>Currency System</h3>
-                <p>Economy system with trading, banking, and daily rewards</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎮</div>
-                <h3>Games</h3>
-                <p>Interactive games to earn rewards and have fun with friends</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">⚙️</div>
-                <h3>Customization</h3>
-                <p>Fully customizable settings for your server</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3>Moderation</h3>
-                <p>Powerful moderation tools to keep your server safe</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Analytics</h3>
-                <p>Server activity tracking and member statistics</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Commands Section -->
-    <section class="commands">
-        <div class="commands-container">
-            <h2>Popular Commands</h2>
-            <div class="commands-list">
-                <div class="command-item">
-                    <h4>/play [song]</h4>
-                    <p>Play a song from YouTube or Spotify</p>
-                </div>
-                <div class="command-item">
-                    <h4>/daily</h4>
-                    <p>Claim your daily currency reward</p>
-                </div>
-                <div class="command-item">
-                    <h4>/slots</h4>
-                    <p>Play slot machine game for rewards</p>
-                </div>
-                <div class="command-item">
-                    <h4>/balance</h4>
-                    <p>Check your account balance</p>
-                </div>
-                <div class="command-item">
-                    <h4>/anime [name]</h4>
-                    <p>Search for anime information</p>
-                </div>
-                <div class="command-item">
-                    <h4>/mute [@user]</h4>
-                    <p>Mute a user temporarily</p>
-                </div>
+        <section class="section" style="background: #f9f9f9;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Commands</h2>
+            <div class="grid">
+                <div class="card"><h4>/play</h4><p>Play a song</p></div>
+                <div class="card"><h4>/daily</h4><p>Claim rewards</p></div>
+                <div class="card"><h4>/balance</h4><p>Check balance</p></div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="/commands">Commands</a>
-                <a href="/support">Support</a>
-                <a href="/privacy">Privacy</a>
-                <a href="/terms">Terms</a>
-                <a href="https://discord.gg/support">Discord</a>
-            </div>
-            
-            <div class="footer-copyright">
-                <p>&copy; 2026 Nekotina. All rights reserved. Made with ❤️ for Discord communities</p>
-            </div>
-        </div>
+        <p>&copy; 2026 Nekotina. All rights reserved.</p>
     </footer>
 
     <script>
-        // Prototype: Basic Module Functionality
+        // Prototype
         class NekoBot {
-            constructor(name) {
-                this.name = name;
-                this.modules = {};
-                this.commands = new Map();
-            }
-            
-            registerModule(name, handler) {
-                this.modules[name] = handler;
-                console.log(`Module registered: ${name}`);
-            }
-            
-            registerCommand(name, description, callback) {
-                this.commands.set(name, { description, callback });
-                console.log(`Command registered: ${name}`);
-            }
-            
-            executeCommand(name, args) {
-                if (this.commands.has(name)) {
-                    const cmd = this.commands.get(name);
-                    return cmd.callback(args);
-                }
-                return `Unknown command: ${name}`;
-            }
-            
-            getModules() {
-                return Object.keys(this.modules);
-            }
-            
-            getCommands() {
-                return Array.from(this.commands.keys());
-            }
+            constructor(name) { this.name = name; this.modules = {}; this.commands = new Map(); }
+            registerModule(name, handler) { this.modules[name] = handler; }
+            registerCommand(name, desc, cb) { this.commands.set(name, { desc, cb }); }
+            executeCommand(name, args) { return this.commands.has(name) ? this.commands.get(name).cb(args) : 'Unknown'; }
         }
-        
-        // Initialize Bot
         const nekotina = new NekoBot('Nekotina');
-        
-        // Register Modules
-        nekotina.registerModule('music', {
-            play: (song) => console.log(`Playing: ${song}`),
-            stop: () => console.log('Stopped music')
-        });
-        
-        nekotina.registerModule('economy', {
-            addBalance: (user, amount) => console.log(`Added ${amount} to ${user}`),
-            getBalance: (user) => console.log(`Checking balance for ${user}`)
-        });
-        
-        nekotina.registerModule('games', {
-            slots: () => console.log('Spinning slots...'),
-            flip: () => console.log('Flipping coin...')
-        });
-        
-        // Register Sample Commands
-        nekotina.registerCommand('play', 'Play a song', (args) => `Playing: ${args.join(' ')}`);
-        nekotina.registerCommand('balance', 'Check balance', () => 'Your balance is 1000 coins');
-        nekotina.registerCommand('slots', 'Play slots', () => 'You won 500 coins!');
-        
-        // Interactive Features
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log(`${nekotina.name} loaded successfully!`);
-            console.log('Modules:', nekotina.getModules());
-            console.log('Commands:', nekotina.getCommands());
-            
-            // Button interactions
-            document.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (this.type === 'button' && !this.classList.contains('cta-button')) {
-                        alert('Module dropdown - Coming soon!');
-                    }
-                });
-            });
-        });
+        nekotina.registerModule('music', {});
+        nekotina.registerModule('economy', {});
+        nekotina.registerCommand('play', 'Play song', (args) => `Playing: ${args.join(' ')}`);
+        nekotina.registerCommand('balance', 'Check balance', () => '1000 coins');
+        console.log('Nekotina loaded!');
     </script>
 </body>
 </html>
