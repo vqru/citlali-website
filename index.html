@@ -304,13 +304,131 @@
             color: #4A5057;
             opacity: 0.7;
         }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .feature-left {
+            display: flex;
+            justify-content: center;
+        }
+
+        .discord-mockup {
+            background: rgba(226, 225, 235, 0.03);
+            border: 1px solid rgba(226, 225, 235, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .mockup-header {
+            margin-bottom: 20px;
+        }
+
+        .bot-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .bot-name {
+            color: #E2E1EB;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .app-badge {
+            background: #5865F2;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .message-card {
+            background: rgba(226, 225, 235, 0.05);
+            border: 1px solid rgba(226, 225, 235, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .message-card h3 {
+            color: #E2E1EB;
+            font-size: 20px;
+            margin: 0 0 12px 0;
+            font-weight: 600;
+        }
+
+        .message-card p {
+            color: #A8A7B8;
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .feature-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-right h2 {
+            color: #E2E1EB;
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .desc-text {
+            color: #A8A7B8;
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .learn-more-btn {
+            background: rgba(226, 225, 235, 0.05);
+            border: 1px solid rgba(226, 225, 235, 0.15);
+            padding: 14px 28px;
+            border-radius: 10px;
+            color: #E2E1EB;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: fit-content;
+            margin-top: 12px;
+        }
+
+        .learn-more-btn:hover {
+            background: rgba(226, 225, 235, 0.08);
+        }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-left">
             <a href="#" class="logo">
-                <img src="https://files.catbox.moe/7sueah.jpg" alt="Citlali">
+                <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
                 <span>Citlali</span>
             </a>
             <div class="nav-links">
@@ -358,7 +476,32 @@
             <div class="deco music">🎵</div>
             <div class="deco code">&lt;/&gt;</div>
             <div class="character-circle">
-                <img src="https://files.catbox.moe/7sueah.jpg" alt="Character">
+                <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Character">
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Messages Section -->
+    <div class="features-section">
+        <div class="feature-content">
+            <div class="feature-left">
+                <div class="discord-mockup">
+                    <div class="mockup-header">
+                        <div class="bot-info">
+                            <img src="https://cdn.discordapp.com/attachments/1439519276787830916/1472663469466849341/7ac79be08e6d2f474b683797e1956adf.jpg?ex=6993643b&is=699212bb&hm=050da15b4afb097bab29c5e596a93e4685ed476798d435c9ea25cf1fe9d2dadc&" alt="Bot" class="bot-avatar">
+                            <span class="bot-name">Citlali</span>
+                            <span class="app-badge">✓ APP</span>
+                        </div>
+                    </div>
+                    <div class="message-card">
+                        <h3>Welcome to the server!</h3>
+                        <p>I hope you enjoy your stay, @User! We are now 1,000 members.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-right">
+                <h2>🔞 淫らな特徴</h2>
+                <p class="desc-text">Citlali has 20+ Lewd commands, alone giving you direct access to a specially curated selection of 20k images AND videos of lewd stuff too!, and we have booru commands querying from /yuri, /bukkake and many more! - if you want to pick and choose accordingly to your preferences~</p>
             </div>
         </div>
     </div>
