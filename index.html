@@ -559,6 +559,117 @@
             background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
         }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-title {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #E2E1EB;
+            margin-bottom: 60px;
+        }
+
+        .gallery-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .gallery-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-card {
+            position: relative;
+            min-width: 350px;
+            height: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(226, 225, 235, 0.05);
+            border: 1px solid rgba(226, 225, 235, 0.1);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(251, 189, 195, 0.3);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(20px);
+            transition: filter 0.3s ease;
+        }
+
+        .gallery-card.revealed img {
+            filter: blur(0);
+        }
+
+        .spoiler-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(27, 26, 33, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E2E1EB;
+            font-size: 20px;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .gallery-card.revealed .spoiler-overlay {
+            opacity: 0;
+        }
+
+        .gallery-arrow {
+            background: rgba(226, 225, 235, 0.1);
+            border: 1px solid rgba(226, 225, 235, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #E2E1EB;
+        }
+
+        .gallery-arrow:hover {
+            background: rgba(251, 189, 195, 0.2);
+            border-color: rgba(251, 189, 195, 0.5);
+            transform: scale(1.1);
+        }
+
+        .gallery-arrow svg {
+            width: 24px;
+            height: 24px;
+        }
     </style>
 </head>
 <body>
@@ -640,6 +751,33 @@
                 <h2 style="font-size: 28px;">🔞 淫らな特徴</h2>
                 <p class="desc-text" style="font-size: 15px;">Citlali has 20+ Lewd commands, alone giving you direct access to a specially curated selection of 20k images AND videos of lewd stuff too!, and we have booru commands querying from /yuri, /bukkake and many more! - if you want to pick and choose accordingly to your preferences~</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Content Samples Gallery -->
+    <div class="gallery-section">
+        <h2 class="gallery-title">( • )( • ) Content Samples</h2>
+        <div class="gallery-container">
+            <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(-1)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="gallery-scroll" id="galleryScroll">
+                <div class="gallery-card" onclick="toggleBlur(this)">
+                    <div class="spoiler-overlay">Click to reveal</div>
+                    <img src="https://media.discordapp.net/attachments/1439519276787830916/1472676118829207623/Screenshot_2026-02-16_005230.png?ex=69937003&is=69921e83&hm=da8419d02d9b8ebf162e2d53c5c53e94704aeb7fe1a60d2c5b64545917a80290&=&format=webp&quality=lossless&width=486&height=685" alt="Sample 1">
+                </div>
+                <div class="gallery-card" onclick="toggleBlur(this)">
+                    <div class="spoiler-overlay">Click to reveal</div>
+                    <img src="https://media.discordapp.net/attachments/1439519276787830916/1472676119374336276/Screenshot_2026-02-16_005202.png?ex=69937003&is=69921e83&hm=1370e419b89a58391ac9d3987d9a08ef7d13876facfa545d388b48d93e65d412&=&format=webp&quality=lossless&width=469&height=684" alt="Sample 2">
+                </div>
+            </div>
+            <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(1)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
         </div>
     </div>
 
@@ -758,6 +896,19 @@
                 moonIcon.style.display = 'block';
                 sunIcon.style.display = 'none';
             }
+        }
+
+        function toggleBlur(card) {
+            card.classList.toggle('revealed');
+        }
+
+        function scrollGallery(direction) {
+            const gallery = document.getElementById('galleryScroll');
+            const scrollAmount = 380;
+            gallery.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
         }
 
         // Start snowflakes on page load
