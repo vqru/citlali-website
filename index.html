@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layout Clone</title>
+<title>Layout Skeleton</title>
 
 <style>
 *{
@@ -15,9 +15,10 @@
 body{
   background:#0e0818;
   font-family:sans-serif;
+  color:white;
 }
 
-/* CONTAINER */
+/* Container */
 .container{
   width:90%;
   max-width:1300px;
@@ -30,42 +31,49 @@ nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  border:2px dashed #555;
 }
 
 /* HERO */
 .hero{
-  min-height:600px;
+  min-height:650px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:50px;
+  border:2px dashed #444;
 }
 
 .hero-left{
   flex:1;
-  height:400px;
+  height:450px;
+  border:2px solid #ff4fa3;
 }
 
 .hero-right{
   flex:1;
   display:flex;
   justify-content:center;
+  align-items:center;
 }
 
 .circle{
   width:400px;
   height:400px;
   border-radius:50%;
+  border:3px solid #00f0ff;
 }
 
 /* TRUST SECTION */
 .trusted{
   height:300px;
+  border:2px dashed #666;
 }
 
-/* EXTRA SECTION PLACEHOLDER */
+/* EXTRA SECTIONS */
 .section{
   height:600px;
+  border:2px dashed #333;
 }
 </style>
 </head>
