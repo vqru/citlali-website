@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet Nekotina, your kawaii Discord bot companion! Get headpats, hugs, and adorable neko interactions. Spread cuteness across your server today! ฅ^•ﻌ•^ฅ">
+    <meta property="og:title" content="Nekotina - Your adorable neko companion for Discord">
+    <meta property="og:description" content="Meet Nekotina, your kawaii Discord bot companion! Get headpats, hugs, and adorable neko interactions. Spread cuteness across your server today! ฅ^•ﻌ•^ฅ">
+    <meta property="og:image" content="https://i.imgur.com/YourImageHere.png">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Nekotina - Your adorable neko companion for Discord</title>
-    <meta name="description" content="Meet Nekotina, your kawaii Discord bot companion! Get headpats, hugs, and adorable neko interactions.">
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
+        :root {
+            --primary-color: #FF69B4;
+            --secondary-color: #FFB6C1;
+            --accent-color: #FFC0CB;
+            --dark-bg: #2C2F33;
+            --light-bg: #FFFFFF;
+            --text-dark: #23272A;
+            --text-light: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,121 +31,319 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFF0F5 100%);
+            color: var(--text-dark);
             line-height: 1.6;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
+        /* Header Styles */
         header {
+            background: var(--light-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
             text-align: center;
-            padding: 60px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 6rem 0;
+            animation: fadeIn 1s ease-in;
         }
 
-        h1 {
-            font-size: 3em;
-            color: #764ba2;
-            margin-bottom: 20px;
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease-out;
         }
 
-        .subtitle {
-            font-size: 1.5em;
-            color: #667eea;
-            margin-bottom: 30px;
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease-out;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 1rem 2.5rem;
             border-radius: 50px;
-            font-size: 1.2em;
+            text-decoration: none;
             font-weight: bold;
-            transition: transform 0.3s ease;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
         }
 
+        /* Features Section */
         .features {
+            padding: 4rem 0;
+            background: var(--light-bg);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+            gap: 2rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
+            background: linear-gradient(135deg, #FFF 0%, #FFE5EC 100%);
+            padding: 2rem;
             border-radius: 15px;
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s;
+            text-align: center;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
         }
 
-        .commands-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            margin: 40px 0;
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
-        .command {
-            background: #f8f9fa;
-            padding: 20px;
-            margin: 15px 0;
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Commands Section */
+        .commands {
+            padding: 4rem 0;
+        }
+
+        .commands h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .command-card {
+            background: var(--light-bg);
+            padding: 1.5rem;
             border-radius: 10px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .command-name {
+            font-family: 'Courier New', monospace;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .command-desc {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>ฅ^•ﻌ•^ฅ Nekotina ฅ^•ﻌ•^ฅ</h1>
-            <p class="subtitle">Your adorable neko companion for Discord!</p>
-            <a href="#" class="cta-button">Add to Discord</a>
-        </header>
-
-        <div class="features">
-            <div class="feature-card">
-                <h2>🐱 Kawaii Interactions</h2>
-                <p>Give headpats, hugs, and receive adorable reactions!</p>
-            </div>
-
-            <div class="feature-card">
-                <h2>💖 Express Yourself</h2>
-                <p>Show your emotions with cute neko commands.</p>
-            </div>
-
-            <div class="feature-card">
-                <h2>✨ Easy to Use</h2>
-                <p>Simple slash commands - just add and start!</p>
-            </div>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">ฅ^•ﻌ•^ฅ Nekotina</a>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#commands">Commands</a></li>
+                    <li><a href="#invite">Invite</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <div class="commands-section">
-            <h2>🎮 Popular Commands</h2>
-            <div class="command">/headpat - Give gentle headpats!</div>
-            <div class="command">/hug - Warm hugs for your neko!</div>
-            <div class="command">/neko - Random adorable neko images!</div>
-            <div class="command">/cuddle - Cozy cuddle time!</div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>ฅ^•ﻌ•^ฅ Nekotina ฅ^•ﻌ•^ฅ</h1>
+                <p>Your adorable neko companion for Discord!</p>
+                <p>Meet Nekotina, your kawaii Discord bot companion! Get headpats, hugs, and adorable neko interactions.<br>Spread cuteness across your server today!</p>
+                <a href="#" class="cta-button" id="invite">Add to Discord</a>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="container">
+                <h2>✨ Features ✨</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🐱</div>
+                        <h3>Kawaii Interactions</h3>
+                        <p>Interact with Nekotina through adorable commands! Give headpats, hugs, and watch her react with the cutest responses!</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💖</div>
+                        <h3>Express Yourself</h3>
+                        <p>Show your emotions with cute neko reactions! Whether you're happy, playful, or want to cuddle, Nekotina is here for you!</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎀</div>
+                        <h3>Easy Commands</h3>
+                        <p>Simple slash commands make everything easy! Just type and let the cuteness flow through your Discord server!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="commands" id="commands">
+            <div class="container">
+                <h2>🎮 Commands 🎮</h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command-name">/headpat</div>
+                        <div class="command-desc">Give Nekotina a gentle headpat! She loves them! ฅ(＾・ω・＾ฅ)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command-name">/hug</div>
+                        <div class="command-desc">Hug your adorable neko companion! (っ˘̩╭╮˘̩)っ</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command-name">/neko</div>
+                        <div class="command-desc">Get a random cute neko image! =^..^=</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command-name">/cuddle</div>
+                        <div class="command-desc">Cuddle with Nekotina! So warm and cozy! ₍˄·͈༝·͈˄₎◞ </div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command-name">/pat</div>
+                        <div class="command-desc">Another way to give pats! Nekotina can never have enough! (=^・ェ・^=)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command-name">/about</div>
+                        <div class="command-desc">Learn more about Nekotina and her creator!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Nekotina Bot. Made with 💖 for Discord communities.</p>
+            <p>Spread the kawaii! ฅ^•ﻌ•^ฅ</p>
         </div>
-    </div>
+    </footer>
 </body>
 </html>
