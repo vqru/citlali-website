@@ -1115,17 +1115,35 @@
         }
 
         .footer-content {
-            background: transparent;
-            border: none;
-            padding: 30px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            min-width: 280px;
+            background: rgba(27, 26, 33, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 225, 235, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+            max-width: 800px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         body.light-mode .footer-content {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-gif {
+            width: 280px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(127, 96, 189, 0.3);
         }
 
         .footer-creator {
@@ -1380,15 +1398,18 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-creator">
-                <img src="https://images-ext-1.discordapp.net/external/7EJEnMkp3Nz7ftq-KorGskRNBNG6qJJNMIDw1G1A6h8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/819817532579905557/a7685183be101337a904301e1165a44f.png?format=webp&quality=lossless&width=320&height=320" alt="vqru" class="footer-pfp">
-                <span class="footer-username">.vqru</span>
+            <div class="footer-left">
+                <div class="footer-creator">
+                    <img src="https://images-ext-1.discordapp.net/external/7EJEnMkp3Nz7ftq-KorGskRNBNG6qJJNMIDw1G1A6h8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/819817532579905557/a7685183be101337a904301e1165a44f.png?format=webp&quality=lossless&width=320&height=320" alt="vqru" class="footer-pfp">
+                    <span class="footer-username">.vqru</span>
+                </div>
+                <p class="footer-text">Created by vqru</p>
+                <div class="footer-links">
+                    <a href="https://discord.gg/qRwS8gMVBj" target="_blank" rel="noopener noreferrer" class="footer-link discord">Discord Support</a>
+                    <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
+                </div>
             </div>
-            <p class="footer-text">Created by vqru</p>
-            <div class="footer-links">
-                <a href="https://discord.gg/qRwS8gMVBj" target="_blank" rel="noopener noreferrer" class="footer-link discord">Discord Support</a>
-                <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
-            </div>
+            <img src="https://cdn.discordapp.com/attachments/1439519276787830916/1463446747379662891/Character_Trailer_4.gif?ex=6994237e&is=6992d1fe&hm=1853a9ee613fbe750ab35d21b7d2d816b4a1f95d6936b30e335db7310bc6bc1f&" alt="Citlali" class="footer-gif">
         </div>
     </footer>
 
