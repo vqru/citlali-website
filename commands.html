@@ -42,19 +42,25 @@
         }
 
         body.light-mode .nav-links a:hover {
-            color: #1B1A21;
+            background-color: rgba(212, 181, 232, 0.2);
+            color: #D4B5E8;
         }
 
         body.light-mode .theme-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(212, 181, 232, 0.2);
         }
 
-        body.light-mode .theme-toggle svg {
-            color: #5f6368;
+        body.light-mode .theme-toggle:hover svg {
+            color: #D4B5E8;
         }
 
         body.light-mode .animation-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(212, 181, 232, 0.2);
+        }
+
+        body.light-mode .animation-toggle:hover .snowflake-icon,
+        body.light-mode .animation-toggle:hover .bubble-icon {
+            filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(260deg) brightness(96%) contrast(87%);
         }
 
         body.light-mode .snowflake {
@@ -116,6 +122,10 @@
             text-decoration: none;
         }
 
+        .text-citlali {
+            color: #F5DFE1;
+        }
+
         .logo img {
             width: 40px;
             height: 40px;
@@ -134,12 +144,15 @@
             text-decoration: none;
             font-size: 15px;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: all 0.2s;
             cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
         }
 
         .nav-links a:hover {
-            color: #ffffff;
+            background-color: rgba(212, 181, 232, 0.2);
+            color: #D4B5E8;
         }
 
         .nav-right {
@@ -157,17 +170,25 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
 
         .theme-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(212, 181, 232, 0.2);
+        }
+
+        .theme-toggle:hover svg {
+            color: #D4B5E8;
         }
 
         .theme-toggle svg {
             width: 20px;
             height: 20px;
             color: #E2E1EB;
+        }
+
+        body.light-mode .theme-toggle svg {
+            color: #5f6368;
         }
 
         .animation-toggle {
@@ -179,12 +200,17 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
             font-size: 20px;
         }
 
         .animation-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(212, 181, 232, 0.2);
+        }
+
+        .animation-toggle:hover .snowflake-icon,
+        .animation-toggle:hover .bubble-icon {
+            filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(260deg) brightness(96%) contrast(87%);
         }
 
         /* Commands Page Layout */
@@ -205,8 +231,16 @@
         .commands-header h1 {
             font-size: 48px;
             font-weight: 700;
-            color: #E2E1EB;
+            color: #B5D8FF;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .commands-emoji {
+            width: 52px;
+            height: 52px;
         }
 
         .commands-header p {
@@ -233,7 +267,7 @@
         .categories-title {
             font-size: 18px;
             font-weight: 600;
-            color: #E2E1EB;
+            color: #FFE5B5;
             margin-bottom: 20px;
         }
 
@@ -251,12 +285,12 @@
         }
 
         .category-item:hover {
-            background: rgba(226, 225, 235, 0.05);
-            color: #E2E1EB;
+            background: rgba(212, 181, 232, 0.2);
+            color: #D4B5E8;
         }
 
         .category-item.active {
-            background: #FBBDC3;
+            background: #D4B5E8;
             color: #1B1A21;
             font-weight: 600;
         }
@@ -289,6 +323,12 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+
+        .search-bar:focus-within {
+            border-color: #D4B5E8;
+            box-shadow: 0 0 0 2px rgba(212, 181, 232, 0.2);
         }
 
         .search-bar svg {
@@ -331,8 +371,9 @@
         }
 
         .command-card:hover {
-            background: rgba(226, 225, 235, 0.05);
+            background: rgba(212, 181, 232, 0.1);
             transform: translateY(-2px);
+            border-color: rgba(212, 181, 232, 0.3);
         }
 
         .command-icon {
@@ -354,7 +395,7 @@
         .command-name {
             font-size: 18px;
             font-weight: 600;
-            color: #E2E1EB;
+            color: #B5FFE8;
             margin-bottom: 4px;
         }
 
@@ -374,7 +415,7 @@
         }
 
         .command-card:hover .command-arrow {
-            color: #E2E1EB;
+            color: #D4B5E8;
         }
 
         .command-details {
@@ -411,7 +452,7 @@
         .detail-title {
             font-size: 13px;
             font-weight: 600;
-            color: #E2E1EB;
+            color: #FFE5B5;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -454,7 +495,7 @@
         }
 
         .option-name {
-            color: #FBBDC3;
+            color: #D4B5E8;
             font-weight: 600;
             font-family: 'Courier New', monospace;
         }
@@ -486,7 +527,7 @@
             padding: 12px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
-            color: #E2E1EB;
+            color: #B5E577;
             font-size: 13px;
             border: 1px solid rgba(226, 225, 235, 0.1);
         }
@@ -568,6 +609,101 @@
             background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
         }
+
+        /* Footer Styles */
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 60px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            background: rgba(27, 26, 33, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 225, 235, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+            max-width: 950px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .footer-content {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-creator {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-pfp {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 232, 236, 0.4);
+        }
+
+        .footer-username {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FFE8EC;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #A8A7B8;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-link {
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            padding: 6px 12px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .footer-link.discord {
+            color: #D4B5E8;
+        }
+
+        .footer-link.topgg {
+            color: #FFE5B5;
+        }
+
+        .footer-link:hover {
+            background-color: rgba(212, 181, 232, 0.2);
+            color: #D4B5E8;
+        }
+
+        .footer-gif {
+            width: 350px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(127, 96, 189, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -581,7 +717,7 @@
         <div class="nav-left">
             <a href="index.html" class="logo">
                 <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
-                <span>Citlali</span>
+                <span class="text-citlali">Citlali</span>
             </a>
             <div class="nav-links">
                 <a href="commands.html">Commands</a>
@@ -605,8 +741,8 @@
 
     <div class="commands-container">
         <div class="commands-header">
-            <h1>Commands</h1>
-            <p>View all available commands for Citlali</p>
+            <h1><img src="https://cdn.discordapp.com/emojis/1451143459862876170.webp?size=40&quality=lossless" alt="Commands" class="commands-emoji">Commands</h1>
+            <p>View all available commands for <span class="text-citlali">Citlali</span></p>
         </div>
 
         <div class="commands-content">
@@ -797,7 +933,7 @@
                             <div class="detail-section">
                                 <div class="detail-title">Requirements</div>
                                 <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (span></div>
                                 <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
                             </div>
                             <div class="detail-section">
@@ -1262,6 +1398,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-creator">
+                    <img src="https://images-ext-1.discordapp.net/external/7EJEnMkp3Nz7ftq-KorGskRNBNG6qJJNMIDw1G1A6h8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/819817532579905557/a7685183be101337a904301e1165a44f.png?format=webp&quality=lossless&width=320&height=320" alt="vqru" class="footer-pfp">
+                    <span class="footer-username">.vqru</span>
+                </div>
+                <p class="footer-text">Created by vqru</p>
+                <div class="footer-links">
+                    <a href="https://discord.gg/qRwS8gMVBj" target="_blank" rel="noopener noreferrer" class="footer-link discord">Discord Support</a>
+                    <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
+                </div>
+            </div>
+            <img src="https://cdn.discordapp.com/attachments/1439519276787830916/1463446747379662891/Character_Trailer_4.gif?ex=6994237e&is=6992d1fe&hm=1853a9ee613fbe750ab35d21b7d2d816b4a1f95d6936b30e335db7310bc6bc1f&" alt="Citlali" class="footer-gif">
+        </div>
+    </footer>
 
     <script>
         let animationType = 'snowflake';
