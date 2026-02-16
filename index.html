@@ -842,10 +842,10 @@
         }
 
         .music-toggle-btn {
-            width: 38px;
-            height: 38px;
-            min-width: 38px;
-            min-height: 38px;
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+            min-height: 70px;
             border-radius: 50%;
             background: #191414;
             border: none;
@@ -853,28 +853,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 18px rgba(29, 185, 84, 0.35);
+            box-shadow: 0 4px 18px rgba(127, 96, 189, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             flex-shrink: 0;
         }
 
         .music-toggle-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 26px rgba(29, 185, 84, 0.65);
+            box-shadow: 0 6px 26px rgba(127, 96, 189, 0.65);
         }
 
         .music-toggle-btn.playing {
-            animation: pulse-green 2s infinite;
+            animation: pulse-purple 2s infinite;
         }
 
-        @keyframes pulse-green {
-            0%, 100% { box-shadow: 0 4px 18px rgba(29, 185, 84, 0.45); }
-            50% { box-shadow: 0 4px 30px rgba(29, 185, 84, 0.8); }
+        @keyframes pulse-purple {
+            0%, 100% { box-shadow: 0 4px 18px rgba(127, 96, 189, 0.45); }
+            50% { box-shadow: 0 4px 30px rgba(127, 96, 189, 0.8); }
         }
 
         .music-toggle-btn img {
-            width: 24px;
-            height: 24px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -1058,6 +1058,19 @@
             font-size: 12px;
             padding: 10px 0;
         }
+
+        /* Text color styling */
+        .text-genshin {
+            color: #D4B5E8;
+        }
+
+        .text-cutest {
+            color: #B5E577;
+        }
+
+        .text-citlali {
+            color: #F5DFE1;
+        }
     </style>
 </head>
 <body>
@@ -1100,7 +1113,7 @@
         <div class="nav-left">
             <a href="index.html" class="logo">
                 <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali Discord Bot">
-                <span>Citlali</span>
+                <span class="text-citlali">Citlali</span>
             </a>
             <div class="nav-links">
                 <a href="commands.html">Commands</a>
@@ -1125,10 +1138,10 @@
     <div class="hero">
         <div class="hero-left">
             <div class="badge">
-                <span>✨</span>
-                <span>The cutest bot</span>
+                <img src="https://cdn.discordapp.com/emojis/1440775765531820112.webp?size=40&quality=lossless" alt="Citlali" style="width: 20px; height: 20px;">
+                <span class="text-cutest">The cutest bot</span>
             </div>
-            <h1>Your adorable genshin companion for Discord</h1>
+            <h1>Your adorable <span class="text-genshin">genshin</span> companion for Discord</h1>
             <p>Create a vibrant community with the all-in-one AI chatbot. Many NSFW commands and lewd features in one place. Simple, adorable, and designed to connect.</p>
             <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&permissions=277025771520&scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer" class="add-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1204,7 +1217,7 @@
                     <div class="mockup-header">
                         <div class="bot-info">
                             <img src="https://cdn.discordapp.com/attachments/1439519276787830916/1472663469466849341/7ac79be08e6d2f474b683797e1956adf.jpg?ex=6993643b&is=699212bb&hm=050da15b4afb097bab29c5e596a93e4685ed476798d435c9ea25cf1fe9d2dadc&" alt="Citlali bot avatar" class="bot-avatar">
-                            <span class="bot-name">Citlali</span>
+                            <span class="bot-name text-citlali">Citlali</span>
                             <span class="app-badge">✓ APP</span>
                         </div>
                     </div>
@@ -1216,7 +1229,7 @@
             <div class="feature-right">
                 <h2 style="font-size: 28px;">🔞 淫らな特徴</h2>
                 <p class="desc-text" style="font-size: 15px;">
-                    Citlali has <strong>20+ Lewd commands</strong>, alone giving you direct access to a specially curated selection of <strong>20k images AND videos</strong> of lewd stuff too! 
+                    <span class="text-citlali">Citlali</span> has <strong>20+ Lewd commands</strong>, alone giving you direct access to a specially curated selection of <strong>20k images AND videos</strong> of lewd stuff too! 
                     <br><br>
                     <em>And we have booru commands querying from /yuri, /bukkake and many more!</em> — if you want to pick and choose accordingly to your preferences~ 😉
                 </p>
@@ -1230,7 +1243,7 @@
             <div class="feature-right">
                 <h2 style="font-size: 28px;">🎀 Personalities That Hit Different</h2>
                 <p class="desc-text" style="font-size: 15px;">
-                    <strong>Choose your vibe</strong> or build your own perfect match: <em>Citlali's warmth will melt your heart (and more)!</em> 
+                    <strong>Choose your vibe</strong> or build your own perfect match: <em><span class="text-citlali">Citlali's</span> warmth will melt your heart (and more)!</em> 
                     <br><br>
                     Playful, flirty, or downright <strong>spicy</strong> — your choice! 
                     <br><br>
@@ -1242,7 +1255,7 @@
                     <div class="mockup-header">
                         <div class="bot-info">
                             <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali bot avatar" class="bot-avatar">
-                            <span class="bot-name">Citlali</span>
+                            <span class="bot-name text-citlali">Citlali</span>
                             <span class="app-badge">✓ APP</span>
                         </div>
                     </div>
