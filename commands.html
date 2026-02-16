@@ -261,10 +261,18 @@
             border-radius: 12px;
             padding: 20px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
             gap: 16px;
             cursor: pointer;
             transition: all 0.2s;
+        }
+
+        .command-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
         }
 
         .command-card:hover {
@@ -281,6 +289,7 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            flex-shrink: 0;
         }
 
         .command-info {
@@ -302,10 +311,119 @@
         .command-arrow {
             color: #A8A7B8;
             transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .command-card.expanded .command-arrow {
+            transform: rotate(180deg);
         }
 
         .command-card:hover .command-arrow {
-            transform: translateX(4px);
+            color: #E2E1EB;
+        }
+
+        .command-details {
+            display: none;
+            width: 100%;
+            padding-top: 16px;
+            border-top: 1px solid rgba(226, 225, 235, 0.1);
+            animation: slideDown 0.2s ease;
+        }
+
+        .command-card.expanded .command-details {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-section {
+            margin-bottom: 16px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #E2E1EB;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            color: #A8A7B8;
+            font-size: 14px;
+        }
+
+        .requirement-badge {
+            background: rgba(251, 189, 195, 0.2);
+            color: #FBBDC3;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+
+        .option-name {
+            color: #FBBDC3;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        .option-required {
+            background: rgba(255, 100, 100, 0.2);
+            color: #ff6464;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .option-optional {
+            background: rgba(100, 200, 255, 0.2);
+            color: #64c8ff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .option-desc {
+            color: #A8A7B8;
+        }
+
+        .usage-code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #E2E1EB;
+            font-size: 13px;
+            border: 1px solid rgba(226, 225, 235, 0.1);
         }
 
         /* Animation Container */
@@ -424,7 +542,7 @@
             <!-- Categories Sidebar -->
             <div class="categories-sidebar">
                 <div class="categories-title">Categories</div>
-                <div class="category-item" data-category="all" onclick="filterCategory('all')">
+                <div class="category-item active" data-category="all" onclick="filterCategory('all')">
                     <span>All Commands</span>
                     <span class="category-count">24</span>
                 </div>
@@ -440,7 +558,7 @@
                     <span>Utility</span>
                     <span class="category-count">7</span>
                 </div>
-                <div class="category-item active" data-category="nsfw" onclick="filterCategory('nsfw')">
+                <div class="category-item" data-category="nsfw" onclick="filterCategory('nsfw')">
                     <span>NSFW</span>
                     <span class="category-count">10</span>
                 </div>
@@ -462,270 +580,615 @@
                 <div id="commandsList">
                     <!-- NSFW Commands -->
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🎱</div>
-                        <div class="command-info">
-                            <div class="command-name">/8ball</div>
-                            <div class="command-description">Ask Citlali's magic 8-ball for <em>naughty</em> predictions</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🎱</div>
+                            <div class="command-info">
+                                <div class="command-name">/8ball</div>
+                                <div class="command-description">Ask Citlali's magic 8-ball for naughty predictions</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">question</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- The question you want to ask</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/8ball &lt;question&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🍑</div>
-                        <div class="command-info">
-                            <div class="command-name">/anal</div>
-                            <div class="command-description">The other hole... need we say more? 😏</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🍑</div>
+                            <div class="command-info">
+                                <div class="command-name">/anal</div>
+                                <div class="command-description">The other hole... need we say more?</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/anal</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🤖</div>
-                        <div class="command-info">
-                            <div class="command-name">/autobooru gelbooru</div>
-                            <div class="command-description"><strong>Automatically post</strong> Gelbooru content to your channel</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🤖</div>
+                            <div class="command-info">
+                                <div class="command-name">/autobooru gelbooru</div>
+                                <div class="command-description"><strong>Automatically post</strong> Gelbooru content to your channel</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/autobooru gelbooru</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🤖</div>
-                        <div class="command-info">
-                            <div class="command-name">/autobooru safebooru</div>
-                            <div class="command-description"><strong>Automatically post</strong> Safebooru content (safer option)</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🤖</div>
+                            <div class="command-info">
+                                <div class="command-name">/autobooru safebooru</div>
+                                <div class="command-description"><strong>Automatically post</strong> Safebooru content (safer option)</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/autobooru safebooru</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">💦</div>
-                        <div class="command-info">
-                            <div class="command-name">/bukkake</div>
-                            <div class="command-description">Sticky situation incoming... 💦</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">💦</div>
+                            <div class="command-info">
+                                <div class="command-name">/bukkake</div>
+                                <div class="command-description">Sticky situation incoming...</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/bukkake</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🍰</div>
-                        <div class="command-info">
-                            <div class="command-name">/creampie</div>
-                            <div class="command-description">You already know what this is</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🍰</div>
+                            <div class="command-info">
+                                <div class="command-name">/creampie</div>
+                                <div class="command-description">You already know what this is</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/creampie</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🔥</div>
-                        <div class="command-info">
-                            <div class="command-name">/hentai</div>
-                            <div class="command-description">Get a <strong>hot hentai GIF</strong> straight from the best sources 🔥</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🔥</div>
+                            <div class="command-info">
+                                <div class="command-name">/hentai</div>
+                                <div class="command-description">Get a <strong>hot hentai GIF</strong> straight from the best sources</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">tag</span>
+                                    <span class="option-optional">Optional</span>
+                                    <span class="option-desc">- Specific tag to search for</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/hentai [tag]</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">🔍</div>
-                        <div class="command-info">
-                            <div class="command-name">/nh search</div>
-                            <div class="command-description"><strong>Search for doujins</strong> by title or tags</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🔍</div>
+                            <div class="command-info">
+                                <div class="command-name">/nh search</div>
+                                <div class="command-description"><strong>Search for doujins</strong> by title or tags</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">query</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- Search term (title or tags)</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/nh search &lt;query&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">👁️</div>
-                        <div class="command-info">
-                            <div class="command-name">/nh view</div>
-                            <div class="command-description">View a doujin by its 6-digit code</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">👁️</div>
+                            <div class="command-info">
+                                <div class="command-name">/nh view</div>
+                                <div class="command-description">View a doujin by its 6-digit code</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">code</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- 6-digit doujin code</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/nh view &lt;code&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
-                        <div class="command-icon">👭</div>
-                        <div class="command-info">
-                            <div class="command-name">/yuri</div>
-                            <div class="command-description">Lesbians. That's it. That's the description.</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">👭</div>
+                            <div class="command-info">
+                                <div class="command-name">/yuri</div>
+                                <div class="command-description">Lesbians. That's it. That's the description.</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/yuri</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- AI Chat Commands -->
                     <div class="command-card" data-category="ai-chat" onclick="toggleExpand(this)">
-                        <div class="command-icon">📊</div>
-                        <div class="command-info">
-                            <div class="command-name">/citlali-stats</div>
-                            <div class="command-description">View Citlali's <strong>current statistics</strong> and performance</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">📊</div>
+                            <div class="command-info">
+                                <div class="command-name">/citlali-stats</div>
+                                <div class="command-description">View Citlali's <strong>current statistics</strong> and performance</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/citlali-stats</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="ai-chat" onclick="toggleExpand(this)">
-                        <div class="command-icon">💕</div>
-                        <div class="command-info">
-                            <div class="command-name">/personality</div>
-                            <div class="command-description">💕 <strong>Change the bot's response personality!</strong> Pick your vibe or create custom</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">💕</div>
+                            <div class="command-info">
+                                <div class="command-name">/personality</div>
+                                <div class="command-description"><strong>Change the bot's response personality!</strong> Pick your vibe or create custom</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Requirements</div>
+                                <div class="requirement-item"><span class="requirement-badge">Voting Required</span></div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/personality</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Fun Commands -->
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
-                        <div class="command-icon">📖</div>
-                        <div class="command-info">
-                            <div class="command-name">/define</div>
-                            <div class="command-description">Get a word's definition from <strong>Urban Dictionary</strong></div>
+                        <div class="command-card-header">
+                            <div class="command-icon">📖</div>
+                            <div class="command-info">
+                                <div class="command-name">/define</div>
+                                <div class="command-description">Get a word's definition from <strong>Urban Dictionary</strong></div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">word</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- The word to define</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/define &lt;word&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
-                        <div class="command-icon">📚</div>
-                        <div class="command-info">
-                            <div class="command-name">/manga</div>
-                            <div class="command-description"><strong>Search and read manga</strong> right in Discord</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">📚</div>
+                            <div class="command-info">
+                                <div class="command-name">/manga</div>
+                                <div class="command-description"><strong>Search and read manga</strong> right in Discord</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">title</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- Manga title to search</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/manga &lt;title&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
-                        <div class="command-icon">💬</div>
-                        <div class="command-info">
-                            <div class="command-name">/quote</div>
-                            <div class="command-description">Create a <strong>quote image</strong> from any message</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">💬</div>
+                            <div class="command-info">
+                                <div class="command-name">/quote</div>
+                                <div class="command-description">Create a <strong>quote image</strong> from any message</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">message</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- Message ID or reply to a message</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/quote &lt;message&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
-                        <div class="command-icon">🎲</div>
-                        <div class="command-info">
-                            <div class="command-name">/randomnick</div>
-                            <div class="command-description">Get a <strong>chaotically random funny nickname!</strong></div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🎲</div>
+                            <div class="command-info">
+                                <div class="command-name">/randomnick</div>
+                                <div class="command-description">Get a <strong>chaotically random funny nickname!</strong></div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/randomnick</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
-                        <div class="command-icon">❌⭕</div>
-                        <div class="command-info">
-                            <div class="command-name">/tictactoe</div>
-                            <div class="command-description">Play Tic-Tac-Toe against Citlali or friends</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">❌⭕</div>
+                            <div class="command-info">
+                                <div class="command-name">/tictactoe</div>
+                                <div class="command-description">Play Tic-Tac-Toe against Citlali or friends</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/tictactoe</div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Utility Commands -->
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">❓</div>
-                        <div class="command-info">
-                            <div class="command-name">/help</div>
-                            <div class="command-description">Shows <strong>all available commands and categories</strong></div>
+                        <div class="command-card-header">
+                            <div class="command-icon">❓</div>
+                            <div class="command-info">
+                                <div class="command-name">/help</div>
+                                <div class="command-description">Shows <strong>all available commands and categories</strong></div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/help</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">💕</div>
-                        <div class="command-info">
-                            <div class="command-name">/profile</div>
-                            <div class="command-description">💕 View your <strong>relationship stats</strong> with Citlali!</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">💕</div>
+                            <div class="command-info">
+                                <div class="command-name">/profile</div>
+                                <div class="command-description">View your <strong>relationship stats</strong> with Citlali!</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/profile</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">📮</div>
-                        <div class="command-info">
-                            <div class="command-name">/report</div>
-                            <div class="command-description">📮 Submit <strong>feedback or report</strong> to the bot owner</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">📮</div>
+                            <div class="command-info">
+                                <div class="command-name">/report</div>
+                                <div class="command-description">Submit <strong>feedback or report</strong> to the bot owner</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">message</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- Your feedback or report</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/report &lt;message&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">🔧</div>
-                        <div class="command-info">
-                            <div class="command-name">/toggle removechannel</div>
-                            <div class="command-description">Remove channel restriction (bot responds <strong>anywhere</strong>)</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🔧</div>
+                            <div class="command-info">
+                                <div class="command-name">/toggle removechannel</div>
+                                <div class="command-description">Remove channel restriction (bot responds <strong>anywhere</strong>)</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/toggle removechannel</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">🔧</div>
-                        <div class="command-info">
-                            <div class="command-name">/toggle setchannel</div>
-                            <div class="command-description">Set the <strong>channel where bot will respond</strong></div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🔧</div>
+                            <div class="command-info">
+                                <div class="command-name">/toggle setchannel</div>
+                                <div class="command-description">Set the <strong>channel where bot will respond</strong></div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">channel</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- The channel to set</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/toggle setchannel &lt;channel&gt;</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">ℹ️</div>
-                        <div class="command-info">
-                            <div class="command-name">/toggle status</div>
-                            <div class="command-description">Check <strong>current channel settings</strong></div>
+                        <div class="command-card-header">
+                            <div class="command-icon">ℹ️</div>
+                            <div class="command-info">
+                                <div class="command-name">/toggle status</div>
+                                <div class="command-description">Check <strong>current channel settings</strong></div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/toggle status</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
-                        <div class="command-icon">🌐</div>
-                        <div class="command-info">
-                            <div class="command-name">/translate</div>
-                            <div class="command-description">🌐 <strong>Advanced translation</strong> with auto-detection and multiple options</div>
+                        <div class="command-card-header">
+                            <div class="command-icon">🌐</div>
+                            <div class="command-info">
+                                <div class="command-name">/translate</div>
+                                <div class="command-description"><strong>Advanced translation</strong> with auto-detection and multiple options</div>
+                            </div>
+                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <div class="command-details">
+                            <div class="detail-section">
+                                <div class="detail-title">Options</div>
+                                <div class="option-item">
+                                    <span class="option-name">text</span>
+                                    <span class="option-required">Required</span>
+                                    <span class="option-desc">- Text to translate</span>
+                                </div>
+                                <div class="option-item">
+                                    <span class="option-name">language</span>
+                                    <span class="option-optional">Optional</span>
+                                    <span class="option-desc">- Target language code (e.g., es, fr, ja)</span>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title">Usage</div>
+                                <div class="usage-code">/translate &lt;text&gt; [language]</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -807,7 +1270,19 @@
         }
 
         function toggleTheme() {
-            // Theme toggle functionality
+            const body = document.body;
+            const moonIcon = document.querySelector('.moon-icon');
+            const sunIcon = document.querySelector('.sun-icon');
+            
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            } else {
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            }
         }
 
         // Category filtering
@@ -854,7 +1329,7 @@
         // Start snowflakes on page load
         window.addEventListener('DOMContentLoaded', () => {
             createSnowflakes();
-            filterCategory('nsfw'); // Show NSFW by default
+            filterCategory('all'); // Show all commands by default
         });
     </script>
 </body>
