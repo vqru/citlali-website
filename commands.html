@@ -21,6 +21,7 @@
             color: #E2E1EB;
             min-height: 100vh;
             transition: background-color 0.3s ease;
+            position: relative;
         }
 
         body.light-mode {
@@ -62,6 +63,26 @@
 
         body.light-mode .bubble {
             background: radial-gradient(circle at 30% 30%, rgba(100, 150, 255, 0.6), rgba(150, 200, 255, 0.3));
+        }
+
+        /* Background Image Layer */
+        .background-image-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://cdn.discordapp.com/attachments/1439519276787830916/1472924032918618112/content.png?ex=699456e7&is=69930567&hm=18f9a2d31f52bbc13000265affdaa91db53d0ad06a52285d7f03af337eed9431&');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+        }
+
+        body.light-mode .background-image-layer {
+            opacity: 0.2;
         }
 
         nav {
@@ -173,6 +194,8 @@
             margin: 0 auto;
             padding-left: 40px;
             padding-right: 40px;
+            position: relative;
+            z-index: 1;
         }
 
         .commands-header {
@@ -548,6 +571,9 @@
     </style>
 </head>
 <body>
+    <!-- Background Image Layer -->
+    <div class="background-image-layer"></div>
+
     <!-- Animation Container -->
     <div class="animation-container" id="animationContainer"></div>
 
