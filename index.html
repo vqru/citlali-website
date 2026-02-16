@@ -763,6 +763,40 @@
             transform: scale(1.1);
         }
 
+        .track-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 8px 12px 12px;
+        }
+
+        .track-arrow {
+            background: rgba(251, 189, 195, 0.1);
+            border: 1px solid rgba(251, 189, 195, 0.25);
+            color: #FBBDC3;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .track-arrow:hover {
+            background: rgba(251, 189, 195, 0.25);
+        }
+
+        .track-counter {
+            font-size: 12px;
+            color: #A8A7B8;
+            min-width: 40px;
+            text-align: center;
+        }
+
         .gallery-arrow svg {
             width: 24px;
             height: 24px;
@@ -781,49 +815,51 @@
         }
 
         .music-toggle-btn {
-            width: 52px;
-            height: 52px;
-            min-width: 52px;
-            min-height: 52px;
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            min-height: 38px;
             border-radius: 50%;
-            background: #FBBDC3;
+            background: #191414;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(251, 189, 195, 0.4);
+            box-shadow: 0 4px 18px rgba(29, 185, 84, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             flex-shrink: 0;
         }
 
         .music-toggle-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 28px rgba(251, 189, 195, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 6px 26px rgba(29, 185, 84, 0.65);
         }
 
         .music-toggle-btn.playing {
-            animation: pulse-glow 2s infinite;
+            animation: pulse-green 2s infinite;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 4px 20px rgba(251, 189, 195, 0.4); }
-            50% { box-shadow: 0 4px 32px rgba(251, 189, 195, 0.8); }
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 4px 18px rgba(29, 185, 84, 0.45); }
+            50% { box-shadow: 0 4px 30px rgba(29, 185, 84, 0.8); }
         }
 
         .music-toggle-btn svg {
-            width: 22px;
-            height: 22px;
-            color: #1B1A21;
+            width: 20px;
+            height: 20px;
+            color: #1DB954;
         }
 
         .music-player-card {
-            background: #1B1A21;
-            border: 1px solid rgba(251, 189, 195, 0.2);
-            border-radius: 16px;
-            width: 340px;
+            background: rgba(20, 18, 26, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(251, 189, 195, 0.18);
+            border-radius: 18px;
+            width: 280px;
             overflow: hidden;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
             display: none;
             flex-direction: column;
             animation: slideUp 0.25s ease;
@@ -834,19 +870,19 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px) scale(0.94); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .player-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 16px 8px;
+            padding: 10px 14px 6px;
         }
 
         .now-playing-label {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #FBBDC3;
@@ -858,7 +894,7 @@
             border: none;
             color: #A8A7B8;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 15px;
             line-height: 1;
             padding: 0;
             transition: color 0.2s;
@@ -867,12 +903,13 @@
         .player-close:hover { color: #E2E1EB; }
 
         .embed-wrapper {
-            padding: 0 12px 12px;
+            padding: 0 10px 8px;
         }
 
         .embed-wrapper iframe {
             border-radius: 10px;
             display: block;
+            width: 100% !important;
         }
 
         .search-section {
@@ -1007,25 +1044,22 @@
             <div class="embed-wrapper">
                 <iframe id="spotifyEmbed"
                     style="border-radius:10px"
-                    src="https://open.spotify.com/embed/track/6ZxHwFQa7iyLmQFSd042IT?utm_source=generator&theme=0"
-                    width="316" height="152" frameBorder="0"
+                    src="https://open.spotify.com/embed/track/3gELBwePnsojRZEWNESKyv?utm_source=generator"
+                    width="260" height="80" frameBorder="0"
                     allowfullscreen=""
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy">
                 </iframe>
             </div>
-            <div class="search-section">
-                <div class="search-label">Search a track</div>
-                <div class="search-input-row">
-                    <input class="music-search-input" id="musicSearchInput" type="text" placeholder="Song name..." onkeydown="if(event.key==='Enter') searchMusic()">
-                    <button class="music-search-btn" onclick="searchMusic()">Search</button>
-                </div>
-                <div class="search-results" id="searchResults"></div>
+            <div class="track-nav">
+                <button class="track-arrow" onclick="prevTrack()">&#8592;</button>
+                <span class="track-counter" id="trackCounter">1 / 4</span>
+                <button class="track-arrow" onclick="nextTrack()">&#8594;</button>
             </div>
         </div>
         <button class="music-toggle-btn" id="musicToggleBtn" onclick="togglePlayer()" aria-label="Toggle music player">
-            <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
+            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
             </svg>
         </button>
     </div>
@@ -1296,100 +1330,28 @@
 
 
         // Music Player
-        const SPOTIFY_CLIENT_ID = '4adad8450fb346d2b3416a053fcf734f';
-        let spotifyToken = null;
+        const tracks = [
+            '3gELBwePnsojRZEWNESKyv',
+            '4EtduIodG7VPbIlXrxPR9N',
+            '3nkZ0ltcuY5xqc7u0FDDrU',
+            '6O6NTd7NTXoLggmntaa5g9'
+        ];
+        let currentTrack = 0;
 
-        async function getSpotifyToken() {
-            try {
-                const res = await fetch('https://accounts.spotify.com/api/token', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'grant_type=client_credentials&client_id=' + SPOTIFY_CLIENT_ID + '&client_secret='
-                });
-                // Client credentials need a secret — use search via embed approach instead
-            } catch(e) {}
+        function loadTrack(index) {
+            const embed = document.getElementById('spotifyEmbed');
+            embed.src = 'https://open.spotify.com/embed/track/' + tracks[index] + '?utm_source=generator';
+            document.getElementById('trackCounter').textContent = (index + 1) + ' / ' + tracks.length;
         }
 
-        async function searchMusic() {
-            const query = document.getElementById('musicSearchInput').value.trim();
-            if (!query) return;
-            const resultsEl = document.getElementById('searchResults');
-            resultsEl.innerHTML = '<div class="search-loading">Searching...</div>';
-
-            try {
-                // Use Spotify oEmbed + search via open search
-                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.spotify.com/v1/search?q=' + encodeURIComponent(query) + '&type=track&limit=5')}`);
-                const data = await res.json();
-
-                if (!spotifyToken) {
-                    // Get token via public PKCE-less approach using client credentials proxy
-                    const tokenRes = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://accounts.spotify.com/api/token'), {
-                        // Can't do POST via allorigins easily, use alternative
-                    });
-                }
-
-                // Fallback: use iTunes search API which is free and open
-                const itunesRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/search?term=' + encodeURIComponent(query) + '&media=music&limit=5')}`);
-                const itunesData = await itunesRes.json();
-                const tracks = JSON.parse(itunesData.contents).results;
-
-                if (!tracks || tracks.length === 0) {
-                    resultsEl.innerHTML = '<div class="search-loading">No results found</div>';
-                    return;
-                }
-
-                resultsEl.innerHTML = '';
-                tracks.forEach(track => {
-                    const item = document.createElement('div');
-                    item.className = 'search-result-item';
-                    item.innerHTML = `
-                        <img class="result-art" src="${track.artworkUrl60}" alt="">
-                        <div class="result-info">
-                            <div class="result-name">${track.trackName}</div>
-                            <div class="result-artist">${track.artistName}</div>
-                        </div>
-                        <span class="result-play-icon">▶</span>
-                    `;
-                    item.onclick = () => loadSpotifySearch(track.trackName, track.artistName);
-                    resultsEl.appendChild(item);
-                });
-            } catch(e) {
-                resultsEl.innerHTML = '<div class="search-loading">Search failed, try again</div>';
-            }
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            loadTrack(currentTrack);
         }
 
-        async function loadSpotifySearch(trackName, artistName) {
-            const resultsEl = document.getElementById('searchResults');
-            resultsEl.innerHTML = '<div class="search-loading">Loading track...</div>';
-
-            try {
-                // Search Spotify for the track ID via allorigins proxy
-                const searchQuery = encodeURIComponent(trackName + ' ' + artistName);
-                
-                // Get Spotify token first
-                if (!spotifyToken) {
-                    const tokenRes = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://open.spotify.com/get_access_token?reason=transport&productType=web_player'));
-                    const tokenData = await tokenRes.json();
-                    spotifyToken = tokenData.accessToken;
-                }
-
-                const searchRes = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(`https://api.spotify.com/v1/search?q=${searchQuery}&type=track&limit=1`), {
-                    headers: { 'Authorization': 'Bearer ' + spotifyToken }
-                });
-                const searchData = await searchRes.json();
-                const track = searchData.tracks?.items?.[0];
-
-                if (track) {
-                    const embed = document.getElementById('spotifyEmbed');
-                    embed.src = `https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0`;
-                    resultsEl.innerHTML = '';
-                    document.getElementById('musicSearchInput').value = '';
-                } else {
-                    resultsEl.innerHTML = '<div class="search-loading">Track not found on Spotify</div>';
-                }
-            } catch(e) {
-                resultsEl.innerHTML = '<div class="search-loading">Could not load track</div>';
-            }
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrack);
         }
 
         function togglePlayer() {
