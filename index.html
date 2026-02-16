@@ -624,12 +624,37 @@
             margin: 0 auto;
         }
 
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding-left: 80px;
+            padding-right: 20px;
+        }
+
         .gallery-title {
-            text-align: center;
             font-size: 36px;
             font-weight: 700;
             color: #E2E1EB;
-            margin-bottom: 60px;
+            margin: 0;
+        }
+
+        .content-warning {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(251, 189, 195, 0.08);
+            border: 1px solid rgba(251, 189, 195, 0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #A8A7B8;
+            white-space: nowrap;
+        }
+
+        .content-warning .warn-icon {
+            color: #FBBDC3;
         }
 
         .gallery-container {
@@ -662,7 +687,7 @@
             border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
             background: rgba(226, 225, 235, 0.05);
             border: 1px solid rgba(226, 225, 235, 0.1);
         }
@@ -673,8 +698,9 @@
         }
 
         .gallery-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(251, 189, 195, 0.3);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 24px 50px rgba(251, 189, 195, 0.25);
+            border-color: rgba(251, 189, 195, 0.35);
         }
 
         .gallery-card img {
@@ -682,7 +708,11 @@
             height: 100%;
             object-fit: cover;
             filter: blur(20px);
-            transition: filter 0.3s ease;
+            transition: filter 0.4s ease, transform 0.35s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.04);
         }
 
         .gallery-card.revealed img {
@@ -716,12 +746,15 @@
             border-radius: 50%;
             width: 50px;
             height: 50px;
+            min-width: 50px;
+            min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
             color: #E2E1EB;
+            flex-shrink: 0;
         }
 
         .gallery-arrow:hover {
@@ -796,7 +829,10 @@
 
     <!-- Content Samples Gallery -->
     <div class="gallery-section">
-        <h2 class="gallery-title">( • )( • ) Content Samples</h2>
+        <div class="gallery-header">
+            <h2 class="gallery-title">( • )( • ) Content Samples</h2>
+            <span class="content-warning"><span class="warn-icon">⚠</span> 18+ content — view at your own discretion</span>
+        </div>
         <div class="gallery-container">
             <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(-1)" aria-label="Scroll left">
                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
