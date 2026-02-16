@@ -178,12 +178,15 @@
             text-decoration: none;
             font-size: 15px;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: all 0.2s;
             cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
         }
 
         .nav-links a:hover {
-            color: #ffffff;
+            background-color: rgba(181, 229, 119, 0.2);
+            color: #B5E577;
         }
 
         body.light-mode .nav-links a {
@@ -191,7 +194,8 @@
         }
 
         body.light-mode .nav-links a:hover {
-            color: #1B1A21;
+            background-color: rgba(181, 229, 119, 0.2);
+            color: #B5E577;
         }
 
         .nav-right {
@@ -209,17 +213,24 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
         }
 
         .theme-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(181, 229, 119, 0.2);
+        }
+
+        .theme-toggle:hover svg {
+            color: #B5E577;
         }
 
         body.light-mode .theme-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(181, 229, 119, 0.2);
         }
 
+        body.light-mode .theme-toggle:hover svg {
+            color: #B5E577;
+        }
         .theme-toggle svg {
             width: 20px;
             height: 20px;
@@ -239,16 +250,26 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
             font-size: 20px;
         }
 
         .animation-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(181, 229, 119, 0.2);
+        }
+
+        .animation-toggle:hover .snowflake-icon,
+        .animation-toggle:hover .bubble-icon {
+            filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(39deg) brightness(96%) contrast(87%);
         }
 
         body.light-mode .animation-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(181, 229, 119, 0.2);
+        }
+
+        body.light-mode .animation-toggle:hover .snowflake-icon,
+        body.light-mode .animation-toggle:hover .bubble-icon {
+            filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(39deg) brightness(96%) contrast(87%);
         }
 
         /* Snowflake Animation */
