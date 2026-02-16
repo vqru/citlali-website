@@ -704,6 +704,133 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(127, 96, 189, 0.3);
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-left {
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo img {
+                width: 35px;
+                height: 35px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            .commands-container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .commands-header {
+                padding: 40px 0 30px;
+            }
+
+            .commands-header h1 {
+                font-size: 32px;
+            }
+
+            .commands-emoji {
+                width: 40px;
+                height: 40px;
+            }
+
+            .commands-header p {
+                font-size: 16px;
+            }
+
+            .commands-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .categories-sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 16px;
+            }
+
+            .categories-title {
+                grid-column: 1 / -1;
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .category-item {
+                padding: 10px 12px;
+                margin-bottom: 0;
+            }
+
+            .command-card {
+                padding: 16px;
+            }
+
+            .command-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .command-name {
+                font-size: 16px;
+            }
+
+            .command-description {
+                font-size: 13px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 30px;
+            }
+
+            .footer-gif {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .commands-header h1 {
+                font-size: 28px;
+                flex-wrap: wrap;
+            }
+
+            .categories-sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .search-bar {
+                padding: 12px 16px;
+            }
+
+            .command-card-header {
+                flex-wrap: wrap;
+            }
+
+            .command-arrow {
+                margin-left: auto;
+            }
+        }
     </style>
 </head>
 <body>
