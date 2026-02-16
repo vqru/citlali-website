@@ -868,7 +868,7 @@
             min-width: 70px;
             min-height: 70px;
             border-radius: 50%;
-            background: #191414;
+            background: transparent;
             border: none;
             cursor: pointer;
             display: flex;
@@ -1104,6 +1104,86 @@
         .text-content-samples {
             color: #B5FFE8;
         }
+
+        /* Footer Styles */
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 60px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            background: rgba(27, 26, 33, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 225, 235, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: fit-content;
+        }
+
+        body.light-mode .footer-content {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-creator {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-pfp {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 232, 236, 0.4);
+        }
+
+        .footer-username {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FFE8EC;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #A8A7B8;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-link {
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            padding: 6px 12px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .footer-link.discord {
+            color: #D4B5E8;
+        }
+
+        .footer-link.topgg {
+            color: #FFE5B5;
+        }
+
+        .footer-link:hover {
+            background-color: rgba(181, 229, 119, 0.2);
+            color: #B5E577;
+        }
     </style>
 </head>
 <body>
@@ -1299,6 +1379,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-creator">
+                <img src="https://images-ext-1.discordapp.net/external/7EJEnMkp3Nz7ftq-KorGskRNBNG6qJJNMIDw1G1A6h8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/819817532579905557/a7685183be101337a904301e1165a44f.png?format=webp&quality=lossless&width=320&height=320" alt="vqru" class="footer-pfp">
+                <span class="footer-username">.vqru</span>
+            </div>
+            <p class="footer-text">Created by vqru</p>
+            <div class="footer-links">
+                <a href="https://discord.gg/qRwS8gMVBj" target="_blank" rel="noopener noreferrer" class="footer-link discord">Discord Support</a>
+                <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         let animationType = 'snowflake';
