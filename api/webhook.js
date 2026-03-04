@@ -3,7 +3,7 @@
 
 const { MongoClient } = require('mongodb');
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI2;
 const TOPGG_WEBHOOK_SECRET = process.env.TOPGG_WEBHOOK_SECRET; // Set this in top.gg webhook settings
 const VOTE_DURATION = 12 * 60 * 60 * 1000; // 12 hours
 
