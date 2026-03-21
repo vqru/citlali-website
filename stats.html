@@ -8,75 +8,33 @@
     <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/emojis/1440775765531820112.webp?size=40&quality=lossless">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* ── Match main page exactly ── */
         :root {
-            --bg:         #1B1A21;
-            --surface:    rgba(226,225,235,0.03);
-            --border:     rgba(226,225,235,0.1);
-            --border-hov: rgba(226,225,235,0.18);
-            --text:       #E2E1EB;
-            --muted:      #A8A7B8;
-            --muted2:     #6a6880;
-            --pink:       #FBBDC3;
-            --pink-dim:   rgba(251,189,195,0.12);
-            --green:      #B5E577;
-            --green-dim:  rgba(181,229,119,0.12);
-            --purple:     #D4B5E8;
-            --purple-dim: rgba(212,181,232,0.12);
-            --yellow:     #FFD264;
-            --yellow-dim: rgba(255,210,100,0.1);
-            --red:        #ED4245;
-            --red-dim:    rgba(237,66,69,0.1);
-            --status-g:   #57F287;
+            --bg: #1B1A21; --surface: rgba(226,225,235,0.03); --border: rgba(226,225,235,0.1);
+            --border-hov: rgba(226,225,235,0.18); --text: #E2E1EB; --muted: #A8A7B8; --muted2: #6a6880;
+            --pink: #FBBDC3; --pink-dim: rgba(251,189,195,0.12);
+            --green: #B5E577; --green-dim: rgba(181,229,119,0.12);
+            --purple: #D4B5E8; --purple-dim: rgba(212,181,232,0.12);
+            --yellow: #FFD264; --yellow-dim: rgba(255,210,100,0.1);
+            --red: #ED4245; --red-dim: rgba(237,66,69,0.1); --status-g: #57F287;
         }
-
-        body {
-            background-color: var(--bg);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            /* matches main page font exactly */
-            color: var(--text);
-            min-height: 100vh;
-            transition: background-color 0.3s ease;
-            position: relative;
-        }
+        body { background-color: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: var(--text); min-height: 100vh; transition: background-color 0.3s; position: relative; }
         body.light-mode { background-color: #f5f5f5; color: #1B1A21; }
-
-        /* Background layer — same as main */
-        .bg-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://github.com/vqru/bahh-gifs/blob/main/content.png?raw=true');
-            background-size: cover; background-position: center;
-            pointer-events: none; z-index: 0; opacity: 0.35;
-        }
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://github.com/vqru/bahh-gifs/blob/main/content.png?raw=true'); background-size: cover; background-position: center; pointer-events: none; z-index: 0; opacity: 0.35; }
         body.light-mode .bg-layer { opacity: 0.2; }
-
-        /* Snow */
         .anim-wrap { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
         .snowflake { position: absolute; top: -10px; color: rgba(255,255,255,0.8); font-size: 20px; animation: fall linear infinite; opacity: 0; }
         body.light-mode .snowflake { color: rgba(200,200,220,0.7); }
         @keyframes fall { 0%{opacity:0;transform:translateY(0) rotate(0)} 10%{opacity:1} 90%{opacity:1} 100%{opacity:0;transform:translateY(100vh) rotate(360deg)} }
         .bubble { position: absolute; bottom: -10px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(200,220,255,0.4)); border-radius: 50%; animation: rise linear infinite; opacity: 0; box-shadow: inset 0 0 10px rgba(255,255,255,0.5); }
-        @keyframes rise { 0%{opacity:0;transform:translateY(0) translateX(0)} 10%{opacity:0.8} 90%{opacity:0.8} 100%{opacity:0;transform:translateY(-100vh) translateX(20px)} }
+        @keyframes rise { 0%{opacity:0;transform:translateY(0)} 10%{opacity:0.8} 90%{opacity:0.8} 100%{opacity:0;transform:translateY(-100vh) translateX(20px)} }
         .bubble::before { content:''; position:absolute; top:10%; left:15%; width:30%; height:30%; background:rgba(255,255,255,0.6); border-radius:50%; }
 
-        /* ── NAV — same as main page ── */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            background-color: rgba(27,26,33,0.8);
-            backdrop-filter: blur(10px);
-            padding: 12px 40px;
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-        }
+        nav { position: fixed; top: 0; left: 0; right: 0; background-color: rgba(27,26,33,0.8); backdrop-filter: blur(10px); padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 1000; }
         body.light-mode nav { background-color: rgba(255,255,255,0.8); }
         .nav-left { display: flex; align-items: center; gap: 40px; }
         .logo { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; color: var(--text); text-decoration: none; }
-        body.light-mode .logo { color: #1B1A21; }
         .logo img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.4); }
         .text-citlali { color: #F5DFE1; }
         .nav-links { display: flex; align-items: center; gap: 30px; }
@@ -88,27 +46,15 @@
         .icon-btn { background: none; border: 1px solid rgba(226,225,235,0.15); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; font-size: 20px; }
         .icon-btn:hover { background-color: rgba(181,229,119,0.2); }
         .icon-btn svg { width: 20px; height: 20px; color: var(--text); }
-        body.light-mode .icon-btn svg { color: #5f6368; }
 
-        /* ── PAGE ── */
         .page { max-width: 1100px; margin: 0 auto; padding: 100px 40px 80px; position: relative; z-index: 1; }
 
-        /* HEADER */
-        .page-header {
-            display: flex; align-items: flex-start; justify-content: space-between;
-            margin-bottom: 48px; gap: 24px;
-        }
-        .page-eyebrow {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 8px 16px; border-radius: 24px;
-            font-size: 14px; color: var(--text); width: fit-content; margin-bottom: 16px;
-        }
+        .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 48px; gap: 24px; }
+        .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); padding: 8px 16px; border-radius: 24px; font-size: 14px; color: var(--text); width: fit-content; margin-bottom: 16px; }
         .page-title { font-size: 48px; font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 10px; }
         .page-sub { font-size: 16px; color: var(--muted); line-height: 1.6; }
         .header-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 
-        /* STATUS PILL — same style as main page's stat-dot */
         .status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; }
         .status-pill.online  { background: rgba(87,242,135,0.1);  border: 1px solid rgba(87,242,135,0.25);  color: var(--status-g); }
         .status-pill.offline { background: var(--red-dim);        border: 1px solid rgba(237,66,69,0.25);   color: var(--red); }
@@ -121,26 +67,17 @@
         @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.3} }
         .last-refresh { font-size: 12px; color: var(--muted2); }
 
-        /* ── UPTIME BAR ── */
-        .uptime-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 24px;
-            transition: border-color 0.2s;
-        }
+        .uptime-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 24px; transition: border-color 0.2s; }
         .uptime-card:hover { border-color: var(--border-hov); }
         .uptime-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
         .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 6px; }
         .uptime-pct { font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--status-g); }
-
-        .uptime-bar { display: flex; gap: 3px; align-items: flex-end; height: 40px; margin-bottom: 10px; }
-        .seg { flex: 1; border-radius: 4px; cursor: default; position: relative; transition: transform .1s, filter .1s; min-width: 0; }
-        .seg:hover { transform: scaleY(1.12); filter: brightness(1.2); }
+        .uptime-bar { display: flex; gap: 3px; align-items: stretch; height: 40px; margin-bottom: 10px; }
+        .seg { flex: 1; border-radius: 4px; cursor: default; position: relative; transition: filter .15s; min-width: 0; height: 100%; }
+        .seg:hover { filter: brightness(1.3); }
         .seg:hover .seg-tip { opacity: 1; }
         .seg.up       { background: var(--status-g); opacity: .55; }
-        .seg.down     { background: var(--red);       opacity: .7; }
+        .seg.down     { background: var(--red);       opacity: .75; }
         .seg.cur-up   { background: var(--status-g); opacity: 1; box-shadow: 0 0 10px rgba(87,242,135,0.5); }
         .seg.cur-down { background: var(--red);       opacity: 1; box-shadow: 0 0 10px rgba(237,66,69,0.5); }
         .seg.unk      { background: rgba(226,225,235,0.08); }
@@ -148,15 +85,8 @@
         .uptime-foot { display: flex; justify-content: space-between; }
         .uptime-foot span { font-size: 11px; color: var(--muted2); font-family: 'DM Mono', monospace; }
 
-        /* ── STAT CARDS ── */
         .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 24px; }
-        .stat-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 16px; padding: 28px 24px;
-            display: flex; flex-direction: column; gap: 12px;
-            transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
-            position: relative; overflow: hidden;
-        }
+        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s; position: relative; overflow: hidden; }
         .stat-card.c-servers:hover { border-color: rgba(251,189,195,0.4); transform: translateY(-2px); box-shadow: 0 0 24px rgba(251,189,195,0.15); }
         .stat-card.c-users:hover   { border-color: rgba(212,181,232,0.4); transform: translateY(-2px); box-shadow: 0 0 24px rgba(212,181,232,0.15); }
         .stat-card.c-uptime:hover  { border-color: rgba(87,242,135,0.4);  transform: translateY(-2px); box-shadow: 0 0 24px rgba(87,242,135,0.15); }
@@ -167,16 +97,8 @@
         .stat-val.lv { color: rgba(226,225,235,0.1); }
         .stat-sub { font-size: 13px; color: var(--muted); }
 
-        /* ── TWO COL ── */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
-
-        /* ── PROFILE CARD ── uses same discord-mockup feel ── */
-        .card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 16px; padding: 24px;
-            display: flex; flex-direction: column; gap: 18px;
-            transition: border-color 0.2s;
-        }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 18px; transition: border-color 0.2s; }
         .card:hover { border-color: var(--border-hov); }
         .profile-top { display: flex; align-items: center; gap: 14px; }
         .profile-avatar { width: 52px; height: 52px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.4); }
@@ -188,55 +110,32 @@
         .pb.st { padding: 2px 8px; border-radius: 4px; border: 1px solid; }
         .pb.st.online  { background: rgba(87,242,135,0.1);  color: var(--status-g); border-color: rgba(87,242,135,0.3); }
         .pb.st.offline { background: var(--red-dim);        color: var(--red);       border-color: rgba(237,66,69,0.3); }
-
         .detail-list { display: flex; flex-direction: column; gap: 8px; }
-        .detail-row {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 9px 13px;
-            background: rgba(226,225,235,0.04); border: 1px solid rgba(226,225,235,0.07);
-            border-radius: 10px;
-        }
+        .detail-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 13px; background: rgba(226,225,235,0.04); border: 1px solid rgba(226,225,235,0.07); border-radius: 10px; }
         .detail-key { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
         .detail-val { font-size: 13px; font-weight: 600; color: var(--text); }
         .detail-val a { color: var(--pink); text-decoration: none; }
         .detail-val a:hover { text-decoration: underline; }
         .detail-val.mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
 
-        /* ── TECH STACK — same tag style as main page ── */
         .stack-groups { display: flex; flex-direction: column; gap: 14px; }
         .stack-grp { display: flex; flex-direction: column; gap: 7px; }
         .stack-grp-name { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted2); }
         .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
-        /* Tags matching main page's feat-tag style */
-        .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); display: flex; align-items: center; gap: 5px; }
-        .tag.p  { border-color: rgba(251,189,195,0.3);   color: var(--pink);   background: rgba(251,189,195,0.08);  }
-        .tag.pu { border-color: rgba(212,181,232,0.3);   color: var(--purple); background: rgba(212,181,232,0.08);  }
-        .tag.g  { border-color: rgba(181,229,119,0.3);   color: var(--green);  background: rgba(181,229,119,0.08);  }
-        .tag.y  { border-color: rgba(255,210,100,0.3);   color: var(--yellow); background: rgba(255,210,100,0.08);  }
+        .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); display:flex;align-items:center;gap:5px; }
+        .tag.p  { border-color: rgba(251,189,195,0.3);  color: var(--pink);   background: rgba(251,189,195,0.08); }
+        .tag.pu { border-color: rgba(212,181,232,0.3);  color: var(--purple); background: rgba(212,181,232,0.08); }
+        .tag.g  { border-color: rgba(181,229,119,0.3);  color: var(--green);  background: rgba(181,229,119,0.08); }
+        .tag.y  { border-color: rgba(255,210,100,0.3);  color: var(--yellow); background: rgba(255,210,100,0.08); }
 
-        /* ── DISCORD WIDGET ── */
         .widget-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; transition: border-color 0.2s; }
         .widget-card:hover { border-color: var(--border-hov); }
         .widget-card iframe { border-radius: 10px; border: 1px solid var(--border); display: block; }
-        /* Join btn matching main page's learn-more-btn */
-        .join-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(212,181,232,0.1); border: 1px solid rgba(212,181,232,0.25);
-            color: var(--purple); font-size: 14px; font-weight: 600;
-            padding: 10px 20px; border-radius: 10px; text-decoration: none;
-            transition: background 0.2s; width: fit-content;
-        }
+        .join-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,181,232,0.1); border: 1px solid rgba(212,181,232,0.25); color: var(--purple); font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s; width: fit-content; }
         .join-btn:hover { background: rgba(212,181,232,0.18); }
 
-        /* ── FOOTER — same as main page ── */
         footer { position: relative; z-index: 1; padding: 20px 40px 40px; max-width: 1100px; margin: 0 auto; }
-        .footer-content {
-            background: rgba(27,26,33,0.4); backdrop-filter: blur(20px);
-            border: 1px solid rgba(226,225,235,0.15); border-radius: 20px;
-            padding: 40px; display: grid; grid-template-columns: 1fr auto;
-            gap: 40px; align-items: center; max-width: 950px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
+        .footer-content { background: rgba(27,26,33,0.4); backdrop-filter: blur(20px); border: 1px solid rgba(226,225,235,0.15); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; max-width: 950px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
         body.light-mode .footer-content { background: rgba(255,255,255,0.4); }
         .footer-left { display: flex; flex-direction: column; gap: 16px; }
         .footer-gif { width: 350px; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(127,96,189,0.3); }
@@ -251,34 +150,15 @@
         .footer-link.addbott { color: var(--pink); }
         .footer-link:hover { background-color: rgba(181,229,119,0.2); color: var(--green); }
 
-        @media(max-width:900px){
-            .stats-grid { grid-template-columns:1fr 1fr; }
-            .two-col { grid-template-columns:1fr; }
-        }
-        @media(max-width:768px){
-            nav { padding:12px 20px; }
-            .nav-left { gap:20px; }
-            .page { padding:80px 20px 40px; }
-            .page-title { font-size:32px; }
-            .page-header { flex-direction:column; align-items:flex-start; }
-            .header-right { align-items:flex-start; }
-            .stat-val { font-size:32px; }
-            footer { padding:20px 20px 40px; }
-            .footer-content { grid-template-columns:1fr; }
-            .footer-gif { width:100%; max-width:280px; margin:0 auto; }
-        }
-        @media(max-width:480px){
-            .stats-grid { grid-template-columns:1fr; }
-            .page-title { font-size:26px; }
-        }
+        @media(max-width:900px){ .stats-grid{grid-template-columns:1fr 1fr;} .two-col{grid-template-columns:1fr;} }
+        @media(max-width:768px){ nav{padding:12px 20px;} .nav-left{gap:20px;} .page{padding:80px 20px 40px;} .page-title{font-size:32px;} .page-header{flex-direction:column;align-items:flex-start;} .header-right{align-items:flex-start;} .stat-val{font-size:32px;} footer{padding:20px 20px 40px;} .footer-content{grid-template-columns:1fr;} .footer-gif{width:100%;max-width:280px;margin:0 auto;} }
+        @media(max-width:480px){ .stats-grid{grid-template-columns:1fr;} .page-title{font-size:26px;} }
     </style>
 </head>
 <body>
-
 <div class="bg-layer"></div>
 <div class="anim-wrap" id="animWrap"></div>
 
-<!-- NAV -->
 <nav>
     <div class="nav-left">
         <a href="index.html" class="logo">
@@ -303,8 +183,6 @@
 </nav>
 
 <div class="page">
-
-    <!-- PAGE HEADER -->
     <div class="page-header">
         <div>
             <div class="page-eyebrow">
@@ -323,7 +201,6 @@
         </div>
     </div>
 
-    <!-- UPTIME BAR -->
     <div class="uptime-card">
         <div class="uptime-head">
             <div class="section-label">⏱ Uptime — Last 24 Hours</div>
@@ -331,43 +208,30 @@
         </div>
         <div class="uptime-bar" id="uptimeBar"></div>
         <div class="uptime-foot">
-            <span>24h ago</span>
-            <span>Now</span>
+            <span id="uptimeLeft">Now</span>
+            <span id="uptimeRight">24h ago</span>
         </div>
     </div>
 
-    <!-- STAT CARDS -->
     <div class="stats-grid">
         <div class="stat-card c-servers">
-            <div class="stat-top">
-                <div class="stat-lbl">Servers</div>
-                <div class="stat-icon">🌐</div>
-            </div>
+            <div class="stat-top"><div class="stat-lbl">Servers</div><div class="stat-icon">🌐</div></div>
             <div class="stat-val lv" id="statServers">—</div>
             <div class="stat-sub">Discord communities using Citlali</div>
         </div>
         <div class="stat-card c-users">
-            <div class="stat-top">
-                <div class="stat-lbl">Users</div>
-                <div class="stat-icon">👥</div>
-            </div>
+            <div class="stat-top"><div class="stat-lbl">Users</div><div class="stat-icon">👥</div></div>
             <div class="stat-val lv" id="statUsers">—</div>
             <div class="stat-sub">Unique users across all servers</div>
         </div>
         <div class="stat-card c-uptime">
-            <div class="stat-top">
-                <div class="stat-lbl">Uptime</div>
-                <div class="stat-icon">⚡</div>
-            </div>
+            <div class="stat-top"><div class="stat-lbl">Uptime</div><div class="stat-icon">⚡</div></div>
             <div class="stat-val lv" id="statUptime">—</div>
             <div class="stat-sub">Since last restart</div>
         </div>
     </div>
 
-    <!-- BOT PROFILE + STACK/WIDGET -->
     <div class="two-col">
-
-        <!-- Profile -->
         <div class="card">
             <div class="section-label">🤖 Bot Profile</div>
             <div class="profile-top">
@@ -377,45 +241,22 @@
                     <div class="profile-id">1333324950127378453</div>
                     <div class="pbadges">
                         <span class="pb app">✓ APP</span>
-                        <span class="pb st online" id="profileStatus">🟢 Online</span>
+                        <span class="pb st online" id="profileStatus">Online</span>
                     </div>
                 </div>
             </div>
             <div class="detail-list">
-                <div class="detail-row">
-                    <span class="detail-key">👤 Created by</span>
-                    <span class="detail-val">vqru</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-key">🌐 Website</span>
-                    <span class="detail-val"><a href="https://citlali.xyz" target="_blank">citlali.xyz</a></span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-key">💬 Support</span>
-                    <span class="detail-val"><a href="https://discord.gg/qRwS8gMVBj" target="_blank">discord.gg/qRwS8gMVBj</a></span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-key">📊 Top.gg</span>
-                    <span class="detail-val"><a href="https://top.gg/bot/1333324950127378453" target="_blank">top.gg listing</a></span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-key">🖥️ Hosting</span>
-                    <span class="detail-val">HidenCloud (Pterodactyl)</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-key">🔌 API Status</span>
-                    <span class="detail-val" id="apiStatus">Checking…</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-key">⏳ Uptime (raw)</span>
-                    <span class="detail-val mono" id="uptimeRaw">—</span>
-                </div>
+                <div class="detail-row"><span class="detail-key">👤 Created by</span><span class="detail-val">vqru</span></div>
+                <div class="detail-row"><span class="detail-key">🌐 Website</span><span class="detail-val"><a href="https://citlali.xyz" target="_blank">citlali.xyz</a></span></div>
+                <div class="detail-row"><span class="detail-key">💬 Support</span><span class="detail-val"><a href="https://discord.gg/qRwS8gMVBj" target="_blank">discord.gg/qRwS8gMVBj</a></span></div>
+                <div class="detail-row"><span class="detail-key">📊 Top.gg</span><span class="detail-val"><a href="https://top.gg/bot/1333324950127378453" target="_blank">top.gg listing</a></span></div>
+                <div class="detail-row"><span class="detail-key">🖥️ Hosting</span><span class="detail-val">HidenCloud (Pterodactyl)</span></div>
+                <div class="detail-row"><span class="detail-key">🔌 API Status</span><span class="detail-val" id="apiStatus">Checking…</span></div>
+                <div class="detail-row"><span class="detail-key">⏳ Uptime (raw)</span><span class="detail-val mono" id="uptimeRaw">—</span></div>
             </div>
         </div>
 
-        <!-- Stack + Widget stacked -->
         <div style="display:flex;flex-direction:column;gap:20px;">
-
             <div class="card">
                 <div class="section-label">🛠️ Tech Stack</div>
                 <div class="stack-groups">
@@ -444,26 +285,19 @@
                     </div>
                 </div>
             </div>
-
             <div class="widget-card">
                 <div class="section-label">💬 Support Server</div>
-                <iframe src="https://discord.com/widget?id=1458113204868747354&theme=dark"
-                    width="100%" height="200" allowtransparency="true" frameborder="0"
-                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-                </iframe>
+                <iframe src="https://discord.com/widget?id=1458113204868747354&theme=dark" width="100%" height="200" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 <a href="https://discord.gg/qRwS8gMVBj" target="_blank" class="join-btn">Join Server →</a>
             </div>
-
         </div>
     </div>
 
     <div style="text-align:center;font-size:12px;color:var(--muted2);padding-top:8px;">
         Last updated: <span id="lastUpdatedFull">fetching…</span> · Auto-refreshes every 60 seconds
     </div>
-
 </div>
 
-<!-- FOOTER — same as main page -->
 <footer>
     <div class="footer-content">
         <div class="footer-left">
@@ -483,7 +317,11 @@
 </footer>
 
 <script>
-// UPTIME BAR - 1 segment = 1 hour, red if any offline, left=oldest right=now
+// UPTIME BAR
+// - 1 segment = 1 hour, 24 segments total
+// - Left = Now (current hour), Right = 24h ago
+// - Only records status when API actually responds (not on failure)
+// - Once a segment is red it stays red for that hour
 const SEG_MS = 60 * 60 * 1000;
 const MAX_SEGS = 24;
 
@@ -500,54 +338,54 @@ function saveHistory(h) {
 }
 function recordStatus(isOnline) {
     const h = loadHistory(), key = getHourKey(Date.now());
-    if (h[key] === true && !isOnline) return; // was online this hour, a blip doesn't make it red
-    if (h[key] === false && isOnline) { h[key] = true; } // came back online, mark green
-    else h[key] = isOnline;
-    const keys = Object.keys(h).map(Number).sort((a,b)=>a-b);
+    // Once red, stays red for that hour. Green can't overwrite red.
+    if (h[key] === false) return;
+    h[key] = isOnline;
+    // Prune old keys
+    const keys = Object.keys(h).map(Number).sort((a,b) => a-b);
     if (keys.length > MAX_SEGS + 4) keys.slice(0, keys.length - MAX_SEGS).forEach(k => delete h[k.toString()]);
     saveHistory(h);
 }
 
 function buildBar(isOnline, uptimeMs) {
-    if (isOnline !== null) recordStatus(isOnline);
     const history = loadHistory();
     const bar = document.getElementById('uptimeBar');
     bar.innerHTML = '';
 
-    // Build slots: last 24 hours, left=oldest right=current
     const nowHour = new Date(); nowHour.setMinutes(0,0,0);
+
+    // Backfill green from uptime data
+    if (uptimeMs !== null && isOnline) {
+        const uptimeHours = Math.floor(uptimeMs / SEG_MS);
+        for (let i = 0; i < Math.min(uptimeHours, MAX_SEGS); i++) {
+            const k = (nowHour.getTime() - i * SEG_MS).toString();
+            if (history[k] === undefined) history[k] = true;
+        }
+        saveHistory(history);
+    }
+
+    // Build slots: index 0 = now, index 23 = 24h ago (left to right = now to oldest)
     const slots = [];
     for (let i = 0; i < MAX_SEGS; i++) {
         const t = new Date(nowHour.getTime() - i * SEG_MS);
         slots.push({ key: t.getTime().toString(), time: t });
     }
 
-    // Backfill from uptime if we have it
-    if (uptimeMs) {
-        const uptimeHours = Math.floor(uptimeMs / SEG_MS);
-        for (let i = 0; i < Math.min(uptimeHours, MAX_SEGS); i++) {
-            const t = new Date(nowHour.getTime() - i * SEG_MS);
-            const k = t.getTime().toString();
-            if (history[k] === undefined) history[k] = true;
-        }
-        saveHistory(history);
-    }
-
     // Pct
     const known = slots.filter(s => history[s.key] !== undefined);
     const upCount = known.filter(s => history[s.key] === true).length;
-    const pct = known.length ? ((upCount / known.length) * 100).toFixed(2) : '100.00';
+    const pct = known.length ? ((upCount / known.length) * 100).toFixed(2) : '—';
     const pctEl = document.getElementById('uptimePct');
-    pctEl.textContent = pct + '%';
-    pctEl.style.color = parseFloat(pct) > 95 ? '#57F287' : parseFloat(pct) > 80 ? '#FFD264' : '#ED4245';
+    pctEl.textContent = pct === '—' ? '—' : pct + '%';
+    if (pct !== '—') pctEl.style.color = parseFloat(pct) > 95 ? '#57F287' : parseFloat(pct) > 80 ? '#FFD264' : '#ED4245';
 
-    // Render
+    // Render left=now, right=24h ago
     slots.forEach((slot, i) => {
         const state = history[slot.key];
         const isCur = i === 0;
         const seg = document.createElement('div');
         seg.className = 'seg';
-        if (state === true)       seg.classList.add(isCur ? 'cur-up'   : 'up');
+        if      (state === true)  seg.classList.add(isCur ? 'cur-up'   : 'up');
         else if (state === false) seg.classList.add(isCur ? 'cur-down' : 'down');
         else                      seg.classList.add('unk');
 
@@ -558,21 +396,18 @@ function buildBar(isOnline, uptimeMs) {
         tip.className = 'seg-tip';
         tip.textContent = stateStr + ' · ' + dateStr + ' ' + timeStr;
         seg.appendChild(tip);
-        seg.style.height = '36px';
         bar.appendChild(seg);
     });
 
-    // Footer labels
-    const foot = document.querySelector('.uptime-foot');
-    if (foot && slots.length) {
-        const fmtT = t => t.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' + t.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-        foot.children[0].textContent = 'Now';
-        foot.children[1].textContent = fmtT(slots[slots.length-1].time);
-    }
+    // Footer
+    const oldest = slots[slots.length - 1].time;
+    const fmtT = t => t.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' + t.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+    document.getElementById('uptimeLeft').textContent = 'Now';
+    document.getElementById('uptimeRight').textContent = fmtT(oldest);
 }
 
-// API
-const BOT_API = 'http://noel.hidencloud.com:24684';
+// API — blank so it uses relative path (same domain deployment)
+const BOT_API = '';
 
 function fmt(n) {
     if (n==null||isNaN(n)) return '—';
@@ -607,14 +442,14 @@ async function fetchStats() {
         const d=await res.json();
 
         const up=['online','ok','OK'].includes(d.status);
-        setStatus(up?'online':'offline', up?'Online':'Offline');
+        setStatus(up?'online':'offline', up?'🟢 Bot is Online':'🔴 Bot is Offline');
 
         const ps=document.getElementById('profileStatus');
         ps.textContent=up?'Online':'Offline';
         ps.className='pb st '+(up?'online':'offline');
 
         const api=document.getElementById('apiStatus');
-        api.textContent='Reachable'; api.style.color='#57F287';
+        api.textContent='✅ Reachable'; api.style.color='#57F287';
 
         if(d.servers!==undefined) setVal('statServers',fmt(d.servers));
         if(d.users!==undefined)   setVal('statUsers',  fmt(d.users));
@@ -622,15 +457,19 @@ async function fetchStats() {
             const ms=d.uptime*1000;
             setVal('statUptime',fmtUp(ms));
             setVal('uptimeRaw',fmtUpRaw(ms),false);
-            buildBar(up,ms);
-        } else buildBar(up,null);
+            // Record real status then build bar
+            recordStatus(up);
+            buildBar(up, ms);
+        } else {
+            recordStatus(up);
+            buildBar(up, null);
+        }
     } catch(e) {
-        setStatus('offline','Unreachable');
-        document.getElementById('apiStatus').textContent='Unreachable';
+        // API unreachable — show UI error but DO NOT record status or corrupt bar
+        setStatus('offline','🔴 API Unreachable');
+        document.getElementById('apiStatus').textContent='❌ Unreachable';
         document.getElementById('apiStatus').style.color='#ED4245';
-        const ps=document.getElementById('profileStatus');
-        ps.textContent='Offline'; ps.className='pb st offline';
-        // Don't record offline when API is simply unreachable - only record when bot confirms offline
+        // Just redraw bar from existing history, don't record anything
         buildBar(null, null);
     }
 }
@@ -642,7 +481,7 @@ function tick() {
 }
 
 // ANIMATIONS
-let animType = 'snowflake';
+let animType='snowflake';
 function createSnowflakes() {
     const c=document.getElementById('animWrap'); c.innerHTML='';
     for(let i=0;i<9;i++){
@@ -683,7 +522,6 @@ function toggleAnim() {
     if(animType==='snowflake'){ animType='bubble'; si.style.display='none'; bi.style.display='block'; createBubbles(); }
     else { animType='snowflake'; si.style.display='block'; bi.style.display='none'; createSnowflakes(); }
 }
-
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
     const moon=document.querySelector('.moon-icon'), sun=document.querySelector('.sun-icon');
@@ -692,19 +530,12 @@ function toggleTheme() {
 }
 
 async function init() {
-    // Clear any bad history from previous buggy version
-    try {
-        const h = loadHistory();
-        // If current hour is red but bot is actually online, will be fixed on next poll
-        // User can also call clearUptimeHistory() in console to reset
-    } catch {}
     createSnowflakes();
+    buildBar(null, null); // draw bar from localStorage on load immediately
     await fetchStats();
     tick();
     setInterval(async()=>{ await fetchStats(); tick(); }, 60000);
 }
-// Call clearUptimeHistory() in browser console to reset the bar
-function clearUptimeHistory() { localStorage.removeItem('citlali_uptime'); location.reload(); }
 window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
