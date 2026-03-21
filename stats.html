@@ -516,7 +516,7 @@ function buildBar(isOnline, uptimeMs) {
     // Build slots: last 24 hours, left=oldest right=current
     const nowHour = new Date(); nowHour.setMinutes(0,0,0);
     const slots = [];
-    for (let i = MAX_SEGS - 1; i >= 0; i--) {
+    for (let i = 0; i < MAX_SEGS; i++) {
         const t = new Date(nowHour.getTime() - i * SEG_MS);
         slots.push({ key: t.getTime().toString(), time: t });
     }
@@ -543,7 +543,7 @@ function buildBar(isOnline, uptimeMs) {
     // Render
     slots.forEach((slot, i) => {
         const state = history[slot.key];
-        const isCur = i === slots.length - 1;
+        const isCur = i === 0;
         const seg = document.createElement('div');
         seg.className = 'seg';
         if (state === true)       seg.classList.add(isCur ? 'cur-up'   : 'up');
@@ -565,8 +565,8 @@ function buildBar(isOnline, uptimeMs) {
     const foot = document.querySelector('.uptime-foot');
     if (foot && slots.length) {
         const fmtT = t => t.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' + t.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-        foot.children[0].textContent = fmtT(slots[0].time);
-        foot.children[1].textContent = 'Now';
+        foot.children[0].textContent = 'Now';
+        foot.children[1].textContent = fmtT(slots[slots.length-1].time);
     }
 }
 
