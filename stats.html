@@ -665,190 +665,196 @@
     </footer>
 
     <script>
-        // ── THEME ──
-        function toggleTheme() {
-            const body = document.body;
-            const moonIcon = document.querySelector('.moon-icon');
-            const sunIcon = document.querySelector('.sun-icon');
-            body.classList.toggle('light-mode');
-            if (body.classList.contains('light-mode')) { moonIcon.style.display='none'; sunIcon.style.display='block'; }
-            else { moonIcon.style.display='block'; sunIcon.style.display='none'; }
+        // ============================================================
+// REPLACE the entire <script> block in stats.html with this
+// ============================================================
+
+// ── THEME ──
+function toggleTheme() {
+    const body = document.body;
+    const moonIcon = document.querySelector('.moon-icon');
+    const sunIcon = document.querySelector('.sun-icon');
+    body.classList.toggle('light-mode');
+    if (body.classList.contains('light-mode')) { moonIcon.style.display='none'; sunIcon.style.display='block'; }
+    else { moonIcon.style.display='block'; sunIcon.style.display='none'; }
+}
+
+// ── ANIMATIONS ──
+let animationType = 'snowflake';
+function createSnowflakes() {
+    const container = document.getElementById('animationContainer');
+    for (let i = 0; i < 9; i++) {
+        const s = document.createElement('div'); s.className = 'snowflake'; s.innerHTML = '❆';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        s.style.animationDelay = Math.random() * 5 + 's';
+        s.style.fontSize = (Math.random() * 8 + 14) + 'px';
+        container.appendChild(s);
+    }
+}
+function createBubbles() {
+    const container = document.getElementById('animationContainer');
+    for (let cl = 0; cl < 3; cl++) {
+        const cx = Math.random() * 90 + 5;
+        for (let i = 0; i < Math.floor(Math.random()*2)+2; i++) {
+            const b = document.createElement('div'); b.className = 'bubble';
+            b.style.left = (cx + (Math.random()*5-2.5)) + '%';
+            b.style.animationDuration = (Math.random()*3+7)+'s';
+            b.style.animationDelay = Math.random()*3+'s';
+            const sz = Math.random()*25+20;
+            b.style.width = sz+'px'; b.style.height = sz+'px';
+            container.appendChild(b);
         }
+    }
+    for (let i = 0; i < 6; i++) {
+        const b = document.createElement('div'); b.className = 'bubble';
+        b.style.left = Math.random()*100+'%';
+        b.style.animationDuration = (Math.random()*4+7)+'s';
+        b.style.animationDelay = Math.random()*5+'s';
+        const sz = Math.random()*30+20;
+        b.style.width = sz+'px'; b.style.height = sz+'px';
+        container.appendChild(b);
+    }
+}
+function clearAnimations() { document.getElementById('animationContainer').innerHTML = ''; }
+function toggleAnimation() {
+    const si = document.querySelector('.snowflake-icon'), bi = document.querySelector('.bubble-icon');
+    clearAnimations();
+    if (animationType === 'snowflake') {
+        animationType = 'bubble'; si.style.display='none'; bi.style.display='block'; createBubbles();
+    } else {
+        animationType = 'snowflake'; si.style.display='block'; bi.style.display='none'; createSnowflakes();
+    }
+}
 
-        // ── ANIMATIONS ──
-        let animationType = 'snowflake';
-        function createSnowflakes() {
-            const container = document.getElementById('animationContainer');
-            for (let i = 0; i < 9; i++) {
-                const s = document.createElement('div'); s.className = 'snowflake'; s.innerHTML = '❆';
-                s.style.left = Math.random() * 100 + '%';
-                s.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                s.style.animationDelay = Math.random() * 5 + 's';
-                s.style.fontSize = (Math.random() * 8 + 14) + 'px';
-                container.appendChild(s);
-            }
-        }
-        function createBubbles() {
-            const container = document.getElementById('animationContainer');
-            for (let cl = 0; cl < 3; cl++) {
-                const cx = Math.random() * 90 + 5;
-                for (let i = 0; i < Math.floor(Math.random()*2)+2; i++) {
-                    const b = document.createElement('div'); b.className = 'bubble';
-                    b.style.left = (cx + (Math.random()*5-2.5)) + '%';
-                    b.style.animationDuration = (Math.random()*3+7)+'s';
-                    b.style.animationDelay = Math.random()*3+'s';
-                    const sz = Math.random()*25+20;
-                    b.style.width = sz+'px'; b.style.height = sz+'px';
-                    container.appendChild(b);
-                }
-            }
-            for (let i = 0; i < 6; i++) {
-                const b = document.createElement('div'); b.className = 'bubble';
-                b.style.left = Math.random()*100+'%';
-                b.style.animationDuration = (Math.random()*4+7)+'s';
-                b.style.animationDelay = Math.random()*5+'s';
-                const sz = Math.random()*30+20;
-                b.style.width = sz+'px'; b.style.height = sz+'px';
-                container.appendChild(b);
-            }
-        }
-        function clearAnimations() { document.getElementById('animationContainer').innerHTML = ''; }
-        function toggleAnimation() {
-            const si = document.querySelector('.snowflake-icon'), bi = document.querySelector('.bubble-icon');
-            clearAnimations();
-            if (animationType === 'snowflake') {
-                animationType = 'bubble'; si.style.display='none'; bi.style.display='block'; createBubbles();
-            } else {
-                animationType = 'snowflake'; si.style.display='block'; bi.style.display='none'; createSnowflakes();
-            }
-        }
+// ── FORMAT HELPERS ──
+function fmtNum(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+    if (n >= 1000) return (n/1000).toFixed(1) + 'k';
+    return n.toLocaleString();
+}
+function fmtUptime(ms) {
+    if (!ms || isNaN(ms)) return '—';
+    const s = Math.floor(ms / 1000);
+    const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
+    if (d > 0) return d + 'd ' + h + 'h';
+    if (h > 0) return h + 'h ' + m + 'm';
+    return m + 'm';
+}
+function fmtUptimeRaw(ms) {
+    if (!ms || isNaN(ms)) return '—';
+    const s = Math.floor(ms / 1000);
+    const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    return `${d}d ${h}h ${m}m ${sec}s`;
+}
+function setStatus(type, text) {
+    const pill = document.getElementById('statusPill');
+    pill.className = 'status-pill ' + type;
+    document.getElementById('statusText').textContent = text;
+}
+function setVal(id, val, removeLoading = true) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = val;
+    if (removeLoading) el.classList.remove('loading-val');
+}
 
-        // ── FORMAT HELPERS ──
-        function fmtNum(n) {
-            if (n === null || n === undefined || isNaN(n)) return '—';
-            if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
-            if (n >= 1000) return (n/1000).toFixed(1) + 'k';
-            return n.toLocaleString();
-        }
-        function fmtUptime(ms) {
-            if (!ms || isNaN(ms)) return '—';
-            const s = Math.floor(ms / 1000);
-            const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
-            if (d > 0) return d + 'd ' + h + 'h';
-            if (h > 0) return h + 'h ' + m + 'm';
-            return m + 'm';
-        }
-        function fmtUptimeRaw(ms) {
-            if (!ms || isNaN(ms)) return '—';
-            const s = Math.floor(ms / 1000);
-            const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
-            return `${d}d ${h}h ${m}m ${sec}s`;
-        }
-        function setStatus(type, text) {
-            const pill = document.getElementById('statusPill');
-            pill.className = 'status-pill ' + type;
-            document.getElementById('statusText').textContent = text;
-        }
+// ── YOUR BOT API BASE URL ──
+// Change this if your domain/port ever changes
+const BOT_API = 'http://noel.hidencloud.com:24684';
 
-        // ── FETCH BOT STATS ──
-        async function fetchBotStats() {
-            try {
-                const res = await fetch('http://noel.hidencloud.com:24684/api/stats', { signal: AbortSignal.timeout(8000) });
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                const data = await res.json();
+// ── FETCH BOT STATS ──
+async function fetchBotStats() {
+    try {
+        const res = await fetch(`${BOT_API}/api/stats`, {
+            signal: AbortSignal.timeout(8000)
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
 
-                // Status
-                const isOnline = data.status === 'online' || data.status === 'OK' || data.status === 'ok';
-                setStatus(isOnline ? 'online' : 'offline', isOnline ? '🟢 Bot is Online' : '🔴 Bot is Offline');
-                document.getElementById('verifiedBadge').textContent = isOnline ? '🟢 Online' : '🔴 Offline';
-                document.getElementById('verifiedBadge').style.color = isOnline ? '#57F287' : '#ED4245';
-                document.getElementById('apiStatusDetail').textContent = '✅ Reachable';
-                document.getElementById('apiStatusDetail').style.color = '#57F287';
+        const isOnline = ['online', 'ok', 'OK'].includes(data.status);
+        setStatus(isOnline ? 'online' : 'offline', isOnline ? '🟢 Bot is Online' : '🔴 Bot is Offline');
 
-                // Servers
-                if (data.servers !== undefined) {
-                    const el = document.getElementById('statServers');
-                    el.textContent = fmtNum(data.servers);
-                    el.classList.remove('loading-val');
-                }
-                // Users
-                if (data.users !== undefined) {
-                    const el = document.getElementById('statUsers');
-                    el.textContent = fmtNum(data.users);
-                    el.classList.remove('loading-val');
-                }
-                // Uptime
-                if (data.uptime !== undefined) {
-                    const el = document.getElementById('statUptime');
-                    el.textContent = fmtUptime(data.uptime);
-                    el.classList.remove('loading-val');
-                    document.getElementById('uptimeRaw').textContent = fmtUptimeRaw(data.uptime);
-                }
+        const badge = document.getElementById('verifiedBadge');
+        badge.textContent = isOnline ? '🟢 Online' : '🔴 Offline';
+        badge.style.color = isOnline ? '#57F287' : '#ED4245';
 
-            } catch (e) {
-                setStatus('offline', '🔴 Bot API Unreachable');
-                document.getElementById('apiStatusDetail').textContent = '❌ Unreachable';
-                document.getElementById('apiStatusDetail').style.color = '#ED4245';
-                document.getElementById('verifiedBadge').textContent = '🔴 Offline';
-                document.getElementById('verifiedBadge').style.color = '#ED4245';
-                console.warn('Bot API error:', e.message);
-            }
-        }
+        const apiDetail = document.getElementById('apiStatusDetail');
+        apiDetail.textContent = '✅ Reachable';
+        apiDetail.style.color = '#57F287';
 
-        // ── FETCH TOP.GG STATS ──
-        async function fetchTopGG() {
-            try {
-                // Top.gg public endpoint
-                const res = await fetch('https://top.gg/api/bots/1333324950127378453', {
-                    signal: AbortSignal.timeout(8000)
-                });
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                const data = await res.json();
+        if (data.servers !== undefined) setVal('statServers', fmtNum(data.servers));
+        if (data.users   !== undefined) setVal('statUsers',   fmtNum(data.users));
+        if (data.uptime  !== undefined) {
+          const uptimeMs = data.uptime * 1000;
+          setVal('statUptime', fmtUptime(uptimeMs));
+       setVal('uptimeRaw',  fmtUptimeRaw(uptimeMs), false);
+     }
+    } catch (e) {
+        setStatus('offline', '🔴 Bot API Unreachable');
+        const apiDetail = document.getElementById('apiStatusDetail');
+        apiDetail.textContent = '❌ Unreachable';
+        apiDetail.style.color = '#ED4245';
+        const badge = document.getElementById('verifiedBadge');
+        badge.textContent = '🔴 Offline';
+        badge.style.color = '#ED4245';
+        console.warn('Bot API error:', e.message);
+    }
+}
 
-                const total = data.points ?? data.votes ?? 0;
-                const monthly = data.monthlyPoints ?? data.monthly_points ?? 0;
+// ── FETCH TOP.GG VOTES via bot proxy ──
+// Now hits YOUR Express server, which fetches Top.gg server-side (no CORS)
+async function fetchTopGG() {
+    try {
+        const res = await fetch(`${BOT_API}/api/votes`, {
+            signal: AbortSignal.timeout(8000)
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
 
-                document.getElementById('statVotes').textContent = fmtNum(total);
-                document.getElementById('statVotes').classList.remove('loading-val');
-                document.getElementById('votesBig').textContent = fmtNum(total);
-                document.getElementById('monthlyVotes').textContent = fmtNum(monthly);
+        const total   = data.points        ?? 0;
+        const monthly = data.monthlyPoints ?? 0;
 
-                // Bar — show monthly as % of total (max 100%)
-                const pct = total > 0 ? Math.min((monthly / total) * 100, 100) : 0;
-                setTimeout(() => { document.getElementById('voteBar').style.width = pct + '%'; }, 300);
-                document.getElementById('voteMonthVal').textContent = fmtNum(monthly) + ' this month';
+        setVal('statVotes',    fmtNum(total));
+        setVal('votesBig',     fmtNum(total),   false);
+        setVal('monthlyVotes', fmtNum(monthly), false);
 
-            } catch (e) {
-                // Top.gg may block CORS from browser — silently handle
-                document.getElementById('statVotes').textContent = 'N/A';
-                document.getElementById('statVotes').classList.remove('loading-val');
-                document.getElementById('votesBig').textContent = 'N/A';
-                document.getElementById('monthlyVotes').textContent = 'N/A';
-                document.getElementById('voteMonthVal').textContent = 'CORS restricted — check top.gg';
-                console.warn('Top.gg fetch note:', e.message);
-            }
-        }
+        const pct = total > 0 ? Math.min((monthly / total) * 100, 100) : 0;
+        setTimeout(() => {
+            document.getElementById('voteBar').style.width = pct + '%';
+        }, 300);
+        document.getElementById('voteMonthVal').textContent = fmtNum(monthly) + ' this month';
 
-        // ── LAST UPDATED ──
-        function updateTimestamp() {
-            const now = new Date();
-            document.getElementById('lastUpdatedTime').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-        }
+    } catch (e) {
+        setVal('statVotes',    'N/A');
+        setVal('votesBig',     'N/A', false);
+        setVal('monthlyVotes', 'N/A', false);
+        document.getElementById('voteMonthVal').textContent = 'Could not load';
+        console.warn('Votes fetch error:', e.message);
+    }
+}
 
-        // ── INIT ──
-        async function init() {
-            createSnowflakes();
-            await Promise.all([fetchBotStats(), fetchTopGG()]);
-            updateTimestamp();
-        }
+// ── LAST UPDATED ──
+function updateTimestamp() {
+    const now = new Date();
+    document.getElementById('lastUpdatedTime').textContent =
+        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
 
-        // Auto-refresh every 60 seconds
-        setInterval(async () => {
-            await Promise.all([fetchBotStats(), fetchTopGG()]);
-            updateTimestamp();
-        }, 60000);
+// ── INIT ──
+async function init() {
+    createSnowflakes();
+    await Promise.all([fetchBotStats(), fetchTopGG()]);
+    updateTimestamp();
+}
 
-        window.addEventListener('DOMContentLoaded', init);
-    </script>
+setInterval(async () => {
+    await Promise.all([fetchBotStats(), fetchTopGG()]);
+    updateTimestamp();
+}, 60000);
+
+window.addEventListener('DOMContentLoaded', init);
+        </script>
 </body>
 </html>
