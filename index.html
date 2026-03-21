@@ -128,7 +128,7 @@
             right: 0;
             background-color: rgba(27, 26, 33, 0.8);
             backdrop-filter: blur(10px);
-            padding: 12px 40px;
+            padding: 60px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -424,7 +424,7 @@
 
         /* Features Section */
         .features-section {
-            padding: 12px 40px;
+            padding: 60px 40px;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
@@ -436,27 +436,19 @@
             grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: center;
-            /* Card wrapper */
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 20px;
-            padding: 32px 36px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-
-        /* Glow themes */
-        .feature-content.glow-lewd              { border-color: rgba(255,100,130,0.12); }
-        .feature-content.glow-lewd:hover        { border-color: rgba(255,100,130,0.3); box-shadow: 0 8px 40px rgba(255,100,130,0.08); }
-        .feature-content.glow-personality       { border-color: rgba(181,181,255,0.12); }
-        .feature-content.glow-personality:hover { border-color: rgba(181,181,255,0.3); box-shadow: 0 8px 40px rgba(181,181,255,0.08); }
-        .feature-content.glow-gacha             { border-color: rgba(255,210,100,0.12); }
-        .feature-content.glow-gacha:hover       { border-color: rgba(255,210,100,0.3); box-shadow: 0 8px 40px rgba(255,210,100,0.08); }
-        .feature-content.glow-date              { border-color: rgba(255,160,185,0.12); }
-        .feature-content.glow-date:hover        { border-color: rgba(255,160,185,0.3); box-shadow: 0 8px 40px rgba(255,160,185,0.08); }
 
         .feature-left {
             display: flex;
             justify-content: center;
+        }
+
+        /* Flipped layout: text col on left, mockup on right */
+        .feature-content.flipped {
+            direction: rtl;
+        }
+        .feature-content.flipped > * {
+            direction: ltr;
         }
 
         .discord-mockup {
@@ -1224,7 +1216,7 @@
 
     <!-- BLOCK 1: Lewd + Autobooru — mockup LEFT, text RIGHT -->
     <div class="features-section">
-        <div class="feature-content glow-lewd">
+        <div class="feature-content">
             <div class="feature-left">
                 <div class="discord-mockup">
                     <div class="mockup-header">
@@ -1263,7 +1255,7 @@
 
     <!-- BLOCK 2: Personality + AI Chat — text LEFT, mockup RIGHT -->
     <div class="features-section">
-        <div class="feature-content glow-personality">
+        <div class="feature-content flipped">
             <div class="feature-right">
                 <span class="feat-label label-personality">🎀 AI CHAT</span>
                 <h2 style="font-size: 32px;"><span class="text-personalities">Personalities That Hit Different</span></h2>
@@ -1301,7 +1293,7 @@
 
     <!-- BLOCK 3: Gacha — mockup LEFT, text RIGHT -->
     <div class="features-section">
-        <div class="feature-content glow-gacha">
+        <div class="feature-content">
             <div class="feature-left">
                 <div class="discord-mockup">
                     <div class="mockup-header">
@@ -1338,7 +1330,7 @@
 
     <!-- BLOCK 4: Date & Bond — text LEFT, mockup RIGHT -->
     <div class="features-section">
-        <div class="feature-content glow-date">
+        <div class="feature-content flipped">
             <div class="feature-right">
                 <span class="feat-label label-date">💕 DATE &amp; BOND</span>
                 <h2 style="font-size: 32px;"><span style="color:#FFB3C8;">Build Relationships</span> With Your Cards</h2>
