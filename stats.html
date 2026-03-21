@@ -317,81 +317,97 @@
 </footer>
 
 <script>
-// UPTIME BAR
-// - 1 segment = 1 hour, 24 segments total
-// - Left = Now (current hour), Right = 24h ago
-// - Only records status when API actually responds (not on failure)
-// - Once a segment is red it stays red for that hour
-const SEG_MS = 60 * 60 * 1000;
-const MAX_SEGS = 24;
+// UPTIME BAR - simple event log approach
+// Every 60s we get API status. We log timestamped events.
+// Then we bucket them into 1-hour slots and render green/red/grey.
+// API unreachable = don't log anything.
 
-function getHourKey(ts) {
-    const d = new Date(ts); d.setMinutes(0,0,0);
-    return d.getTime().toString();
+const SLOT_MS = 60 * 60 * 1000; // 1 hour per bar
+const MAX_SLOTS = 24;
+
+function loadLog() {
+    try { return JSON.parse(localStorage.getItem('citlali_log') || '[]'); } catch { return []; }
 }
-function loadHistory() {
-    try { const r = localStorage.getItem('citlali_uptime'); return r ? JSON.parse(r) : {}; }
-    catch { return {}; }
+function saveLog(log) {
+    try { localStorage.setItem('citlali_log', JSON.stringify(log)); } catch {}
 }
-function saveHistory(h) {
-    try { localStorage.setItem('citlali_uptime', JSON.stringify(h)); } catch {}
-}
-function recordStatus(isOnline) {
-    const h = loadHistory(), key = getHourKey(Date.now());
-    // Once red, stays red for that hour. Green can't overwrite red.
-    if (h[key] === false) return;
-    h[key] = isOnline;
-    // Prune old keys
-    const keys = Object.keys(h).map(Number).sort((a,b) => a-b);
-    if (keys.length > MAX_SEGS + 4) keys.slice(0, keys.length - MAX_SEGS).forEach(k => delete h[k.toString()]);
-    saveHistory(h);
+function logEvent(isOnline) {
+    const log = loadLog();
+    log.push({ t: Date.now(), online: isOnline });
+    // Keep last 7 days worth of entries max
+    const cutoff = Date.now() - 7 * 24 * SLOT_MS;
+    const trimmed = log.filter(e => e.t > cutoff);
+    saveLog(trimmed);
 }
 
-function buildBar(isOnline, uptimeMs) {
-    const history = loadHistory();
+function buildBar() {
     const bar = document.getElementById('uptimeBar');
     bar.innerHTML = '';
-
-    const nowHour = new Date(); nowHour.setMinutes(0,0,0);
-
-    // Backfill green from uptime data
-    if (uptimeMs !== null && isOnline) {
-        const uptimeHours = Math.floor(uptimeMs / SEG_MS);
-        for (let i = 0; i < Math.min(uptimeHours, MAX_SEGS); i++) {
-            const k = (nowHour.getTime() - i * SEG_MS).toString();
-            if (history[k] === undefined) history[k] = true;
+    const log = loadLog();
+    if (!log.length) {
+        // No data at all — render all grey
+        for (let i = 0; i < MAX_SLOTS; i++) {
+            const seg = document.createElement('div');
+            seg.className = 'seg unk';
+            bar.appendChild(seg);
         }
-        saveHistory(history);
+        document.getElementById('uptimePct').textContent = '—';
+        document.getElementById('uptimeLeft').textContent = 'Now';
+        document.getElementById('uptimeRight').textContent = '24h ago';
+        return;
     }
 
-    // Build slots: index 0 = now, index 23 = 24h ago (left to right = now to oldest)
+    // Build 24 hourly slots, slot 0 = current hour, slot 23 = 24h ago
+    const now = Date.now();
+    const currentHourStart = now - (now % SLOT_MS);
     const slots = [];
-    for (let i = 0; i < MAX_SEGS; i++) {
-        const t = new Date(nowHour.getTime() - i * SEG_MS);
-        slots.push({ key: t.getTime().toString(), time: t });
+
+    for (let i = 0; i < MAX_SLOTS; i++) {
+        const slotStart = currentHourStart - i * SLOT_MS;
+        const slotEnd   = slotStart + SLOT_MS;
+
+        // Find all log events within this slot
+        const events = log.filter(e => e.t >= slotStart && e.t < slotEnd);
+
+        let state;
+        if (!events.length) {
+            // No events this hour — check last known state before this slot
+            const before = log.filter(e => e.t < slotStart).sort((a,b) => b.t - a.t);
+            if (!before.length) {
+                state = null; // no data at all before this
+            } else {
+                // Inherit last known state
+                state = before[0].online;
+            }
+        } else {
+            // If ANY event in this hour is offline, slot is red
+            state = events.every(e => e.online) ? true : false;
+        }
+
+        slots.push({ slotStart, state });
     }
 
     // Pct
-    const known = slots.filter(s => history[s.key] !== undefined);
-    const upCount = known.filter(s => history[s.key] === true).length;
+    const known = slots.filter(s => s.state !== null);
+    const upCount = known.filter(s => s.state === true).length;
     const pct = known.length ? ((upCount / known.length) * 100).toFixed(2) : '—';
     const pctEl = document.getElementById('uptimePct');
     pctEl.textContent = pct === '—' ? '—' : pct + '%';
     if (pct !== '—') pctEl.style.color = parseFloat(pct) > 95 ? '#57F287' : parseFloat(pct) > 80 ? '#FFD264' : '#ED4245';
 
-    // Render left=now, right=24h ago
+    // Render: slot 0 = leftmost = Now
     slots.forEach((slot, i) => {
-        const state = history[slot.key];
-        const isCur = i === 0;
         const seg = document.createElement('div');
         seg.className = 'seg';
-        if      (state === true)  seg.classList.add(isCur ? 'cur-up'   : 'up');
-        else if (state === false) seg.classList.add(isCur ? 'cur-down' : 'down');
-        else                      seg.classList.add('unk');
+        const isCur = i === 0;
+        if      (slot.state === true)  seg.classList.add(isCur ? 'cur-up'   : 'up');
+        else if (slot.state === false) seg.classList.add(isCur ? 'cur-down' : 'down');
+        else                           seg.classList.add('unk');
 
-        const dateStr = slot.time.toLocaleDateString([], { month:'short', day:'numeric' });
-        const timeStr = slot.time.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-        const stateStr = state === true ? 'Online' : state === false ? 'Offline' : 'No data';
+        const slotTime = new Date(slot.slotStart);
+        const dateStr = slotTime.toLocaleDateString([], { month:'short', day:'numeric' });
+        const timeStr = slotTime.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+        const stateStr = slot.state === true ? 'Online' : slot.state === false ? 'Offline' : 'No data';
         const tip = document.createElement('div');
         tip.className = 'seg-tip';
         tip.textContent = stateStr + ' · ' + dateStr + ' ' + timeStr;
@@ -399,14 +415,15 @@ function buildBar(isOnline, uptimeMs) {
         bar.appendChild(seg);
     });
 
-    // Footer
-    const oldest = slots[slots.length - 1].time;
-    const fmtT = t => t.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' + t.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+    // Footer labels
     document.getElementById('uptimeLeft').textContent = 'Now';
-    document.getElementById('uptimeRight').textContent = fmtT(oldest);
+    const oldestTime = new Date(slots[slots.length-1].slotStart);
+    document.getElementById('uptimeRight').textContent =
+        oldestTime.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' +
+        oldestTime.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
 }
 
-// API — blank so it uses relative path (same domain deployment)
+// API
 const BOT_API = '';
 
 function fmt(n) {
@@ -426,8 +443,7 @@ function fmtUpRaw(ms) {
     return Math.floor(s/86400)+'d '+Math.floor((s%86400)/3600)+'h '+Math.floor((s%3600)/60)+'m '+(s%60)+'s';
 }
 function setStatus(cls, text) {
-    const p=document.getElementById('statusPill');
-    p.className='status-pill '+cls;
+    document.getElementById('statusPill').className='status-pill '+cls;
     document.getElementById('statusText').textContent=text;
 }
 function setVal(id, v, deload=true) {
@@ -442,14 +458,14 @@ async function fetchStats() {
         const d=await res.json();
 
         const up=['online','ok','OK'].includes(d.status);
-        setStatus(up?'online':'offline', up?'🟢 Bot is Online':'🔴 Bot is Offline');
+        setStatus(up?'online':'offline', up ? '🟢 Bot is Online' : '🔴 Bot is Offline');
 
         const ps=document.getElementById('profileStatus');
         ps.textContent=up?'Online':'Offline';
         ps.className='pb st '+(up?'online':'offline');
 
-        const api=document.getElementById('apiStatus');
-        api.textContent='✅ Reachable'; api.style.color='#57F287';
+        document.getElementById('apiStatus').textContent='✅ Reachable';
+        document.getElementById('apiStatus').style.color='#57F287';
 
         if(d.servers!==undefined) setVal('statServers',fmt(d.servers));
         if(d.users!==undefined)   setVal('statUsers',  fmt(d.users));
@@ -457,20 +473,18 @@ async function fetchStats() {
             const ms=d.uptime*1000;
             setVal('statUptime',fmtUp(ms));
             setVal('uptimeRaw',fmtUpRaw(ms),false);
-            // Record real status then build bar
-            recordStatus(up);
-            buildBar(up, ms);
-        } else {
-            recordStatus(up);
-            buildBar(up, null);
         }
+
+        // Only log when API actually responds
+        logEvent(up);
+        buildBar();
+
     } catch(e) {
-        // API unreachable — show UI error but DO NOT record status or corrupt bar
-        setStatus('offline','🔴 API Unreachable');
+        // API unreachable — don't log, just show error and redraw bar as-is
+        setStatus('loading','⚠️ Unreachable');
         document.getElementById('apiStatus').textContent='❌ Unreachable';
         document.getElementById('apiStatus').style.color='#ED4245';
-        // Just redraw bar from existing history, don't record anything
-        buildBar(null, null);
+        buildBar(); // redraw from existing log only
     }
 }
 
@@ -531,7 +545,7 @@ function toggleTheme() {
 
 async function init() {
     createSnowflakes();
-    buildBar(null, null); // draw bar from localStorage on load immediately
+    buildBar(); // draw immediately from localStorage
     await fetchStats();
     tick();
     setInterval(async()=>{ await fetchStats(); tick(); }, 60000);
