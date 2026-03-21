@@ -483,55 +483,94 @@
 </footer>
 
 <script>
-// ── UPTIME BAR ──────────────────────────────────────────────────────────────
-let history24 = [];
-const SEGS = 90;
-const SEG_MS = (24 * 60 * 60 * 1000) / SEGS;
+// UPTIME BAR - 1 segment = 1 hour, red if any offline, left=oldest right=now
+const SEG_MS = 60 * 60 * 1000;
+const MAX_SEGS = 24;
+
+function getHourKey(ts) {
+    const d = new Date(ts); d.setMinutes(0,0,0);
+    return d.getTime().toString();
+}
+function loadHistory() {
+    try { const r = localStorage.getItem('citlali_uptime'); return r ? JSON.parse(r) : {}; }
+    catch { return {}; }
+}
+function saveHistory(h) {
+    try { localStorage.setItem('citlali_uptime', JSON.stringify(h)); } catch {}
+}
+function recordStatus(isOnline) {
+    const h = loadHistory(), key = getHourKey(Date.now());
+    if (h[key] === false) return; // once red stays red
+    h[key] = isOnline;
+    const keys = Object.keys(h).map(Number).sort((a,b)=>a-b);
+    if (keys.length > MAX_SEGS + 4) keys.slice(0, keys.length - MAX_SEGS).forEach(k => delete h[k.toString()]);
+    saveHistory(h);
+}
 
 function buildBar(isOnline, uptimeMs) {
+    recordStatus(isOnline);
+    const history = loadHistory();
     const bar = document.getElementById('uptimeBar');
     bar.innerHTML = '';
 
-    if (history24.length === 0) {
-        if (uptimeMs) {
-            const uptimeSegs = Math.min(SEGS, Math.round(uptimeMs / SEG_MS));
-            for (let i = 0; i < SEGS; i++) {
-                history24.push(i < SEGS - uptimeSegs ? null : true);
-            }
-        } else {
-            history24 = Array(SEGS).fill(null);
-        }
+    // Build slots: last 24 hours, left=oldest right=current
+    const nowHour = new Date(); nowHour.setMinutes(0,0,0);
+    const slots = [];
+    for (let i = MAX_SEGS - 1; i >= 0; i--) {
+        const t = new Date(nowHour.getTime() - i * SEG_MS);
+        slots.push({ key: t.getTime().toString(), time: t });
     }
-    history24[SEGS - 1] = isOnline;
 
-    const known = history24.filter(v => v !== null);
-    const pct = known.length ? ((known.filter(v=>v).length / known.length) * 100).toFixed(2) : '100.00';
+    // Backfill from uptime if we have it
+    if (uptimeMs) {
+        const uptimeHours = Math.floor(uptimeMs / SEG_MS);
+        for (let i = 0; i < Math.min(uptimeHours, MAX_SEGS); i++) {
+            const t = new Date(nowHour.getTime() - i * SEG_MS);
+            const k = t.getTime().toString();
+            if (history[k] === undefined) history[k] = true;
+        }
+        saveHistory(history);
+    }
+
+    // Pct
+    const known = slots.filter(s => history[s.key] !== undefined);
+    const upCount = known.filter(s => history[s.key] === true).length;
+    const pct = known.length ? ((upCount / known.length) * 100).toFixed(2) : '100.00';
     const pctEl = document.getElementById('uptimePct');
     pctEl.textContent = pct + '%';
     pctEl.style.color = parseFloat(pct) > 95 ? '#57F287' : parseFloat(pct) > 80 ? '#FFD264' : '#ED4245';
 
-    const now = Date.now();
-    history24.forEach((state, i) => {
+    // Render
+    slots.forEach((slot, i) => {
+        const state = history[slot.key];
+        const isCur = i === slots.length - 1;
         const seg = document.createElement('div');
         seg.className = 'seg';
-        const last = i === SEGS - 1;
-        if (state === true)  seg.classList.add(last ? 'cur-up'   : 'up');
-        else if (state === false) seg.classList.add(last ? 'cur-down' : 'down');
-        else seg.classList.add('unk');
+        if (state === true)       seg.classList.add(isCur ? 'cur-up'   : 'up');
+        else if (state === false) seg.classList.add(isCur ? 'cur-down' : 'down');
+        else                      seg.classList.add('unk');
 
-        const t = new Date(now - (SEGS - 1 - i) * SEG_MS);
-        const ts = t.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-        const label = state === true ? `Online · ${ts}` : state === false ? `Offline · ${ts}` : `No data · ${ts}`;
+        const dateStr = slot.time.toLocaleDateString([], { month:'short', day:'numeric' });
+        const timeStr = slot.time.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+        const stateStr = state === true ? 'Online' : state === false ? 'Offline' : 'No data';
         const tip = document.createElement('div');
-        tip.className = 'seg-tip'; tip.textContent = label;
+        tip.className = 'seg-tip';
+        tip.textContent = stateStr + ' · ' + dateStr + ' ' + timeStr;
         seg.appendChild(tip);
-
-        seg.style.height = (state === null ? 28 : state ? 32 + Math.random()*8 : 40) + 'px';
+        seg.style.height = '36px';
         bar.appendChild(seg);
     });
+
+    // Footer labels
+    const foot = document.querySelector('.uptime-foot');
+    if (foot && slots.length) {
+        const fmtT = t => t.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' + t.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+        foot.children[0].textContent = fmtT(slots[0].time);
+        foot.children[1].textContent = 'Now';
+    }
 }
 
-// ── API ─────────────────────────────────────────────────────────────────────
+// API
 const BOT_API = '';
 
 function fmt(n) {
@@ -543,12 +582,12 @@ function fmt(n) {
 function fmtUp(ms) {
     if (!ms) return '—';
     const s=Math.floor(ms/1000), d=Math.floor(s/86400), h=Math.floor((s%86400)/3600), m=Math.floor((s%3600)/60);
-    return d ? `${d}d ${h}h` : h ? `${h}h ${m}m` : `${m}m`;
+    return d ? d+'d '+h+'h' : h ? h+'h '+m+'m' : m+'m';
 }
 function fmtUpRaw(ms) {
     if (!ms) return '—';
     const s=Math.floor(ms/1000);
-    return `${Math.floor(s/86400)}d ${Math.floor((s%86400)/3600)}h ${Math.floor((s%3600)/60)}m ${s%60}s`;
+    return Math.floor(s/86400)+'d '+Math.floor((s%86400)/3600)+'h '+Math.floor((s%3600)/60)+'m '+(s%60)+'s';
 }
 function setStatus(cls, text) {
     const p=document.getElementById('statusPill');
@@ -562,19 +601,19 @@ function setVal(id, v, deload=true) {
 
 async function fetchStats() {
     try {
-        const res=await fetch(`${BOT_API}/api/stats`,{signal:AbortSignal.timeout(8000)});
+        const res=await fetch(BOT_API+'/api/stats',{signal:AbortSignal.timeout(8000)});
         if(!res.ok) throw new Error(res.status);
         const d=await res.json();
 
         const up=['online','ok','OK'].includes(d.status);
-        setStatus(up?'online':'offline', up?'🟢 Bot is Online':'🔴 Bot is Offline');
+        setStatus(up?'online':'offline', up?'Online':'Offline');
 
         const ps=document.getElementById('profileStatus');
-        ps.textContent=up?'🟢 Online':'🔴 Offline';
+        ps.textContent=up?'Online':'Offline';
         ps.className='pb st '+(up?'online':'offline');
 
         const api=document.getElementById('apiStatus');
-        api.textContent='✅ Reachable'; api.style.color='#57F287';
+        api.textContent='Reachable'; api.style.color='#57F287';
 
         if(d.servers!==undefined) setVal('statServers',fmt(d.servers));
         if(d.users!==undefined)   setVal('statUsers',  fmt(d.users));
@@ -585,11 +624,11 @@ async function fetchStats() {
             buildBar(up,ms);
         } else buildBar(up,null);
     } catch(e) {
-        setStatus('offline','🔴 Bot API Unreachable');
-        document.getElementById('apiStatus').textContent='❌ Unreachable';
+        setStatus('offline','Unreachable');
+        document.getElementById('apiStatus').textContent='Unreachable';
         document.getElementById('apiStatus').style.color='#ED4245';
         const ps=document.getElementById('profileStatus');
-        ps.textContent='🔴 Offline'; ps.className='pb st offline';
+        ps.textContent='Offline'; ps.className='pb st offline';
         buildBar(false,null);
     }
 }
@@ -600,7 +639,7 @@ function tick() {
     document.getElementById('lastUpdatedFull').textContent=t;
 }
 
-// ── ANIMATIONS — same logic as main page ────────────────────────────────────
+// ANIMATIONS
 let animType = 'snowflake';
 function createSnowflakes() {
     const c=document.getElementById('animWrap'); c.innerHTML='';
@@ -639,14 +678,10 @@ function createBubbles() {
 }
 function toggleAnim() {
     const si=document.querySelector('.snow-ico'), bi=document.querySelector('.bub-ico');
-    if(animType==='snowflake'){
-        animType='bubble'; si.style.display='none'; bi.style.display='block'; createBubbles();
-    } else {
-        animType='snowflake'; si.style.display='block'; bi.style.display='none'; createSnowflakes();
-    }
+    if(animType==='snowflake'){ animType='bubble'; si.style.display='none'; bi.style.display='block'; createBubbles(); }
+    else { animType='snowflake'; si.style.display='block'; bi.style.display='none'; createSnowflakes(); }
 }
 
-// ── THEME ────────────────────────────────────────────────────────────────────
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
     const moon=document.querySelector('.moon-icon'), sun=document.querySelector('.sun-icon');
@@ -654,7 +689,6 @@ function toggleTheme() {
     else { moon.style.display='block'; sun.style.display='none'; }
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
 async function init() {
     createSnowflakes();
     await fetchStats();
