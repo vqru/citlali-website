@@ -480,7 +480,7 @@ async function fetchStats() {
         buildBar();
 
     } catch(e) {
-        // API unreachable = bot is offline, log it
+        // API unreachable = bot offline, log it but KEEP last known stats values
         setStatus('offline','🔴 Bot is Offline');
         document.getElementById('apiStatus').textContent='❌ Unreachable';
         document.getElementById('apiStatus').style.color='#ED4245';
