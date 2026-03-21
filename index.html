@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citlali - Your adorable genshin companion!</title>
-    <meta name="title" content="Citlali - Your adorable genshin companion!">
-    <meta name="description" content="Citlali is the cutest Discord bot with 20+ NSFW commands, AI chatbot, lewd features, and Genshin Impact themes. Join thousands of servers using Citlali for adult content and fun interactions.">
-    <meta name="keywords" content="discord bot, nsfw discord bot, lewd bot, genshin bot, citlali bot, discord ai bot, adult discord bot, nsfw commands, anime bot, hentai bot, discord chatbot, lewd discord, 18+ bot, discord nsfw, booru bot">
-    <meta name="author" content="Citlali Bot Team">
+    <meta name="description" content="Citlali is the cutest Discord bot with 20+ NSFW commands, AI chatbot, lewd features, and Genshin Impact themes.">
+    <meta name="keywords" content="discord bot, nsfw discord bot, lewd bot, genshin bot, citlali bot, discord ai bot">
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/emojis/1440775765531820112.webp?size=40&quality=lossless">
     <link rel="canonical" href="https://citlali.vercel.app/">
@@ -26,17 +24,12 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background-color: #1B1A21;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            color: #E2E1EB;
-            min-height: 100vh;
-            transition: background-color 0.3s ease;
-            position: relative;
+            color: #E2E1EB; min-height: 100vh; transition: background-color 0.3s ease; position: relative;
         }
         body.light-mode { background-color: #f5f5f5; color: #1B1A21; }
-
         .background-image-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://github.com/vqru/bahh-gifs/blob/main/content.png?raw=true');
@@ -48,297 +41,169 @@
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0;
-            background-color: rgba(27, 26, 33, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 12px 40px;
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid rgba(226, 225, 235, 0.1);
-            z-index: 1000;
+            background-color: rgba(27,26,33,0.8); backdrop-filter: blur(10px);
+            padding: 12px 40px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid rgba(226,225,235,0.1); z-index: 1000;
         }
         body.light-mode nav { background-color: rgba(255,255,255,0.8); }
         .nav-left { display: flex; align-items: center; gap: 40px; }
-        .logo {
-            display: flex; align-items: center; gap: 12px;
-            font-size: 20px; font-weight: 600; color: #E2E1EB; text-decoration: none;
-        }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; color: #E2E1EB; text-decoration: none; }
         body.light-mode .logo { color: #1B1A21; }
         .logo img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.4); }
         .nav-links { display: flex; align-items: center; gap: 30px; }
-        .nav-links a {
-            color: #E2E1EB; text-decoration: none; font-size: 15px; font-weight: 500;
-            transition: all 0.2s; cursor: pointer; padding: 8px 16px; border-radius: 8px;
-        }
+        .nav-links a { color: #E2E1EB; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.2s; padding: 8px 16px; border-radius: 8px; }
         .nav-links a:hover { background-color: rgba(181,229,119,0.2); color: #B5E577; }
         body.light-mode .nav-links a { color: #5f6368; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
-        .theme-toggle {
-            background: none; border: 1px solid rgba(226,225,235,0.15); cursor: pointer;
-            padding: 8px; display: flex; align-items: center; justify-content: center;
-            border-radius: 8px; transition: all 0.2s;
-        }
+        .theme-toggle { background: none; border: 1px solid rgba(226,225,235,0.15); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; }
         .theme-toggle:hover { background-color: rgba(181,229,119,0.2); }
         .theme-toggle:hover svg { color: #B5E577; }
         .theme-toggle svg { width: 20px; height: 20px; color: #E2E1EB; }
         body.light-mode .theme-toggle svg { color: #5f6368; }
-        .animation-toggle {
-            background: none; border: 1px solid rgba(226,225,235,0.15); cursor: pointer;
-            padding: 8px; display: flex; align-items: center; justify-content: center;
-            border-radius: 8px; transition: all 0.2s; font-size: 20px;
-        }
+        .animation-toggle { background: none; border: 1px solid rgba(226,225,235,0.15); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; font-size: 20px; }
         .animation-toggle:hover { background-color: rgba(181,229,119,0.2); }
 
         /* ANIMATIONS */
-        .animation-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 999; overflow: hidden;
-        }
-        .snowflake {
-            position: absolute; top: -10px; color: rgba(255,255,255,0.8);
-            font-size: 20px; animation: fall linear infinite; opacity: 0;
-        }
+        .animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
+        .snowflake { position: absolute; top: -10px; color: rgba(255,255,255,0.8); font-size: 20px; animation: fall linear infinite; opacity: 0; }
         body.light-mode .snowflake { color: rgba(200,200,220,0.7); }
         @keyframes fall {
-            0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
-            10%  { opacity: 1; }
-            90%  { opacity: 1; }
+            0% { opacity: 0; transform: translateY(0) rotate(0deg); } 10% { opacity: 1; } 90% { opacity: 1; }
             100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
         }
-        .bubble {
-            position: absolute; bottom: -10px;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(200,220,255,0.4));
-            border-radius: 50%; animation: rise linear infinite; opacity: 0;
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
-        }
+        .bubble { position: absolute; bottom: -10px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(200,220,255,0.4)); border-radius: 50%; animation: rise linear infinite; opacity: 0; box-shadow: inset 0 0 10px rgba(255,255,255,0.5); }
         @keyframes rise {
-            0%   { opacity: 0; transform: translateY(0) translateX(0); }
-            10%  { opacity: 0.8; }
-            90%  { opacity: 0.8; }
+            0% { opacity: 0; transform: translateY(0) translateX(0); } 10% { opacity: 0.8; } 90% { opacity: 0.8; }
             100% { opacity: 0; transform: translateY(-100vh) translateX(20px); }
         }
-        .bubble::before {
-            content: ''; position: absolute; top: 10%; left: 15%;
-            width: 30%; height: 30%; background: rgba(255,255,255,0.6); border-radius: 50%;
-        }
+        .bubble::before { content: ''; position: absolute; top: 10%; left: 15%; width: 30%; height: 30%; background: rgba(255,255,255,0.6); border-radius: 50%; }
 
         /* HERO */
-        .hero {
-            padding: 120px 40px 80px;
-            max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 80px; align-items: center;
-            position: relative; z-index: 1;
-        }
+        .hero { padding: 120px 40px 80px; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
         .hero-left { display: flex; flex-direction: column; gap: 32px; }
-        .badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(226,225,235,0.05); border: 1px solid rgba(226,225,235,0.1);
-            padding: 8px 16px; border-radius: 24px; width: fit-content;
-            font-size: 14px; color: #E2E1EB;
-        }
+        .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(226,225,235,0.05); border: 1px solid rgba(226,225,235,0.1); padding: 8px 16px; border-radius: 24px; width: fit-content; font-size: 14px; color: #E2E1EB; }
         .hero h1 { font-size: 64px; font-weight: 700; line-height: 1.1; color: #E2E1EB; margin: 0; }
-        .hero p  { font-size: 18px; line-height: 1.6; color: #A8A7B8; margin: 0; }
-        .add-btn {
-            background: #FBBDC3; border: none; padding: 16px 32px; border-radius: 12px;
-            color: #1B1A21; font-weight: 600; font-size: 16px; cursor: pointer;
-            display: flex; align-items: center; gap: 12px; transition: opacity 0.2s;
-            width: fit-content; margin-top: 16px; text-decoration: none;
-        }
+        .hero p { font-size: 18px; line-height: 1.6; color: #A8A7B8; margin: 0; }
+        .add-btn { background: #FBBDC3; border: none; padding: 16px 32px; border-radius: 12px; color: #1B1A21; font-weight: 600; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: opacity 0.2s; width: fit-content; margin-top: 16px; text-decoration: none; }
         .add-btn:hover { opacity: 0.9; }
         .add-btn svg { width: 20px; height: 20px; }
-        .hero-right {
-            position: relative; display: flex;
-            justify-content: center; align-items: center; min-height: 500px;
-        }
-        .character-circle {
-            width: 450px; height: 450px; border-radius: 50%; overflow: hidden;
-            background: linear-gradient(135deg, #FFE4E8, #FFD4D9);
-        }
+        .hero-right { position: relative; display: flex; justify-content: center; align-items: center; min-height: 500px; }
+        .character-circle { width: 450px; height: 450px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #FFE4E8, #FFD4D9); }
         .character-circle img { width: 100%; height: 100%; object-fit: cover; }
         .deco { position: absolute; opacity: 0.6; }
-        .star-1  { top: 40px;    left: 120px; font-size: 48px; }
-        .star-2  { top: 60px;    right: 80px; font-size: 40px; }
-        .heart-1 { top: 140px;   left: 20px;  font-size: 56px; opacity: 0.4; }
-        .heart-2 { bottom: 140px;right: 20px; font-size: 48px; opacity: 0.4; }
+        .star-1  { top: 40px; left: 120px; font-size: 48px; }
+        .star-2  { top: 60px; right: 80px; font-size: 40px; }
+        .heart-1 { top: 140px; left: 20px; font-size: 56px; opacity: 0.4; }
+        .heart-2 { bottom: 140px; right: 20px; font-size: 48px; opacity: 0.4; }
         .music   { bottom: 80px; left: 120px; font-size: 40px; opacity: 0.5; }
-        .code    { bottom: 120px;right: 60px; font-size: 32px; color: #4A5057; opacity: 0.7; }
+        .code    { bottom: 120px; right: 60px; font-size: 32px; color: #4A5057; opacity: 0.7; }
 
-        /* ── FEATURES ── */
-        .features-wrapper {
-            max-width: 1060px;
+        /* ── FEATURE SECTIONS ── */
+        .features-section {
+            padding: 16px 40px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px 80px;
-            position: relative; z-index: 1;
-            display: flex; flex-direction: column; gap: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        .feature-block {
+        .feature-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 32px;
+            gap: 60px;
             align-items: center;
             background: rgba(255,255,255,0.025);
             border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 18px;
-            padding: 28px 30px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
+            padding: 32px 36px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* flip = mockup on right */
-        .feature-block.flip .mockup-col { order: 2; }
-        .feature-block.flip .text-col   { order: 1; }
+        /* glow colors per block */
+        .feature-content.glow-lewd        { border-color: rgba(255,100,130,0.1); }
+        .feature-content.glow-lewd:hover  { border-color: rgba(255,100,130,0.3); box-shadow: 0 8px 40px rgba(255,100,130,0.09); }
+        .feature-content.glow-personality        { border-color: rgba(181,181,255,0.1); }
+        .feature-content.glow-personality:hover  { border-color: rgba(181,181,255,0.3); box-shadow: 0 8px 40px rgba(181,181,255,0.09); }
+        .feature-content.glow-gacha        { border-color: rgba(255,210,100,0.1); }
+        .feature-content.glow-gacha:hover  { border-color: rgba(255,210,100,0.3); box-shadow: 0 8px 40px rgba(255,210,100,0.09); }
+        .feature-content.glow-date        { border-color: rgba(255,160,185,0.1); }
+        .feature-content.glow-date:hover  { border-color: rgba(255,160,185,0.3); box-shadow: 0 8px 40px rgba(255,160,185,0.09); }
 
-        /* text */
-        .text-col { display: flex; flex-direction: column; gap: 12px; }
+        /* Normal: mockup LEFT, text RIGHT */
+        .feature-content .feature-left  { display: flex; justify-content: center; }
+        .feature-content .feature-right { display: flex; flex-direction: column; gap: 16px; }
 
+        /* Flipped: text LEFT, mockup RIGHT — just swap column order */
+        .feature-content.flipped .feature-left  { order: 2; }
+        .feature-content.flipped .feature-right { order: 1; }
+
+        /* Discord mockup */
+        .discord-mockup {
+            background: rgba(226,225,235,0.03);
+            border: 1px solid rgba(226,225,235,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 420px;
+            width: 100%;
+        }
+        .bot-info { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .bot-avatar { width: 34px; height: 34px; border-radius: 50%; box-shadow: 0 0 10px rgba(251,189,195,0.4); }
+        .bot-name { color: #E2E1EB; font-weight: 600; font-size: 14px; }
+        .app-badge { background: #5865F2; color: white; font-size: 10px; font-weight: 700; padding: 2px 5px; border-radius: 3px; }
+        .mockup-img-slot {
+            width: 100%; border-radius: 10px; overflow: hidden;
+            background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            min-height: 150px; color: #4a4860; font-size: 12px;
+        }
+        .mockup-img-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
+
+        /* Text side */
         .feat-label {
             display: inline-flex; align-items: center; gap: 6px;
             font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-            text-transform: uppercase; padding: 4px 10px;
-            border-radius: 20px; width: fit-content;
+            text-transform: uppercase; padding: 4px 10px; border-radius: 20px; width: fit-content;
         }
         .feat-title { font-size: 20px; font-weight: 700; color: #E2E1EB; line-height: 1.3; }
-        .feat-desc  { font-size: 13.5px; line-height: 1.65; color: #A8A7B8; }
+        .feat-desc  { font-size: 14px; line-height: 1.65; color: #A8A7B8; }
+        .feat-tags  { display: flex; flex-wrap: wrap; gap: 6px; }
+        .feat-tag   { font-size: 11.5px; font-weight: 500; padding: 3px 9px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); }
 
-        .feat-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-        .feat-tag {
-            font-size: 11.5px; font-weight: 500; padding: 3px 9px;
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
-            color: #C0BFD0; background: rgba(255,255,255,0.04);
-        }
-
-        /* mockup */
-        .mockup-col { display: flex; justify-content: center; align-items: center; }
-
-        .discord-mockup {
-            background: #1e1f22;
-            border-radius: 12px;
-            padding: 16px;
-            width: 100%; max-width: 340px;
-            border: 1px solid rgba(255,255,255,0.07);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        body.light-mode .discord-mockup { background: #f2f3f5; }
-
-        .bot-info { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
-        .bot-avatar { width: 30px; height: 30px; border-radius: 50%; box-shadow: 0 0 8px rgba(251,189,195,0.4); }
-        .bot-name   { font-weight: 600; font-size: 13px; color: #F5DFE1; }
-        .app-badge  { background: #5865F2; color: white; font-size: 9px; font-weight: 700; padding: 2px 5px; border-radius: 3px; }
-
-        .mockup-img-slot {
-            width: 100%; border-radius: 8px; overflow: hidden;
-            background: rgba(255,255,255,0.04);
-            border: 1px dashed rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center;
-            min-height: 140px; color: #4a4860; font-size: 12px;
-        }
-        .mockup-img-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
-
-        /* BLOCK THEMES */
-        .theme-lewd        { border-color: rgba(255,100,130,0.1); }
-        .theme-lewd:hover  { border-color: rgba(255,100,130,0.28); box-shadow: 0 6px 32px rgba(255,100,130,0.07); }
-        .theme-lewd .feat-label { background: rgba(255,100,130,0.1); color: #FF8FAB; }
-
-        .theme-personality       { border-color: rgba(181,181,255,0.1); }
-        .theme-personality:hover { border-color: rgba(181,181,255,0.28); box-shadow: 0 6px 32px rgba(181,181,255,0.07); }
-        .theme-personality .feat-label { background: rgba(181,181,255,0.1); color: #B5B5FF; }
-
-        .theme-gacha       { border-color: rgba(255,210,100,0.1); }
-        .theme-gacha:hover { border-color: rgba(255,210,100,0.28); box-shadow: 0 6px 32px rgba(255,210,100,0.07); }
-        .theme-gacha .feat-label { background: rgba(255,210,100,0.1); color: #FFD264; }
-
-        .theme-date       { border-color: rgba(255,160,185,0.1); }
-        .theme-date:hover { border-color: rgba(255,160,185,0.28); box-shadow: 0 6px 32px rgba(255,160,185,0.07); }
-        .theme-date .feat-label { background: rgba(255,160,185,0.1); color: #FFB3C8; }
+        /* label colors per block */
+        .label-lewd        { background: rgba(255,100,130,0.1); color: #FF8FAB; }
+        .label-personality { background: rgba(181,181,255,0.1); color: #B5B5FF; }
+        .label-gacha       { background: rgba(255,210,100,0.1); color: #FFD264; }
+        .label-date        { background: rgba(255,160,185,0.1); color: #FFB3C8; }
 
         /* GALLERY */
-        .gallery-section {
-            padding: 20px 40px 80px;
-            max-width: 1060px; margin: 0 auto;
-            position: relative; z-index: 1;
-        }
-        .gallery-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 28px; padding-left: 54px;
-        }
+        .gallery-section { padding: 20px 40px 60px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .gallery-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; padding-left: 60px; }
         .gallery-title { font-size: 26px; font-weight: 700; color: #E2E1EB; margin: 0; }
-        .content-warning {
-            display: flex; align-items: center; gap: 6px;
-            background: rgba(251,189,195,0.08); border: 1px solid rgba(251,189,195,0.2);
-            padding: 5px 10px; border-radius: 8px; font-size: 11px; color: #A8A7B8; white-space: nowrap;
-        }
+        .content-warning { display: flex; align-items: center; gap: 6px; background: rgba(251,189,195,0.08); border: 1px solid rgba(251,189,195,0.2); padding: 5px 10px; border-radius: 8px; font-size: 11px; color: #A8A7B8; white-space: nowrap; }
         .content-warning .warn-icon { color: #FBBDC3; }
-        .gallery-container {
-            position: relative; display: flex; align-items: center;
-            gap: 14px; padding-left: 54px;
-        }
-        .gallery-scroll {
-            display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth;
-            padding: 12px 0; scrollbar-width: none; -ms-overflow-style: none;
-        }
+        .gallery-container { position: relative; display: flex; align-items: center; gap: 14px; padding-left: 60px; }
+        .gallery-scroll { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 12px 0; scrollbar-width: none; -ms-overflow-style: none; }
         .gallery-scroll::-webkit-scrollbar { display: none; }
-        .gallery-card {
-            position: relative; min-width: 260px; height: 380px; border-radius: 12px;
-            overflow: hidden; cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            background: rgba(226,225,235,0.05); border: 1px solid rgba(226,225,235,0.1);
-        }
-        .gallery-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 16px 36px rgba(251,189,195,0.18);
-            border-color: rgba(251,189,195,0.3);
-        }
-        .gallery-card img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: blur(20px); transition: filter 0.4s ease, transform 0.3s ease;
-        }
+        .gallery-card { position: relative; min-width: 260px; height: 380px; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; background: rgba(226,225,235,0.05); border: 1px solid rgba(226,225,235,0.1); }
+        .gallery-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 16px 36px rgba(251,189,195,0.18); border-color: rgba(251,189,195,0.3); }
+        .gallery-card img { width: 100%; height: 100%; object-fit: cover; filter: blur(20px); transition: filter 0.4s ease, transform 0.3s ease; }
         .gallery-card:hover img { transform: scale(1.04); }
         .gallery-card.revealed img { filter: blur(0); }
-        .spoiler-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(27,26,33,0.8);
-            display: flex; align-items: center; justify-content: center;
-            color: #E2E1EB; font-size: 16px; font-weight: 600;
-            transition: opacity 0.3s ease; pointer-events: none;
-        }
+        .spoiler-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(27,26,33,0.8); display: flex; align-items: center; justify-content: center; color: #E2E1EB; font-size: 16px; font-weight: 600; transition: opacity 0.3s ease; pointer-events: none; }
         .gallery-card.revealed .spoiler-overlay { opacity: 0; }
-        .gallery-arrow {
-            background: rgba(226,225,235,0.08); border: 1px solid rgba(226,225,235,0.15);
-            border-radius: 50%; width: 40px; height: 40px; min-width: 40px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.3s; color: #E2E1EB; flex-shrink: 0;
-        }
+        .gallery-arrow { background: rgba(226,225,235,0.08); border: 1px solid rgba(226,225,235,0.15); border-radius: 50%; width: 40px; height: 40px; min-width: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; color: #E2E1EB; flex-shrink: 0; }
         .gallery-arrow:hover { background: rgba(251,189,195,0.2); border-color: rgba(251,189,195,0.4); transform: scale(1.1); }
 
         /* MUSIC */
-        .music-fab {
-            position: fixed; bottom: 30px; right: 30px; z-index: 9998;
-            display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
-        }
-        .music-toggle-btn {
-            width: 70px; height: 70px; min-width: 70px; min-height: 70px;
-            border-radius: 50%; background: transparent; border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 18px rgba(127,96,189,0.35);
-            transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0;
-        }
+        .music-fab { position: fixed; bottom: 30px; right: 30px; z-index: 9998; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+        .music-toggle-btn { width: 70px; height: 70px; min-width: 70px; min-height: 70px; border-radius: 50%; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(127,96,189,0.35); transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
         .music-toggle-btn:hover { transform: scale(1.1); box-shadow: 0 6px 26px rgba(127,96,189,0.65); }
         .music-toggle-btn.playing { animation: pulse-purple 2s infinite; }
-        @keyframes pulse-purple {
-            0%,100% { box-shadow: 0 4px 18px rgba(127,96,189,0.45); }
-            50%      { box-shadow: 0 4px 30px rgba(127,96,189,0.8); }
-        }
+        @keyframes pulse-purple { 0%,100% { box-shadow: 0 4px 18px rgba(127,96,189,0.45); } 50% { box-shadow: 0 4px 30px rgba(127,96,189,0.8); } }
         .music-toggle-btn img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
-        .music-player-card {
-            background: rgba(20,18,26,0.6); backdrop-filter: blur(20px);
-            border: 1px solid rgba(251,189,195,0.18); border-radius: 18px; width: 320px;
-            overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            display: none; flex-direction: column; animation: slideUp 0.25s ease;
-        }
+        .music-player-card { background: rgba(20,18,26,0.6); backdrop-filter: blur(20px); border: 1px solid rgba(251,189,195,0.18); border-radius: 18px; width: 320px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4); display: none; flex-direction: column; animation: slideUp 0.25s ease; }
         .music-player-card.open { display: flex; }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px) scale(0.94); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
         .player-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; }
         .now-playing-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: #FBBDC3; text-transform: uppercase; }
         .player-close { background: none; border: none; color: #A8A7B8; cursor: pointer; font-size: 15px; transition: color 0.2s; }
@@ -346,27 +211,18 @@
         .embed-wrapper { padding: 0 10px 8px; }
         .embed-wrapper iframe { border-radius: 10px; display: block; width: 100% !important; }
         .track-nav { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 8px 12px 12px; }
-        .track-arrow {
-            background: rgba(251,189,195,0.1); border: 1px solid rgba(251,189,195,0.25);
-            color: #FBBDC3; border-radius: 8px; width: 32px; height: 32px; font-size: 16px;
-            cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center;
-        }
+        .track-arrow { background: rgba(251,189,195,0.1); border: 1px solid rgba(251,189,195,0.25); color: #FBBDC3; border-radius: 8px; width: 32px; height: 32px; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
         .track-arrow:hover { background: rgba(251,189,195,0.25); }
         .track-counter { font-size: 12px; color: #A8A7B8; min-width: 40px; text-align: center; }
 
         /* FOOTER */
         footer { position: relative; z-index: 1; padding: 20px 40px 40px; max-width: 1400px; margin: 0 auto; }
-        .footer-content {
-            background: rgba(27,26,33,0.4); backdrop-filter: blur(20px);
-            border: 1px solid rgba(226,225,235,0.15); border-radius: 20px; padding: 40px;
-            display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
-            max-width: 950px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
+        .footer-content { background: rgba(27,26,33,0.4); backdrop-filter: blur(20px); border: 1px solid rgba(226,225,235,0.15); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; max-width: 950px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
         body.light-mode .footer-content { background: rgba(255,255,255,0.4); }
         .footer-left { display: flex; flex-direction: column; gap: 16px; }
-        .footer-gif  { width: 350px; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(127,96,189,0.3); }
+        .footer-gif { width: 350px; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(127,96,189,0.3); }
         .footer-creator { display: flex; align-items: center; gap: 16px; }
-        .footer-pfp  { width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 15px rgba(255,232,236,0.4); }
+        .footer-pfp { width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 15px rgba(255,232,236,0.4); }
         .footer-username { font-size: 20px; font-weight: 600; color: #FFE8EC; }
         .footer-text { font-size: 14px; color: #A8A7B8; margin: 0; }
         .footer-links { display: flex; flex-direction: column; gap: 10px; }
@@ -382,14 +238,14 @@
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
-            .feature-block { grid-template-columns: 1fr; gap: 20px; padding: 22px; }
-            .feature-block.flip .mockup-col,
-            .feature-block.flip .text-col { order: unset; }
+            .feature-content { grid-template-columns: 1fr; gap: 24px; }
+            .feature-content.flipped .feature-left,
+            .feature-content.flipped .feature-right { order: unset; }
             .hero { grid-template-columns: 1fr; gap: 40px; padding: 90px 24px 40px; }
             .hero h1 { font-size: 40px; }
             .character-circle { width: 300px; height: 300px; }
-            .features-wrapper { padding: 0 20px 60px; }
-            .gallery-section  { padding: 0 20px 60px; }
+            .features-section { padding: 30px 20px; }
+            .gallery-section  { padding: 0 20px 40px; }
             .gallery-header   { padding-left: 16px; }
             .gallery-container{ padding-left: 16px; }
             nav { padding: 12px 20px; }
@@ -443,9 +299,7 @@
             <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
             <span class="text-citlali">Citlali</span>
         </a>
-        <div class="nav-links">
-            <a href="commands.html">Commands</a>
-        </div>
+        <div class="nav-links"><a href="commands.html">Commands</a></div>
     </div>
     <div class="nav-right">
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
@@ -493,16 +347,14 @@
     </div>
 </div>
 
-<!-- ── 4 FEATURE BLOCKS ── -->
-<div class="features-wrapper">
-
-    <!-- BLOCK 1: Lewd + Autobooru — mockup LEFT, text RIGHT -->
-    <div class="feature-block theme-lewd">
-        <div class="mockup-col">
+<!-- BLOCK 1: Lewd + Autobooru — mockup LEFT, text RIGHT -->
+<div class="features-section">
+    <div class="feature-content glow-lewd">
+        <div class="feature-left">
             <div class="discord-mockup">
                 <div class="bot-info">
                     <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali" class="bot-avatar">
-                    <span class="bot-name">Citlali</span>
+                    <span class="bot-name text-citlali">Citlali</span>
                     <span class="app-badge">✓ APP</span>
                 </div>
                 <div class="mockup-img-slot">
@@ -510,11 +362,11 @@
                 </div>
             </div>
         </div>
-        <div class="text-col">
-            <span class="feat-label">🔞 NSFW</span>
+        <div class="feature-right">
+            <span class="feat-label label-lewd">🔞 NSFW</span>
             <h3 class="feat-title">淫らな特徴 — Lewd Features</h3>
             <p class="feat-desc">
-                <strong>20+ lewd commands</strong> with access to a curated pool of <strong>20k+ images & videos</strong>. Booru commands pull directly from Gelbooru with tag support across categories.<br><br>
+                <strong>20+ lewd commands</strong> with access to a curated pool of <strong>20k+ images &amp; videos</strong>. Booru commands pull directly from Gelbooru with tag support across categories.<br><br>
                 <strong>Autobooru</strong> auto-posts content on a timer — set your tags, interval (4 min / 10 min / 1 hr), and batch size. AND/OR tag logic lets you get precise results like <em>micro_bikini AND (azur_lane OR genshin_impact)</em>.
             </p>
             <div class="feat-tags">
@@ -527,14 +379,16 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- BLOCK 2: Personality + AI Chat — text LEFT, mockup RIGHT -->
-    <div class="feature-block theme-personality flip">
-        <div class="text-col">
-            <span class="feat-label">🎀 AI CHAT</span>
+<!-- BLOCK 2: Personality + AI — text LEFT, mockup RIGHT -->
+<div class="features-section">
+    <div class="feature-content flipped glow-personality">
+        <div class="feature-right">
+            <span class="feat-label label-personality">🎀 AI CHAT</span>
             <h3 class="feat-title">Personalities That Hit Different</h3>
             <p class="feat-desc">
-                Pick your vibe — <strong>🌸 Warm</strong> (kind & supportive) or <strong>🫧 Citlali</strong> (sarcastic tsundere who secretly cares). Settings are saved <em>per user</em> so everyone gets their own experience.<br><br>
+                Pick your vibe — <strong>🌸 Warm</strong> (kind &amp; supportive) or <strong>🫧 Citlali</strong> (sarcastic tsundere who secretly cares). Settings are saved <em>per user</em> so everyone gets their own experience.<br><br>
                 Control response length (Short / Default / Long), lock her to a specific channel, or let her respond anywhere. She checks permissions before setting up so it's frictionless.
             </p>
             <div class="feat-tags">
@@ -545,11 +399,11 @@
                 <span class="feat-tag">/toggle</span>
             </div>
         </div>
-        <div class="mockup-col">
+        <div class="feature-left">
             <div class="discord-mockup">
                 <div class="bot-info">
                     <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali" class="bot-avatar">
-                    <span class="bot-name">Citlali</span>
+                    <span class="bot-name text-citlali">Citlali</span>
                     <span class="app-badge">✓ APP</span>
                 </div>
                 <div class="mockup-img-slot">
@@ -558,14 +412,16 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- BLOCK 3: Gacha — mockup LEFT, text RIGHT -->
-    <div class="feature-block theme-gacha">
-        <div class="mockup-col">
+<!-- BLOCK 3: Gacha — mockup LEFT, text RIGHT -->
+<div class="features-section">
+    <div class="feature-content glow-gacha">
+        <div class="feature-left">
             <div class="discord-mockup">
                 <div class="bot-info">
                     <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali" class="bot-avatar">
-                    <span class="bot-name">Citlali</span>
+                    <span class="bot-name text-citlali">Citlali</span>
                     <span class="app-badge">✓ APP</span>
                 </div>
                 <div class="mockup-img-slot">
@@ -573,8 +429,8 @@
                 </div>
             </div>
         </div>
-        <div class="text-col">
-            <span class="feat-label">🃏 GACHA</span>
+        <div class="feature-right">
+            <span class="feat-label label-gacha">🃏 GACHA</span>
             <h3 class="feat-title">Card Drop System</h3>
             <p class="feat-desc">
                 Drops spawn in your server — claim them, build a collection of up to 40 cards, trade or gift with others. Wishlist characters to get pinged the moment they appear.<br><br>
@@ -590,11 +446,13 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- BLOCK 4: Date & Bond — text LEFT, mockup RIGHT -->
-    <div class="feature-block theme-date flip">
-        <div class="text-col">
-            <span class="feat-label">💕 DATE & BOND</span>
+<!-- BLOCK 4: Date & Bond — text LEFT, mockup RIGHT -->
+<div class="features-section">
+    <div class="feature-content flipped glow-date">
+        <div class="feature-right">
+            <span class="feat-label label-date">💕 DATE &amp; BOND</span>
             <h3 class="feat-title">Build Relationships With Your Cards</h3>
             <p class="feat-desc">
                 Take cards on interactive dates to raise affection (out of 350). Your choices during the date affect how much you gain. Each card has a 6-hour cooldown and max 3 dates total.<br><br>
@@ -608,11 +466,11 @@
                 <span class="feat-tag">/cbreakup</span>
             </div>
         </div>
-        <div class="mockup-col">
+        <div class="feature-left">
             <div class="discord-mockup">
                 <div class="bot-info">
                     <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali" class="bot-avatar">
-                    <span class="bot-name">Citlali</span>
+                    <span class="bot-name text-citlali">Citlali</span>
                     <span class="app-badge">✓ APP</span>
                 </div>
                 <div class="mockup-img-slot">
@@ -621,7 +479,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- GALLERY -->
@@ -640,30 +497,12 @@
             </svg>
         </button>
         <div class="gallery-scroll" id="galleryScroll">
-            <div class="gallery-card" onclick="toggleBlur(this)">
-                <div class="spoiler-overlay"></div>
-                <img src="https://github.com/vqru/bahh-gifs/blob/main/top%20gg%20img.webp?raw=true" alt="Sample 1" loading="lazy">
-            </div>
-            <div class="gallery-card" onclick="toggleBlur(this)">
-                <div class="spoiler-overlay"></div>
-                <img src="https://images-ext-1.discordapp.net/external/KOAffabvwMCKBzUPYAMw6448qcsuxH3xbDCvn5lrToU/https/img2.gelbooru.com/images/cd/e4/cde45655bfd8c7f081176bd019fdad42.jpg?format=webp&width=555&height=818" alt="Sample 2" loading="lazy">
-            </div>
-            <div class="gallery-card" onclick="toggleBlur(this)" style="min-width:460px;">
-                <div class="spoiler-overlay"></div>
-                <img src="https://github.com/vqru/bahh-gifs/blob/main/website%20img.jpg?raw=true" alt="Sample 3" loading="lazy" style="object-fit:cover;object-position:center;">
-            </div>
-            <div class="gallery-card" onclick="toggleBlur(this)">
-                <div class="spoiler-overlay"></div>
-                <img src="https://github.com/vqru/bahh-gifs/blob/main/webstie%20img%202.webp?raw=true" alt="Sample 4" loading="lazy">
-            </div>
-            <div class="gallery-card" onclick="toggleBlur(this)">
-                <div class="spoiler-overlay"></div>
-                <img src="https://github.com/vqru/bahh-gifs/blob/main/sample_0cf7589a92b6880e5e10e6dd4c559864.jpg?raw=true" alt="Sample 5" loading="lazy">
-            </div>
-            <div class="gallery-card" onclick="toggleBlur(this)">
-                <div class="spoiler-overlay"></div>
-                <img src="https://github.com/vqru/bahh-gifs/blob/main/website%20img%203.png?raw=true" alt="Sample 6" loading="lazy">
-            </div>
+            <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/top%20gg%20img.webp?raw=true" alt="Sample 1" loading="lazy"></div>
+            <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://images-ext-1.discordapp.net/external/KOAffabvwMCKBzUPYAMw6448qcsuxH3xbDCvn5lrToU/https/img2.gelbooru.com/images/cd/e4/cde45655bfd8c7f081176bd019fdad42.jpg?format=webp&width=555&height=818" alt="Sample 2" loading="lazy"></div>
+            <div class="gallery-card" onclick="toggleBlur(this)" style="min-width:460px;"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/website%20img.jpg?raw=true" alt="Sample 3" loading="lazy" style="object-fit:cover;object-position:center;"></div>
+            <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/webstie%20img%202.webp?raw=true" alt="Sample 4" loading="lazy"></div>
+            <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/sample_0cf7589a92b6880e5e10e6dd4c559864.jpg?raw=true" alt="Sample 5" loading="lazy"></div>
+            <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/website%20img%203.png?raw=true" alt="Sample 6" loading="lazy"></div>
         </div>
         <button class="gallery-arrow" onclick="scrollGallery(1)" aria-label="Scroll right">
             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -693,7 +532,6 @@
 
 <script>
     let animationType = 'snowflake';
-
     function createSnowflakes() {
         const c = document.getElementById('animationContainer');
         for (let i = 0; i < 9; i++) {
@@ -705,7 +543,6 @@
             c.appendChild(s);
         }
     }
-
     function createBubbles() {
         const c = document.getElementById('animationContainer');
         for (let cl = 0; cl < 3; cl++) {
@@ -728,35 +565,23 @@
             c.appendChild(b);
         }
     }
-
     function clearAnimations() { document.getElementById('animationContainer').innerHTML = ''; }
-
     function toggleAnimation() {
         const si = document.querySelector('.snowflake-icon'), bi = document.querySelector('.bubble-icon');
         clearAnimations();
-        if (animationType === 'snowflake') {
-            animationType = 'bubble'; si.style.display = 'none'; bi.style.display = 'block'; createBubbles();
-        } else {
-            animationType = 'snowflake'; si.style.display = 'block'; bi.style.display = 'none'; createSnowflakes();
-        }
+        if (animationType === 'snowflake') { animationType = 'bubble'; si.style.display = 'none'; bi.style.display = 'block'; createBubbles(); }
+        else { animationType = 'snowflake'; si.style.display = 'block'; bi.style.display = 'none'; createSnowflakes(); }
     }
-
     function toggleTheme() {
         document.body.classList.toggle('light-mode');
         const m = document.querySelector('.moon-icon'), s = document.querySelector('.sun-icon');
         if (document.body.classList.contains('light-mode')) { m.style.display='none'; s.style.display='block'; }
         else { m.style.display='block'; s.style.display='none'; }
     }
-
     function toggleBlur(card) { card.classList.toggle('revealed'); }
-
-    function scrollGallery(dir) {
-        document.getElementById('galleryScroll').scrollBy({ left: dir * 300, behavior: 'smooth' });
-    }
-
+    function scrollGallery(dir) { document.getElementById('galleryScroll').scrollBy({ left: dir * 300, behavior: 'smooth' }); }
     const tracks = ['3gELBwePnsojRZEWNESKyv','4EtduIodG7VPbIlXrxPR9N','3nkZ0ltcuY5xqc7u0FDDrU','6O6NTd7NTXoLggmntaa5g9'];
     let currentTrack = 0;
-
     function loadTrack(i) {
         document.getElementById('spotifyEmbed').src = 'https://open.spotify.com/embed/track/' + tracks[i] + '?utm_source=generator';
         document.getElementById('trackCounter').textContent = (i+1) + ' / ' + tracks.length;
@@ -768,7 +593,6 @@
         card.classList.toggle('open');
         btn.classList.toggle('playing', card.classList.contains('open'));
     }
-
     window.addEventListener('DOMContentLoaded', () => { createSnowflakes(); });
 </script>
 </body>
