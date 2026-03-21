@@ -317,110 +317,106 @@
 </footer>
 
 <script>
-// UPTIME BAR - simple event log approach
-// Every 60s we get API status. We log timestamped events.
-// Then we bucket them into 1-hour slots and render green/red/grey.
-// API unreachable = don't log anything.
-
-const SLOT_MS = 60 * 60 * 1000; // 1 hour per bar
-const MAX_SLOTS = 24;
+// UPTIME BAR - variable width timeline
+// Each block = one continuous online/offline period, width = duration
+const WINDOW_MS = 24 * 60 * 60 * 1000;
 
 function loadLog() {
-    try { return JSON.parse(localStorage.getItem('citlali_log') || '[]'); } catch { return []; }
+    try { return JSON.parse(localStorage.getItem('citlali_log3') || '[]'); } catch { return []; }
 }
 function saveLog(log) {
-    try { localStorage.setItem('citlali_log', JSON.stringify(log)); } catch {}
+    try { localStorage.setItem('citlali_log3', JSON.stringify(log)); } catch {}
 }
 function logEvent(isOnline) {
     const log = loadLog();
+    const last = log[log.length - 1];
+    if (last && last.online === isOnline) return; // no change, skip
     log.push({ t: Date.now(), online: isOnline });
-    // Keep last 7 days worth of entries max
-    const cutoff = Date.now() - 7 * 24 * SLOT_MS;
-    const trimmed = log.filter(e => e.t > cutoff);
-    saveLog(trimmed);
+    const cutoff = Date.now() - 48 * 60 * 60 * 1000;
+    saveLog(log.filter(e => e.t > cutoff));
 }
 
 function buildBar() {
     const bar = document.getElementById('uptimeBar');
     bar.innerHTML = '';
     const log = loadLog();
+    const now = Date.now();
+    const windowStart = now - WINDOW_MS;
+
     if (!log.length) {
-        // No data at all — render all grey
-        for (let i = 0; i < MAX_SLOTS; i++) {
-            const seg = document.createElement('div');
-            seg.className = 'seg unk';
-            bar.appendChild(seg);
-        }
+        const seg = document.createElement('div');
+        seg.className = 'seg unk'; seg.style.flex = '1';
+        bar.appendChild(seg);
         document.getElementById('uptimePct').textContent = '—';
-        document.getElementById('uptimeLeft').textContent = 'Now';
-        document.getElementById('uptimeRight').textContent = '24h ago';
+        document.getElementById('uptimeLeft').textContent = new Date(windowStart).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        document.getElementById('uptimeRight').textContent = 'Now';
         return;
     }
 
-    // Build 24 hourly slots, slot 0 = current hour, slot 23 = 24h ago
-    const now = Date.now();
-    const currentHourStart = now - (now % SLOT_MS);
-    const slots = [];
+    // What was the state at windowStart?
+    const before = log.filter(e => e.t < windowStart);
+    const stateAtWindowStart = before.length ? before[before.length-1].online : null;
 
-    for (let i = 0; i < MAX_SLOTS; i++) {
-        const slotStart = currentHourStart - i * SLOT_MS;
-        const slotEnd   = slotStart + SLOT_MS;
+    // Build timeline points within window
+    const points = [];
+    if (stateAtWindowStart !== null) points.push({ t: windowStart, online: stateAtWindowStart });
+    log.filter(e => e.t >= windowStart).forEach(e => points.push(e));
+    if (points.length) points.push({ t: now, online: points[points.length-1].online });
 
-        // Find all log events within this slot
-        const events = log.filter(e => e.t >= slotStart && e.t < slotEnd);
-
-        let state;
-        if (!events.length) {
-            state = null; // no data for this slot
-        } else {
-            // For current slot (i===0): use latest event status (live)
-            // For past slots: if ANY offline event → red
-            if (i === 0) {
-                state = events[events.length - 1].online;
-            } else {
-                state = events.some(e => !e.online) ? false : true;
-            }
-        }
-
-        slots.push({ slotStart, slotEnd, state });
+    if (points.length < 2) {
+        const seg = document.createElement('div');
+        seg.className = 'seg unk'; seg.style.flex = '1';
+        bar.appendChild(seg);
+        document.getElementById('uptimePct').textContent = '—';
+        document.getElementById('uptimeLeft').textContent = new Date(windowStart).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        document.getElementById('uptimeRight').textContent = 'Now';
+        return;
     }
 
-    // Pct
-    const known = slots.filter(s => s.state !== null);
-    const upCount = known.filter(s => s.state === true).length;
-    const pct = known.length ? ((upCount / known.length) * 100).toFixed(2) : '—';
+    // Segments
+    const segments = [];
+    for (let i = 0; i < points.length - 1; i++) {
+        const dur = points[i+1].t - points[i].t;
+        if (dur <= 0) continue;
+        segments.push({ online: points[i].online, dur, start: points[i].t, end: points[i+1].t });
+    }
+
+    // Uptime %
+    const totalKnown = segments.filter(s => s.online !== null).reduce((a,s) => a+s.dur, 0);
+    const totalUp    = segments.filter(s => s.online === true).reduce((a,s) => a+s.dur, 0);
+    const pct = totalKnown ? ((totalUp/totalKnown)*100).toFixed(2) : null;
     const pctEl = document.getElementById('uptimePct');
-    pctEl.textContent = pct === '—' ? '—' : pct + '%';
-    if (pct !== '—') pctEl.style.color = parseFloat(pct) > 95 ? '#57F287' : parseFloat(pct) > 80 ? '#FFD264' : '#ED4245';
+    pctEl.textContent = pct ? pct+'%' : '—';
+    if (pct) pctEl.style.color = parseFloat(pct)>95 ? '#57F287' : parseFloat(pct)>80 ? '#FFD264' : '#ED4245';
 
-    // Render: slot 0 = leftmost = Now
-    slots.forEach((slot, i) => {
-        const seg = document.createElement('div');
-        seg.className = 'seg';
-        const isCur = i === 0;
-        if      (slot.state === true)  seg.classList.add(isCur ? 'cur-up'   : 'up');
-        else if (slot.state === false) seg.classList.add(isCur ? 'cur-down' : 'down');
-        else                           seg.classList.add('unk');
+    // Render left=oldest, right=now, width proportional to duration
+    segments.forEach((seg, i) => {
+        const el = document.createElement('div');
+        el.className = 'seg';
+        const isLast = i === segments.length - 1;
+        if      (seg.online === true)  el.classList.add(isLast ? 'cur-up'   : 'up');
+        else if (seg.online === false) el.classList.add(isLast ? 'cur-down' : 'down');
+        else                           el.classList.add('unk');
 
-        const slotTime = new Date(slot.slotStart);
-        const slotTimeEnd = new Date(slot.slotStart + SLOT_MS);
-        const dateStr = slotTime.toLocaleDateString([], { month:'short', day:'numeric' });
-        const timeStr = slotTime.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-        const timeStrEnd = slotTimeEnd.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-        const stateStr = slot.state === true ? 'Online' : slot.state === false ? 'Offline' : 'No data';
+        el.style.flex = String(seg.dur);
+        el.style.minWidth = '6px';
+        el.style.borderRadius = '4px';
+
+        const mins = Math.round(seg.dur / 60000);
+        const hrs  = Math.floor(mins/60), rem = mins%60;
+        const durStr   = hrs ? hrs+'h '+rem+'m' : rem+'m';
+        const startStr = new Date(seg.start).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        const endStr   = new Date(seg.end).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        const label    = seg.online === true ? 'Online' : seg.online === false ? 'Offline' : 'No data';
         const tip = document.createElement('div');
         tip.className = 'seg-tip';
-        tip.textContent = stateStr + ' · ' + dateStr + ' ' + timeStr + '–' + timeStrEnd;
-        seg.appendChild(tip);
-        bar.appendChild(seg);
+        tip.textContent = label + ' ' + durStr + ' · ' + startStr + '–' + endStr;
+        el.appendChild(tip);
+        bar.appendChild(el);
     });
 
-    // Footer labels
-    document.getElementById('uptimeLeft').textContent = 'Now';
-    const oldestTime = new Date(slots[slots.length-1].slotStart);
-    document.getElementById('uptimeRight').textContent =
-        oldestTime.toLocaleDateString([], { month:'short', day:'numeric' }) + ' ' +
-        oldestTime.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+    document.getElementById('uptimeLeft').textContent  = new Date(windowStart).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('uptimeRight').textContent = 'Now';
 }
 
 // API
@@ -456,17 +452,13 @@ async function fetchStats() {
         const res=await fetch(BOT_API+'/api/stats',{signal:AbortSignal.timeout(8000)});
         if(!res.ok) throw new Error(res.status);
         const d=await res.json();
-
         const up=['online','ok','OK'].includes(d.status);
-        setStatus(up?'online':'offline', up ? '🟢 Bot is Online' : '🔴 Bot is Offline');
-
+        setStatus(up?'online':'offline', up?'🟢 Bot is Online':'🔴 Bot is Offline');
         const ps=document.getElementById('profileStatus');
         ps.textContent=up?'Online':'Offline';
         ps.className='pb st '+(up?'online':'offline');
-
         document.getElementById('apiStatus').textContent='✅ Reachable';
         document.getElementById('apiStatus').style.color='#57F287';
-
         if(d.servers!==undefined) setVal('statServers',fmt(d.servers));
         if(d.users!==undefined)   setVal('statUsers',  fmt(d.users));
         if(d.uptime!==undefined){
@@ -474,13 +466,9 @@ async function fetchStats() {
             setVal('statUptime',fmtUp(ms));
             setVal('uptimeRaw',fmtUpRaw(ms),false);
         }
-
-        // Only log when API actually responds
         logEvent(up);
         buildBar();
-
     } catch(e) {
-        // API unreachable = bot offline, log it but KEEP last known stats values
         setStatus('offline','🔴 Bot is Offline');
         document.getElementById('apiStatus').textContent='❌ Unreachable';
         document.getElementById('apiStatus').style.color='#ED4245';
@@ -497,7 +485,6 @@ function tick() {
     document.getElementById('lastUpdatedFull').textContent=t;
 }
 
-// ANIMATIONS
 let animType='snowflake';
 function createSnowflakes() {
     const c=document.getElementById('animWrap'); c.innerHTML='';
@@ -548,7 +535,7 @@ function toggleTheme() {
 
 async function init() {
     createSnowflakes();
-    buildBar(); // draw immediately from localStorage
+    buildBar();
     await fetchStats();
     tick();
     setInterval(async()=>{ await fetchStats(); tick(); }, 60000);
