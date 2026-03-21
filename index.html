@@ -128,7 +128,7 @@
             right: 0;
             background-color: rgba(27, 26, 33, 0.8);
             backdrop-filter: blur(10px);
-            padding: 60px 40px;
+            padding: 50px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -424,7 +424,7 @@
 
         /* Features Section */
         .features-section {
-            padding: 60px 40px;
+            padding: 50px 40px;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
@@ -443,13 +443,6 @@
             justify-content: center;
         }
 
-        /* Flipped layout: text col on left, mockup on right */
-        .feature-content.flipped {
-            direction: rtl;
-        }
-        .feature-content.flipped > * {
-            direction: ltr;
-        }
 
         .discord-mockup {
             background: rgba(226, 225, 235, 0.03);
@@ -965,8 +958,8 @@
                 grid-template-columns: 1fr;
                 gap: 50px;
             }
-            .feature-left { order: 1; }
-            .feature-right { order: 0; }
+            .feature-left { order: unset; }
+            .feature-right { order: unset; }
             .footer-content {
                 grid-template-columns: 1fr;
                 padding: 30px;
@@ -1255,7 +1248,7 @@
 
     <!-- BLOCK 2: Personality + AI Chat — text LEFT, mockup RIGHT -->
     <div class="features-section">
-        <div class="feature-content flipped">
+        <div class="feature-content">
             <div class="feature-right">
                 <span class="feat-label label-personality">🎀 AI CHAT</span>
                 <h2 style="font-size: 32px;"><span class="text-personalities">Personalities That Hit Different</span></h2>
@@ -1330,7 +1323,7 @@
 
     <!-- BLOCK 4: Date & Bond — text LEFT, mockup RIGHT -->
     <div class="features-section">
-        <div class="feature-content flipped">
+        <div class="feature-content">
             <div class="feature-right">
                 <span class="feat-label label-date">💕 DATE &amp; BOND</span>
                 <h2 style="font-size: 32px;"><span style="color:#FFB3C8;">Build Relationships</span> With Your Cards</h2>
