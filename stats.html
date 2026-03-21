@@ -371,20 +371,13 @@ function buildBar() {
 
         let state;
         if (!events.length) {
-            // No events this hour — check last known state before this slot
-            const before = log.filter(e => e.t < slotStart).sort((a,b) => b.t - a.t);
-            if (!before.length) {
-                state = null; // no data at all before this
-            } else {
-                // Inherit last known state
-                state = before[0].online;
-            }
+            state = null; // no data for this slot
         } else {
-            // If ANY event in this hour is offline, slot is red
-            state = events.every(e => e.online) ? true : false;
+            // If ANY event in this slot is offline → red, otherwise green
+            state = events.some(e => !e.online) ? false : true;
         }
 
-        slots.push({ slotStart, state });
+        slots.push({ slotStart, slotEnd, state });
     }
 
     // Pct
@@ -405,12 +398,14 @@ function buildBar() {
         else                           seg.classList.add('unk');
 
         const slotTime = new Date(slot.slotStart);
+        const slotTimeEnd = new Date(slot.slotStart + SLOT_MS);
         const dateStr = slotTime.toLocaleDateString([], { month:'short', day:'numeric' });
         const timeStr = slotTime.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+        const timeStrEnd = slotTimeEnd.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
         const stateStr = slot.state === true ? 'Online' : slot.state === false ? 'Offline' : 'No data';
         const tip = document.createElement('div');
         tip.className = 'seg-tip';
-        tip.textContent = stateStr + ' · ' + dateStr + ' ' + timeStr;
+        tip.textContent = stateStr + ' · ' + dateStr + ' ' + timeStr + '–' + timeStrEnd;
         seg.appendChild(tip);
         bar.appendChild(seg);
     });
