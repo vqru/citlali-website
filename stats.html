@@ -373,8 +373,13 @@ function buildBar() {
         if (!events.length) {
             state = null; // no data for this slot
         } else {
-            // If ANY event in this slot is offline → red, otherwise green
-            state = events.some(e => !e.online) ? false : true;
+            // For current slot (i===0): use latest event status (live)
+            // For past slots: if ANY offline event → red
+            if (i === 0) {
+                state = events[events.length - 1].online;
+            } else {
+                state = events.some(e => !e.online) ? false : true;
+            }
         }
 
         slots.push({ slotStart, slotEnd, state });
