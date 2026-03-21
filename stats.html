@@ -480,11 +480,14 @@ async function fetchStats() {
         buildBar();
 
     } catch(e) {
-        // API unreachable — don't log, just show error and redraw bar as-is
-        setStatus('loading','⚠️ Unreachable');
+        // API unreachable = bot is offline, log it
+        setStatus('offline','🔴 Bot is Offline');
         document.getElementById('apiStatus').textContent='❌ Unreachable';
         document.getElementById('apiStatus').style.color='#ED4245';
-        buildBar(); // redraw from existing log only
+        const ps=document.getElementById('profileStatus');
+        ps.textContent='Offline'; ps.className='pb st offline';
+        logEvent(false);
+        buildBar();
     }
 }
 
