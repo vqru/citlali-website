@@ -7,51 +7,71 @@
     <meta name="theme-color" content="#FBBDC3">
     <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/emojis/1440775765531820112.webp?size=40&quality=lossless">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg: #1B1A21; --surface: rgba(226,225,235,0.03); --border: rgba(226,225,235,0.1);
-            --border-hov: rgba(226,225,235,0.18); --text: #E2E1EB; --muted: #A8A7B8; --muted2: #6a6880;
+            --bg: #0a0a0a; --surface: rgba(255,255,255,0.02); --border: rgba(226,225,235,0.08);
+            --border-hov: rgba(226,225,235,0.15); --text: #E2E1EB; --muted: #A8A7B8; --muted2: #5a5870;
             --pink: #FBBDC3; --pink-dim: rgba(251,189,195,0.12);
             --green: #B5E577; --green-dim: rgba(181,229,119,0.12);
-            --purple: #D4B5E8; --purple-dim: rgba(212,181,232,0.12);
+            --purple: #C9B8F5; --purple-dim: rgba(201,184,245,0.12);
             --yellow: #FFD264; --yellow-dim: rgba(255,210,100,0.1);
             --red: #ED4245; --red-dim: rgba(237,66,69,0.1); --status-g: #57F287;
         }
         body { background-color: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: var(--text); min-height: 100vh; transition: background-color 0.3s; position: relative; }
         body.light-mode { background-color: #f5f5f5; color: #1B1A21; }
-        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://github.com/vqru/bahh-gifs/blob/main/content.png?raw=true'); background-size: cover; background-position: center; pointer-events: none; z-index: 0; opacity: 0.35; }
-        body.light-mode .bg-layer { opacity: 0.2; }
+
+        .bg-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(226,225,235,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(226,225,235,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none; z-index: 0;
+        }
+        body.light-mode .bg-layer {
+            background-image:
+                linear-gradient(rgba(27,26,33,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(27,26,33,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
         .anim-wrap { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
         .snowflake { position: absolute; top: -10px; color: rgba(255,255,255,0.8); font-size: 20px; animation: fall linear infinite; opacity: 0; }
-        body.light-mode .snowflake { color: rgba(200,200,220,0.7); }
         @keyframes fall { 0%{opacity:0;transform:translateY(0) rotate(0)} 10%{opacity:1} 90%{opacity:1} 100%{opacity:0;transform:translateY(100vh) rotate(360deg)} }
         .bubble { position: absolute; bottom: -10px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(200,220,255,0.4)); border-radius: 50%; animation: rise linear infinite; opacity: 0; box-shadow: inset 0 0 10px rgba(255,255,255,0.5); }
         @keyframes rise { 0%{opacity:0;transform:translateY(0)} 10%{opacity:0.8} 90%{opacity:0.8} 100%{opacity:0;transform:translateY(-100vh) translateX(20px)} }
         .bubble::before { content:''; position:absolute; top:10%; left:15%; width:30%; height:30%; background:rgba(255,255,255,0.6); border-radius:50%; }
 
-        nav { position: fixed; top: 0; left: 0; right: 0; background-color: rgba(27,26,33,0.8); backdrop-filter: blur(10px); padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 1000; }
-        body.light-mode nav { background-color: rgba(255,255,255,0.8); }
+        nav { position: fixed; top: 0; left: 0; right: 0; background-color: rgba(10,10,10,0.85); backdrop-filter: blur(10px); padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); z-index: 1000; }
+        body.light-mode nav { background-color: rgba(255,255,255,0.85); }
         .nav-left { display: flex; align-items: center; gap: 40px; }
         .logo { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; color: var(--text); text-decoration: none; }
         .logo img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.4); }
         .text-citlali { color: #F5DFE1; }
         .nav-links { display: flex; align-items: center; gap: 30px; }
         .nav-links a { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.2s; padding: 8px 16px; border-radius: 8px; }
-        .nav-links a:hover { background-color: rgba(181,229,119,0.2); color: var(--green); }
-        .nav-links a.active { background-color: rgba(212,181,232,0.2); color: #D4B5E8; }
+        .nav-links a:hover { background-color: rgba(201,184,245,0.15); color: var(--purple); }
+        .nav-links a.active { background-color: rgba(201,184,245,0.15); color: var(--purple); }
         body.light-mode .nav-links a { color: #5f6368; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
         .icon-btn { background: none; border: 1px solid rgba(226,225,235,0.15); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; font-size: 20px; }
-        .icon-btn:hover { background-color: rgba(181,229,119,0.2); }
+        .icon-btn:hover { background-color: rgba(201,184,245,0.15); }
         .icon-btn svg { width: 20px; height: 20px; color: var(--text); }
 
         .page { max-width: 1100px; margin: 0 auto; padding: 100px 40px 80px; position: relative; z-index: 1; }
 
         .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 48px; gap: 24px; }
         .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); padding: 8px 16px; border-radius: 24px; font-size: 14px; color: var(--text); width: fit-content; margin-bottom: 16px; }
-        .page-title { font-size: 48px; font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 10px; }
+        .page-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 52px; font-weight: 800;
+            color: var(--text); line-height: 1.1;
+            margin-bottom: 10px; letter-spacing: -0.5px;
+        }
+        .page-title .text-citlali { color: #C9B8F5; }
         .page-sub { font-size: 16px; color: var(--muted); line-height: 1.6; }
         .header-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 
@@ -67,6 +87,7 @@
         @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.3} }
         .last-refresh { font-size: 12px; color: var(--muted2); }
 
+        /* UPTIME BAR — completely unchanged */
         .uptime-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-bottom: 24px; transition: border-color 0.2s; }
         .uptime-card:hover { border-color: var(--border-hov); }
         .uptime-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -81,27 +102,27 @@
         .seg.cur-up   { background: var(--status-g); opacity: 1; box-shadow: 0 0 10px rgba(87,242,135,0.5); }
         .seg.cur-down { background: var(--red);       opacity: 1; box-shadow: 0 0 10px rgba(237,66,69,0.5); }
         .seg.unk      { background: rgba(226,225,235,0.08); }
-        .seg-tip { position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%); background: #22202e; border: 1px solid var(--border-hov); border-radius: 8px; padding: 5px 10px; font-size: 11px; color: var(--text); white-space: nowrap; opacity: 0; transition: opacity .15s; z-index: 20; pointer-events: none; font-family: 'DM Mono', monospace; }
+        .seg-tip { position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%); background: #111; border: 1px solid var(--border-hov); border-radius: 8px; padding: 5px 10px; font-size: 11px; color: var(--text); white-space: nowrap; opacity: 0; transition: opacity .15s; z-index: 20; pointer-events: none; font-family: 'DM Mono', monospace; }
         .uptime-foot { display: flex; justify-content: space-between; }
         .uptime-foot span { font-size: 11px; color: var(--muted2); font-family: 'DM Mono', monospace; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 24px; }
-        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s; position: relative; overflow: hidden; }
-        .stat-card.c-servers:hover { border-color: rgba(251,189,195,0.4); transform: translateY(-2px); box-shadow: 0 0 24px rgba(251,189,195,0.15); }
-        .stat-card.c-users:hover   { border-color: rgba(212,181,232,0.4); transform: translateY(-2px); box-shadow: 0 0 24px rgba(212,181,232,0.15); }
-        .stat-card.c-uptime:hover  { border-color: rgba(87,242,135,0.4);  transform: translateY(-2px); box-shadow: 0 0 24px rgba(87,242,135,0.15); }
+        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s; }
+        .stat-card.c-servers:hover { border-color: rgba(251,189,195,0.3); transform: translateY(-2px); box-shadow: 0 0 24px rgba(251,189,195,0.08); }
+        .stat-card.c-users:hover   { border-color: rgba(201,184,245,0.3); transform: translateY(-2px); box-shadow: 0 0 24px rgba(201,184,245,0.08); }
+        .stat-card.c-uptime:hover  { border-color: rgba(87,242,135,0.3);  transform: translateY(-2px); box-shadow: 0 0 24px rgba(87,242,135,0.08); }
         .stat-top { display: flex; align-items: center; justify-content: space-between; }
-        .stat-lbl { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+        .stat-lbl { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted2); }
         .stat-icon { font-size: 22px; }
-        .stat-val { font-size: 42px; font-weight: 700; line-height: 1; }
-        .stat-val.lv { color: rgba(226,225,235,0.1); }
-        .stat-sub { font-size: 13px; color: var(--muted); }
+        .stat-val { font-size: 42px; font-weight: 700; line-height: 1; color: var(--text); }
+        .stat-val.lv { color: rgba(226,225,235,0.15); }
+        .stat-sub { font-size: 13px; color: var(--muted2); }
 
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 18px; transition: border-color 0.2s; }
         .card:hover { border-color: var(--border-hov); }
         .profile-top { display: flex; align-items: center; gap: 14px; }
-        .profile-avatar { width: 52px; height: 52px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.4); }
+        .profile-avatar { width: 52px; height: 52px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.3); }
         .profile-name { font-size: 18px; font-weight: 700; color: #F5DFE1; }
         .profile-id { font-size: 11px; color: var(--muted2); font-family: 'DM Mono', monospace; margin-top: 2px; }
         .pbadges { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
@@ -110,49 +131,60 @@
         .pb.st { padding: 2px 8px; border-radius: 4px; border: 1px solid; }
         .pb.st.online  { background: rgba(87,242,135,0.1);  color: var(--status-g); border-color: rgba(87,242,135,0.3); }
         .pb.st.offline { background: var(--red-dim);        color: var(--red);       border-color: rgba(237,66,69,0.3); }
-        .detail-list { display: flex; flex-direction: column; gap: 8px; }
-        .detail-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 13px; background: rgba(226,225,235,0.04); border: 1px solid rgba(226,225,235,0.07); border-radius: 10px; }
-        .detail-key { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+        .detail-list { display: flex; flex-direction: column; gap: 6px; }
+        .detail-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 13px; background: rgba(255,255,255,0.02); border: 1px solid rgba(226,225,235,0.06); border-radius: 8px; }
+        .detail-key { font-size: 12px; color: var(--muted2); display: flex; align-items: center; gap: 6px; }
         .detail-val { font-size: 13px; font-weight: 600; color: var(--text); }
         .detail-val a { color: var(--pink); text-decoration: none; }
         .detail-val a:hover { text-decoration: underline; }
-        .detail-val.mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+        .detail-val.mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted2); }
 
         .stack-groups { display: flex; flex-direction: column; gap: 14px; }
         .stack-grp { display: flex; flex-direction: column; gap: 7px; }
         .stack-grp-name { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted2); }
         .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
-        .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); display:flex;align-items:center;gap:5px; }
-        .tag.p  { border-color: rgba(251,189,195,0.3);  color: var(--pink);   background: rgba(251,189,195,0.08); }
-        .tag.pu { border-color: rgba(212,181,232,0.3);  color: var(--purple); background: rgba(212,181,232,0.08); }
-        .tag.g  { border-color: rgba(181,229,119,0.3);  color: var(--green);  background: rgba(181,229,119,0.08); }
-        .tag.y  { border-color: rgba(255,210,100,0.3);  color: var(--yellow); background: rgba(255,210,100,0.08); }
+        .tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); color: #C0BFD0; background: rgba(255,255,255,0.03); display:flex;align-items:center;gap:5px; }
+        .tag.p  { border-color: rgba(251,189,195,0.25);  color: var(--pink);   background: rgba(251,189,195,0.06); }
+        .tag.pu { border-color: rgba(201,184,245,0.25);  color: var(--purple); background: rgba(201,184,245,0.06); }
+        .tag.g  { border-color: rgba(181,229,119,0.25);  color: var(--green);  background: rgba(181,229,119,0.06); }
+        .tag.y  { border-color: rgba(255,210,100,0.25);  color: var(--yellow); background: rgba(255,210,100,0.06); }
 
         .widget-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; transition: border-color 0.2s; }
         .widget-card:hover { border-color: var(--border-hov); }
         .widget-card iframe { border-radius: 10px; border: 1px solid var(--border); display: block; }
-        .join-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(212,181,232,0.1); border: 1px solid rgba(212,181,232,0.25); color: var(--purple); font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s; width: fit-content; }
-        .join-btn:hover { background: rgba(212,181,232,0.18); }
+        .join-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,184,245,0.08); border: 1px solid rgba(201,184,245,0.2); color: var(--purple); font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background 0.2s; width: fit-content; }
+        .join-btn:hover { background: rgba(201,184,245,0.15); }
 
+        /* FOOTER */
         footer { position: relative; z-index: 1; padding: 20px 40px 40px; max-width: 1100px; margin: 0 auto; }
-        .footer-content { background: rgba(27,26,33,0.4); backdrop-filter: blur(20px); border: 1px solid rgba(226,225,235,0.15); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; max-width: 950px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-        body.light-mode .footer-content { background: rgba(255,255,255,0.4); }
-        .footer-left { display: flex; flex-direction: column; gap: 16px; }
-        .footer-gif { width: 350px; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(127,96,189,0.3); }
-        .footer-creator { display: flex; align-items: center; gap: 16px; }
-        .footer-pfp { width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 15px rgba(255,232,236,0.4); }
-        .footer-username { font-size: 20px; font-weight: 600; color: #FFE8EC; }
-        .footer-text { font-size: 14px; color: var(--muted); }
-        .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-link { font-size: 15px; font-weight: 500; text-decoration: none; transition: all 0.2s; padding: 6px 12px; border-radius: 8px; width: fit-content; }
-        .footer-link.discord { color: var(--purple); }
-        .footer-link.topgg   { color: #FFE5B5; }
-        .footer-link.addbott { color: var(--pink); }
-        .footer-link:hover { background-color: rgba(181,229,119,0.2); color: var(--green); }
+        .footer-content {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(226,225,235,0.08);
+            border-radius: 16px; padding: 32px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 40px; max-width: 900px;
+        }
+        body.light-mode .footer-content { background: rgba(255,255,255,0.5); }
+        .footer-left { display: flex; flex-direction: column; gap: 14px; }
+        .footer-creator { display: flex; align-items: center; gap: 12px; }
+        .footer-pfp { width: 44px; height: 44px; border-radius: 50%; }
+        .footer-username { font-size: 18px; font-weight: 600; color: #FFE8EC; }
+        .footer-text { font-size: 13px; color: var(--muted2); }
+        .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .footer-link { font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(226,225,235,0.08); }
+        .footer-link.discord { color: #D4B5E8; background: rgba(212,181,232,0.06); }
+        .footer-link.topgg   { color: #FFE5B5; background: rgba(255,229,181,0.06); }
+        .footer-link.addbott { color: var(--pink); background: rgba(251,189,195,0.06); }
+        .footer-link:hover { background-color: rgba(181,229,119,0.12); color: #B5E577; border-color: rgba(181,229,119,0.2); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .footer-logo-big { display: flex; align-items: center; gap: 10px; }
+        .footer-logo-big img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.3); }
+        .footer-logo-big span { font-size: 22px; font-weight: 700; color: #F5DFE1; }
+        .footer-tagline { font-size: 12px; color: var(--muted2); }
 
         @media(max-width:900px){ .stats-grid{grid-template-columns:1fr 1fr;} .two-col{grid-template-columns:1fr;} }
-        @media(max-width:768px){ nav{padding:12px 20px;} .nav-left{gap:20px;} .page{padding:80px 20px 40px;} .page-title{font-size:32px;} .page-header{flex-direction:column;align-items:flex-start;} .header-right{align-items:flex-start;} .stat-val{font-size:32px;} footer{padding:20px 20px 40px;} .footer-content{grid-template-columns:1fr;} .footer-gif{width:100%;max-width:280px;margin:0 auto;} }
-        @media(max-width:480px){ .stats-grid{grid-template-columns:1fr;} .page-title{font-size:26px;} }
+        @media(max-width:768px){ nav{padding:12px 20px;} .nav-left{gap:20px;} .page{padding:80px 20px 40px;} .page-title{font-size:36px;} .page-header{flex-direction:column;align-items:flex-start;} .header-right{align-items:flex-start;} .stat-val{font-size:32px;} footer{padding:20px;} .footer-content{flex-direction:column;align-items:flex-start;} .footer-right{align-items:flex-start;} }
+        @media(max-width:480px){ .stats-grid{grid-template-columns:1fr;} .page-title{font-size:28px;} }
     </style>
 </head>
 <body>
@@ -171,11 +203,11 @@
         </div>
     </div>
     <div class="nav-right">
-        <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <button class="icon-btn" onclick="toggleTheme()">
             <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
             <svg class="sun-icon" style="display:none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         </button>
-        <button class="icon-btn" onclick="toggleAnim()" aria-label="Toggle animation">
+        <button class="icon-btn" onclick="toggleAnim()">
             <span class="snow-ico">&#10054;</span>
             <span class="bub-ico" style="display:none">🫧</span>
         </button>
@@ -193,10 +225,7 @@
             <p class="page-sub">Real-time stats and bot info. Refreshes every 60 seconds.</p>
         </div>
         <div class="header-right">
-            <div class="status-pill loading" id="statusPill">
-                <div class="status-dot"></div>
-                <span id="statusText">Fetching status…</span>
-            </div>
+            <div class="status-pill loading" id="statusPill"><div class="status-dot"></div><span id="statusText">Fetching status…</span></div>
             <div class="last-refresh">Updated <span id="lastUpdated">—</span></div>
         </div>
     </div>
@@ -312,140 +341,86 @@
                 <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&permissions=277025771520&scope=bot%20applications.commands" target="_blank" class="footer-link addbott">Add to Server</a>
             </div>
         </div>
-        <img src="https://github.com/vqru/bahh-gifs/blob/main/Citlali_gif_.gif?raw=true" alt="Citlali" class="footer-gif">
+        <div class="footer-right">
+            <div class="footer-logo-big">
+                <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
+                <span>Citlali</span>
+            </div>
+            <p class="footer-tagline">Your adorable genshin companion</p>
+        </div>
     </div>
 </footer>
 
 <script>
-// UPTIME BAR - variable width timeline
-// Each block = one continuous online/offline period, width = duration
 const WINDOW_MS = 24 * 60 * 60 * 1000;
-
-function loadLog() {
-    try { return JSON.parse(localStorage.getItem('citlali_log3') || '[]'); } catch { return []; }
-}
-function saveLog(log) {
-    try { localStorage.setItem('citlali_log3', JSON.stringify(log)); } catch {}
-}
+function loadLog() { try { return JSON.parse(localStorage.getItem('citlali_log3') || '[]'); } catch { return []; } }
+function saveLog(log) { try { localStorage.setItem('citlali_log3', JSON.stringify(log)); } catch {} }
 function logEvent(isOnline) {
-    const log = loadLog();
-    const last = log[log.length - 1];
-    if (last && last.online === isOnline) return; // no change, skip
+    const log = loadLog(), last = log[log.length - 1];
+    if (last && last.online === isOnline) return;
     log.push({ t: Date.now(), online: isOnline });
     const cutoff = Date.now() - 48 * 60 * 60 * 1000;
     saveLog(log.filter(e => e.t > cutoff));
 }
-
 function buildBar() {
-    const bar = document.getElementById('uptimeBar');
-    bar.innerHTML = '';
-    const log = loadLog();
-    const now = Date.now();
-    const windowStart = now - WINDOW_MS;
-
+    const bar = document.getElementById('uptimeBar'); bar.innerHTML = '';
+    const log = loadLog(), now = Date.now(), windowStart = now - WINDOW_MS;
     if (!log.length) {
-        const seg = document.createElement('div');
-        seg.className = 'seg unk'; seg.style.flex = '1';
-        bar.appendChild(seg);
+        const seg = document.createElement('div'); seg.className = 'seg unk'; seg.style.flex = '1'; bar.appendChild(seg);
         document.getElementById('uptimePct').textContent = '—';
-        document.getElementById('uptimeLeft').textContent = new Date(windowStart).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-        document.getElementById('uptimeRight').textContent = 'Now';
-        return;
+        document.getElementById('uptimeLeft').textContent = new Date(windowStart).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+        document.getElementById('uptimeRight').textContent = 'Now'; return;
     }
-
-    // What was the state at windowStart?
     const before = log.filter(e => e.t < windowStart);
     const stateAtWindowStart = before.length ? before[before.length-1].online : null;
-
-    // Build timeline points within window
     const points = [];
     if (stateAtWindowStart !== null) points.push({ t: windowStart, online: stateAtWindowStart });
     log.filter(e => e.t >= windowStart).forEach(e => points.push(e));
     if (points.length) points.push({ t: now, online: points[points.length-1].online });
-
     if (points.length < 2) {
-        const seg = document.createElement('div');
-        seg.className = 'seg unk'; seg.style.flex = '1';
-        bar.appendChild(seg);
+        const seg = document.createElement('div'); seg.className = 'seg unk'; seg.style.flex = '1'; bar.appendChild(seg);
         document.getElementById('uptimePct').textContent = '—';
-        document.getElementById('uptimeLeft').textContent = new Date(windowStart).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-        document.getElementById('uptimeRight').textContent = 'Now';
-        return;
+        document.getElementById('uptimeLeft').textContent = new Date(windowStart).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+        document.getElementById('uptimeRight').textContent = 'Now'; return;
     }
-
-    // Segments
     const segments = [];
     for (let i = 0; i < points.length - 1; i++) {
         const dur = points[i+1].t - points[i].t;
         if (dur <= 0) continue;
         segments.push({ online: points[i].online, dur, start: points[i].t, end: points[i+1].t });
     }
-
-    // Uptime %
     const totalKnown = segments.filter(s => s.online !== null).reduce((a,s) => a+s.dur, 0);
     const totalUp    = segments.filter(s => s.online === true).reduce((a,s) => a+s.dur, 0);
     const pct = totalKnown ? ((totalUp/totalKnown)*100).toFixed(2) : null;
     const pctEl = document.getElementById('uptimePct');
     pctEl.textContent = pct ? pct+'%' : '—';
     if (pct) pctEl.style.color = parseFloat(pct)>95 ? '#57F287' : parseFloat(pct)>80 ? '#FFD264' : '#ED4245';
-
-    // Render left=oldest, right=now, width proportional to duration
     segments.forEach((seg, i) => {
-        const el = document.createElement('div');
-        el.className = 'seg';
+        const el = document.createElement('div'); el.className = 'seg';
         const isLast = i === segments.length - 1;
-        if      (seg.online === true)  el.classList.add(isLast ? 'cur-up'   : 'up');
+        if (seg.online === true) el.classList.add(isLast ? 'cur-up' : 'up');
         else if (seg.online === false) el.classList.add(isLast ? 'cur-down' : 'down');
-        else                           el.classList.add('unk');
-
-        el.style.flex = String(seg.dur);
-        el.style.minWidth = '6px';
-        el.style.borderRadius = '4px';
-
-        const mins = Math.round(seg.dur / 60000);
-        const hrs  = Math.floor(mins/60), rem = mins%60;
-        const durStr   = hrs ? hrs+'h '+rem+'m' : rem+'m';
-        const startStr = new Date(seg.start).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-        const endStr   = new Date(seg.end).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-        const label    = seg.online === true ? 'Online' : seg.online === false ? 'Offline' : 'No data';
-        const tip = document.createElement('div');
-        tip.className = 'seg-tip';
+        else el.classList.add('unk');
+        el.style.flex = String(seg.dur); el.style.minWidth = '6px'; el.style.borderRadius = '4px';
+        const mins = Math.round(seg.dur / 60000), hrs = Math.floor(mins/60), rem = mins%60;
+        const durStr = hrs ? hrs+'h '+rem+'m' : rem+'m';
+        const startStr = new Date(seg.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+        const endStr   = new Date(seg.end).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+        const label = seg.online === true ? 'Online' : seg.online === false ? 'Offline' : 'No data';
+        const tip = document.createElement('div'); tip.className = 'seg-tip';
         tip.textContent = label + ' ' + durStr + ' · ' + startStr + '–' + endStr;
-        el.appendChild(tip);
-        bar.appendChild(el);
+        el.appendChild(tip); bar.appendChild(el);
     });
-
-    document.getElementById('uptimeLeft').textContent  = new Date(windowStart).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('uptimeLeft').textContent  = new Date(windowStart).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
     document.getElementById('uptimeRight').textContent = 'Now';
 }
 
-// API
 const BOT_API = '';
-
-function fmt(n) {
-    if (n==null||isNaN(n)) return '—';
-    if (n>=1e6) return (n/1e6).toFixed(1)+'M';
-    if (n>=1e3) return (n/1e3).toFixed(1)+'k';
-    return n.toLocaleString();
-}
-function fmtUp(ms) {
-    if (!ms) return '—';
-    const s=Math.floor(ms/1000), d=Math.floor(s/86400), h=Math.floor((s%86400)/3600), m=Math.floor((s%3600)/60);
-    return d ? d+'d '+h+'h' : h ? h+'h '+m+'m' : m+'m';
-}
-function fmtUpRaw(ms) {
-    if (!ms) return '—';
-    const s=Math.floor(ms/1000);
-    return Math.floor(s/86400)+'d '+Math.floor((s%86400)/3600)+'h '+Math.floor((s%3600)/60)+'m '+(s%60)+'s';
-}
-function setStatus(cls, text) {
-    document.getElementById('statusPill').className='status-pill '+cls;
-    document.getElementById('statusText').textContent=text;
-}
-function setVal(id, v, deload=true) {
-    const el=document.getElementById(id); if(!el) return;
-    el.textContent=v; if(deload) el.classList.remove('lv');
-}
+function fmt(n) { if(n==null||isNaN(n)) return '—'; if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(1)+'k'; return n.toLocaleString(); }
+function fmtUp(ms) { if(!ms) return '—'; const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60); return d ? d+'d '+h+'h' : h ? h+'h '+m+'m' : m+'m'; }
+function fmtUpRaw(ms) { if(!ms) return '—'; const s=Math.floor(ms/1000); return Math.floor(s/86400)+'d '+Math.floor((s%86400)/3600)+'h '+Math.floor((s%3600)/60)+'m '+(s%60)+'s'; }
+function setStatus(cls, text) { document.getElementById('statusPill').className='status-pill '+cls; document.getElementById('statusText').textContent=text; }
+function setVal(id, v, deload=true) { const el=document.getElementById(id); if(!el) return; el.textContent=v; if(deload) el.classList.remove('lv'); }
 
 async function fetchStats() {
     try {
@@ -454,28 +429,17 @@ async function fetchStats() {
         const d=await res.json();
         const up=['online','ok','OK'].includes(d.status);
         setStatus(up?'online':'offline', up?'🟢 Bot is Online':'🔴 Bot is Offline');
-        const ps=document.getElementById('profileStatus');
-        ps.textContent=up?'Online':'Offline';
-        ps.className='pb st '+(up?'online':'offline');
-        document.getElementById('apiStatus').textContent='✅ Reachable';
-        document.getElementById('apiStatus').style.color='#57F287';
+        const ps=document.getElementById('profileStatus'); ps.textContent=up?'Online':'Offline'; ps.className='pb st '+(up?'online':'offline');
+        document.getElementById('apiStatus').textContent='✅ Reachable'; document.getElementById('apiStatus').style.color='#57F287';
         if(d.servers!==undefined) setVal('statServers',fmt(d.servers));
         if(d.users!==undefined)   setVal('statUsers',  fmt(d.users));
-        if(d.uptime!==undefined){
-            const ms=d.uptime*1000;
-            setVal('statUptime',fmtUp(ms));
-            setVal('uptimeRaw',fmtUpRaw(ms),false);
-        }
-        logEvent(up);
-        buildBar();
+        if(d.uptime!==undefined){ const ms=d.uptime*1000; setVal('statUptime',fmtUp(ms)); setVal('uptimeRaw',fmtUpRaw(ms),false); }
+        logEvent(up); buildBar();
     } catch(e) {
         setStatus('offline','🔴 Bot is Offline');
-        document.getElementById('apiStatus').textContent='❌ Unreachable';
-        document.getElementById('apiStatus').style.color='#ED4245';
-        const ps=document.getElementById('profileStatus');
-        ps.textContent='Offline'; ps.className='pb st offline';
-        logEvent(false);
-        buildBar();
+        document.getElementById('apiStatus').textContent='❌ Unreachable'; document.getElementById('apiStatus').style.color='#ED4245';
+        const ps=document.getElementById('profileStatus'); ps.textContent='Offline'; ps.className='pb st offline';
+        logEvent(false); buildBar();
     }
 }
 
@@ -490,10 +454,8 @@ function createSnowflakes() {
     const c=document.getElementById('animWrap'); c.innerHTML='';
     for(let i=0;i<9;i++){
         const s=document.createElement('div'); s.className='snowflake'; s.innerHTML='❆';
-        s.style.left=Math.random()*100+'%';
-        s.style.animationDuration=(Math.random()*4+6)+'s';
-        s.style.animationDelay=Math.random()*5+'s';
-        s.style.fontSize=(Math.random()*8+14)+'px';
+        s.style.left=Math.random()*100+'%'; s.style.animationDuration=(Math.random()*4+6)+'s';
+        s.style.animationDelay=Math.random()*5+'s'; s.style.fontSize=(Math.random()*8+14)+'px';
         c.appendChild(s);
     }
 }
@@ -503,21 +465,15 @@ function createBubbles() {
         const cx=Math.random()*90+5;
         for(let i=0;i<Math.floor(Math.random()*2)+2;i++){
             const b=document.createElement('div'); b.className='bubble';
-            b.style.left=(cx+(Math.random()*5-2.5))+'%';
-            b.style.animationDuration=(Math.random()*3+7)+'s';
-            b.style.animationDelay=Math.random()*3+'s';
-            const sz=Math.random()*25+20;
-            b.style.width=sz+'px'; b.style.height=sz+'px';
+            b.style.left=(cx+(Math.random()*5-2.5))+'%'; b.style.animationDuration=(Math.random()*3+7)+'s';
+            b.style.animationDelay=Math.random()*3+'s'; const sz=Math.random()*25+20; b.style.width=sz+'px'; b.style.height=sz+'px';
             c.appendChild(b);
         }
     }
     for(let i=0;i<6;i++){
         const b=document.createElement('div'); b.className='bubble';
-        b.style.left=Math.random()*100+'%';
-        b.style.animationDuration=(Math.random()*4+7)+'s';
-        b.style.animationDelay=Math.random()*5+'s';
-        const sz=Math.random()*30+20;
-        b.style.width=sz+'px'; b.style.height=sz+'px';
+        b.style.left=Math.random()*100+'%'; b.style.animationDuration=(Math.random()*4+7)+'s';
+        b.style.animationDelay=Math.random()*5+'s'; const sz=Math.random()*30+20; b.style.width=sz+'px'; b.style.height=sz+'px';
         c.appendChild(b);
     }
 }
@@ -533,13 +489,7 @@ function toggleTheme() {
     else { moon.style.display='block'; sun.style.display='none'; }
 }
 
-async function init() {
-    createSnowflakes();
-    buildBar();
-    await fetchStats();
-    tick();
-    setInterval(async()=>{ await fetchStats(); tick(); }, 60000);
-}
+async function init() { createSnowflakes(); buildBar(); await fetchStats(); tick(); setInterval(async()=>{ await fetchStats(); tick(); }, 60000); }
 window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
