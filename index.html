@@ -33,6 +33,9 @@
     <link rel="preconnect" href="https://github.com">
     <link rel="dns-prefetch" href="https://cdn.discordapp.com">
     <link rel="dns-prefetch" href="https://github.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XCQJGYCGEK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -112,7 +115,7 @@
         @keyframes rise { to { transform: translateY(-100vh) rotate(-360deg); } }
         .hidden { display: none !important; }
 
-        /* HERO - exactly as original */
+        /* HERO */
         .hero {
             padding: 120px 40px;
             max-width: 1400px; margin: 0 auto;
@@ -124,6 +127,27 @@
         .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(226, 225, 235, 0.05); border: 1px solid rgba(226, 225, 235, 0.1); padding: 8px 16px; border-radius: 24px; width: fit-content; font-size: 14px; color: #E2E1EB; }
         .hero h1 { font-size: 64px; font-weight: 700; line-height: 1.1; color: #E2E1EB; margin: 0; }
         .hero p { font-size: 18px; line-height: 1.6; color: #A8A7B8; margin: 0; }
+
+        /* ── GRADIENT TEXT ON "Citlali" ── */
+        .text-citlali-gradient {
+            background: linear-gradient(90deg, #C9B8F5 0%, #A8D8C8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── TSUNDERE QUOTE ── */
+        .hero-quote {
+            font-size: 15px;
+            font-style: italic;
+            color: #7E7D8F;
+            border-left: 2px solid rgba(201, 184, 245, 0.35);
+            padding-left: 14px;
+            line-height: 1.6;
+            margin-top: -8px;
+        }
+        body.light-mode .hero-quote { color: #9090A8; }
+
         .add-btn { background: #FBBDC3; border: none; padding: 16px 32px; border-radius: 12px; color: #1B1A21; font-weight: 600; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: opacity 0.2s; width: fit-content; margin-top: 16px; text-decoration: none; }
         .add-btn:hover { opacity: 0.9; }
         .add-btn svg { width: 20px; height: 20px; }
@@ -138,26 +162,36 @@
         .music { bottom: 80px; left: 120px; font-size: 40px; opacity: 0.5; }
         .code { bottom: 120px; right: 60px; font-size: 32px; color: #4A5057; opacity: 0.7; }
 
-        /* FEATURES - exactly as original, no card wrapper */
-        .features-section { padding: 70px 40px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
-        .feature-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        /* FEATURES */
+        .features-section { padding: 70px 40px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .feature-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .feature-left { display: flex; justify-content: center; }
-        .discord-mockup { background: rgba(226, 225, 235, 0.03); border: 1px solid rgba(226, 225, 235, 0.1); border-radius: 16px; padding: 24px; max-width: 500px; width: 100%; }
-        .mockup-header { margin-bottom: 20px; }
-        .bot-info { display: flex; align-items: center; gap: 12px; }
-        .bot-avatar { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 12px rgba(251, 189, 195, 0.5); }
-        .bot-name { color: #E2E1EB; font-weight: 600; font-size: 16px; }
-        .app-badge { background: #5865F2; color: white; font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
-        .message-card { background: rgba(226, 225, 235, 0.05); border: 1px solid rgba(226, 225, 235, 0.08); border-radius: 12px; padding: 20px; }
-        .message-card h3 { color: #E2E1EB; font-size: 20px; margin: 0 0 12px 0; font-weight: 600; }
-        .message-card p { color: #A8A7B8; font-size: 15px; line-height: 1.5; margin: 0; }
-        .feature-right { display: flex; flex-direction: column; gap: 20px; }
-        .feature-right h2 { color: #E2E1EB; font-size: 48px; font-weight: 700; margin: 0; }
-        .desc-text { color: #A8A7B8; font-size: 17px; line-height: 1.6; margin: 0; }
+        .discord-mockup { background: rgba(30, 28, 38, 0.85); border: 1px solid rgba(226, 225, 235, 0.08); border-radius: 12px; padding: 16px; max-width: 420px; width: 100%; }
+        .mockup-header { margin-bottom: 12px; }
+        .bot-info { display: flex; align-items: center; gap: 10px; }
+        .bot-avatar { width: 36px; height: 36px; border-radius: 50%; box-shadow: 0 0 12px rgba(251, 189, 195, 0.5); }
+        .bot-name { color: #E2E1EB; font-weight: 600; font-size: 15px; }
+        .app-badge { background: #5865F2; color: white; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+        .message-card { background: transparent; border: none; border-radius: 8px; padding: 4px 0; }
+        .message-card h3 { color: #E2E1EB; font-size: 18px; margin: 0 0 10px 0; font-weight: 600; }
+        .message-card p { color: #A8A7B8; font-size: 14px; line-height: 1.5; margin: 0; }
+        .feature-right { display: flex; flex-direction: column; gap: 16px; }
+        .feature-right h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #E2E1EB;
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+        .desc-text { color: #A8A7B8; font-size: 16px; line-height: 1.75; margin: 0; }
+        .desc-text strong { color: #D0CDE0; font-weight: 600; }
+        /* inline command code tags */
+        .cmd { display: inline-block; background: rgba(226,225,235,0.07); border: 1px solid rgba(226,225,235,0.14); border-radius: 5px; padding: 1px 7px; font-family: 'Courier New', monospace; font-size: 13px; color: #C9B8F5; white-space: nowrap; }
         .learn-more-btn { background: rgba(226, 225, 235, 0.05); border: 1px solid rgba(226, 225, 235, 0.15); padding: 14px 28px; border-radius: 10px; color: #E2E1EB; font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.2s; width: fit-content; margin-top: 12px; }
         .learn-more-btn:hover { background: rgba(226, 225, 235, 0.08); }
 
-        /* NEW: feat label + tags */
         .feat-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; width: fit-content; margin-bottom: 4px; }
         .label-lewd        { background: rgba(255,100,130,0.1); color: #FF8FAB; }
         .label-personality { background: rgba(181,181,255,0.1); color: #B5B5FF; }
@@ -234,7 +268,22 @@
         .text-personalities { color: #B5D8FF; }
         .text-content-samples { color: #B5FFE8; }
 
-        /* RESPONSIVE - exactly as original */
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .hero { grid-template-columns: 1fr; gap: 60px; padding: 100px 40px 60px; }
             .hero-right { order: -1; min-height: 400px; }
@@ -280,6 +329,7 @@
             .music-player-card { width: 280px; }
             footer { padding: 40px 20px 30px; }
             .footer-content { padding: 25px 20px; }
+            .hero-quote { font-size: 14px; }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 32px; }
@@ -311,7 +361,6 @@
         .footer-link.discord { color: #D4B5E8; }
         .footer-link.topgg { color: #FFE5B5; }
         .footer-link:hover { background-color: rgba(181, 229, 119, 0.2); color: #B5E577; }
-
     </style>
 </head>
 <body>
@@ -368,7 +417,11 @@
                 <img src="https://cdn.discordapp.com/emojis/1440775765531820112.webp?size=40&quality=lossless" alt="Citlali" style="width: 20px; height: 20px;">
                 <span class="text-cutest">The cutest bot</span>
             </div>
-            <h1>Your adorable <span class="text-genshin">genshin</span> companion for Discord</h1>
+            <h1>Your adorable <span class="text-genshin">genshin</span> companion for Discord — meet <span class="text-citlali-gradient">Citlali</span></h1>
+
+            <!-- ── TSUNDERE QUOTE ── -->
+            <p class="hero-quote">"Hmph… don't get the wrong idea. I'm only here because no one else would put up with you. You're welcome, by the way."</p>
+
             <p>Create a vibrant community with the all-in-one AI chatbot. Many NSFW commands and lewd features in one place. Simple, adorable, and designed to connect.</p>
             <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&permissions=277025771520&scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer" class="add-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/></svg>
@@ -389,8 +442,8 @@
         </div>
     </div>
 
-    <!-- BLOCK 1: Lewd + Autobooru — mockup LEFT, text RIGHT -->
-    <div class="features-section">
+    <!-- BLOCK 1: Lewd + Autobooru -->
+    <div class="features-section reveal">
         <div class="feature-content">
             <div class="feature-left">
                 <div class="discord-mockup">
@@ -408,11 +461,11 @@
             </div>
             <div class="feature-right">
                 <span class="feat-label label-lewd">🔞 NSFW</span>
-                <h2 style="font-size: 32px;">🔞 <span class="text-lewd">淫らな特徴</span></h2>
-                <p class="desc-text" style="font-size: 16px;">
-                    <span class="text-citlali">Citlali</span> has <strong>20+ Lewd commands</strong>, giving you direct access to a curated selection of <strong>20k images AND videos</strong>!<br><br>
-                    Booru commands pull from Gelbooru — <em>/yuri, /anal, /bukkake and more!</em><br><br>
-                    <strong>Autobooru</strong> auto-posts content on a timer. Set tags, interval (4 min / 10 min / 1 hr), and batch size. AND/OR tag logic supported 😉
+                <h2>Anything, everything —<br><span class="text-lewd">just tag it</span></h2>
+                <p class="desc-text">
+                    <span class="cmd">/hentai</span>, <span class="cmd">/yuri</span>, <span class="cmd">/anal</span>, <span class="cmd">/bukkake</span> and 20+ more lewd commands pulling straight from Gelbooru — <strong>20k images and videos</strong> at your fingertips.<br><br>
+                    Our built-in filters already handle guro, inflation, and AI-generated content so you never have to worry. <strong>AND/OR tag logic</strong> supported — chain as many tags as you like.<br><br>
+                    <span class="cmd">/autobooru</span> auto-posts on a timer. Set your tags, pick an interval (4 min / 10 min / 1 hr), and let her run.
                 </p>
                 <div class="feat-tags">
                     <span class="feat-tag">/hentai</span>
@@ -426,15 +479,15 @@
         </div>
     </div>
 
-    <!-- BLOCK 2: Personality + AI Chat — text LEFT, mockup RIGHT -->
-    <div class="features-section">
+    <!-- BLOCK 2: Personality + AI Chat -->
+    <div class="features-section reveal">
         <div class="feature-content">
             <div class="feature-right">
                 <span class="feat-label label-personality">🎀 AI CHAT</span>
-                <h2 style="font-size: 32px;">🎀 <span class="text-personalities">Personalities That Hit Different</span></h2>
-                <p class="desc-text" style="font-size: 16px;">
-                    <strong>Choose your vibe</strong> — <strong>🌸 Warm</strong> (kind &amp; supportive) or <strong>🫧 Citlali</strong> (sarcastic tsundere who secretly cares). Settings saved <em>per user</em> so everyone gets their own experience.<br><br>
-                    Control response length (Short / Default / Long), lock her to a specific channel, or let her roam free. <em>Satisfaction guaranteed!</em> :3
+                <h2><span class="text-personalities">Personalities</span><br>that hit different</h2>
+                <p class="desc-text">
+                    Pick your vibe with <span class="cmd">/personality</span> — <strong>🌸 Warm</strong> (kind &amp; supportive) or <strong>🫧 Citlali</strong> (sarcastic tsundere who secretly cares). Settings are saved <em>per user</em>, so everyone in the server gets their own experience.<br><br>
+                    Control response length (Short / Default / Long), lock her to a specific channel with <span class="cmd">/toggle</span>, or let her roam free. She remembers your preferences across sessions.
                 </p>
                 <div class="feat-tags">
                     <span class="feat-tag">🌸 Warm mode</span>
@@ -461,8 +514,8 @@
         </div>
     </div>
 
-    <!-- BLOCK 3: Gacha — mockup LEFT, text RIGHT -->
-    <div class="features-section">
+    <!-- BLOCK 3: Gacha -->
+    <div class="features-section reveal">
         <div class="feature-content">
             <div class="feature-left">
                 <div class="discord-mockup">
@@ -480,10 +533,10 @@
             </div>
             <div class="feature-right">
                 <span class="feat-label label-gacha">🃏 GACHA</span>
-                <h2 style="font-size: 32px;">🃏 Card <span style="color:#FFD264;">Drop System</span></h2>
-                <p class="desc-text" style="font-size: 16px;">
-                    Drops spawn in your server — claim by reacting ⭐, build a collection of up to <strong>40 cards</strong>, trade or gift with others. Wishlist characters to get pinged instantly.<br><br>
-                    <strong>5 rarity tiers</strong> from Common (40%) to Legendary (5%). Earn Sigils by voting on top.gg — <em>+2 on weekends!</em>
+                <h2>Card drops,<br><span style="color:#FFD264;">collect them all</span></h2>
+                <p class="desc-text">
+                    Cards drop randomly in your server — react ⭐ to claim before someone else does. Build a collection of up to <strong>40 cards</strong>, trade with <span class="cmd">/ctrade</span>, or gift with <span class="cmd">/cgift</span>. Wishlist characters to get DM-pinged the moment they drop.<br><br>
+                    <strong>5 rarity tiers</strong> from Common (40%) to Legendary (5%). Earn Sigils by voting on top.gg — <em>+2 bonus on weekends.</em>
                 </p>
                 <div class="feat-tags">
                     <span class="feat-tag">⭐⭐⭐⭐⭐ Legendary 5%</span>
@@ -497,15 +550,15 @@
         </div>
     </div>
 
-    <!-- BLOCK 4: Date & Bond — text LEFT, mockup RIGHT -->
-    <div class="features-section">
+    <!-- BLOCK 4: Date & Bond -->
+    <div class="features-section reveal">
         <div class="feature-content">
             <div class="feature-right">
                 <span class="feat-label label-date">💕 DATE &amp; BOND</span>
-                <h2 style="font-size: 32px;">💕 <span style="color:#FFB3C8;">Build Relationships</span> With Your Cards</h2>
-                <p class="desc-text" style="font-size: 16px;">
-                    Take cards on interactive dates to raise affection (out of 350). Choices during the date affect how much you gain. <strong>6-hour cooldown</strong> per card, max 3 dates total.<br><br>
-                    Progress through <strong>5 bond tiers</strong>: 🩶 Stranger → 🤍 Acquainted → 💛 Friend → 🩷 Close → ❤️ Devoted. Breakup resets and re-rolls personality.
+                <h2>Build real bonds<br><span style="color:#FFB3C8;">with your cards</span></h2>
+                <p class="desc-text">
+                    Take cards on interactive dates with <span class="cmd">/cdate</span> to raise affection (out of 350). Your choices during the date affect how much you gain — 6-hour cooldown per card, max 3 dates at a time.<br><br>
+                    Progress through <strong>5 bond tiers</strong>: 🩶 Stranger → 🤍 Acquainted → 💛 Friend → 🩷 Close → ❤️ Devoted. Use <span class="cmd">/cbreakup</span> to reset and re-roll their personality — if you dare.
                 </p>
                 <div class="feat-tags">
                     <span class="feat-tag">❤️ 5 bond tiers</span>
@@ -533,7 +586,7 @@
     </div>
 
     <!-- Content Samples Gallery -->
-    <div class="gallery-section">
+    <div class="gallery-section reveal">
         <div class="gallery-header">
             <h2 class="gallery-title"><img src="https://media.tenor.com/tsY-tHPaDS0AAAAj/citlali-genshin-impact.gif" alt="Citlali" style="width: 50px; height: 50px; vertical-align: middle; margin-right: 10px;"> <span class="text-content-samples">Content Samples</span></h2>
             <span class="content-warning"><span class="warn-icon">⚠</span> 18+ content — view at your own discretion</span>
@@ -556,7 +609,7 @@
         </div>
     </div>
 
-    <footer>
+    <footer class="reveal">
         <div class="footer-content">
             <div class="footer-left">
                 <div class="footer-creator">
@@ -652,6 +705,17 @@
         card.classList.toggle('open');
         btn.classList.toggle('playing', card.classList.contains('open'));
     }
+
+    /* SCROLL REVEAL — stays visible once triggered */
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
     window.addEventListener('DOMContentLoaded', () => {
         createSnowflakes();
     });
