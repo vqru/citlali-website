@@ -355,19 +355,37 @@
 
         /* FOOTER */
         footer { position: relative; z-index: 1; padding: 60px 40px 40px; max-width: 1400px; margin: 0 auto; }
-        .footer-content { background: rgba(27, 26, 33, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(226, 225, 235, 0.15); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; max-width: 950px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
-        body.light-mode .footer-content { background: rgba(255, 255, 255, 0.4); }
+        .footer-content {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(226, 225, 235, 0.1);
+            border-radius: 20px;
+            padding: 40px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 900px;
+        }
+        body.light-mode .footer-content { background: rgba(255, 255, 255, 0.5); }
         .footer-left { display: flex; flex-direction: column; gap: 16px; }
-        .footer-gif { width: 350px; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(127, 96, 189, 0.3); }
-        .footer-creator { display: flex; align-items: center; gap: 16px; }
-        .footer-pfp { width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 0 15px rgba(255, 232, 236, 0.4); }
+        .footer-creator { display: flex; align-items: center; gap: 14px; }
+        .footer-pfp { width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 0 15px rgba(255, 232, 236, 0.3); }
         .footer-username { font-size: 20px; font-weight: 600; color: #FFE8EC; }
         .footer-text { font-size: 14px; color: #A8A7B8; margin: 0; }
-        .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-link { font-size: 15px; font-weight: 500; text-decoration: none; transition: all 0.2s; padding: 6px 12px; border-radius: 8px; width: fit-content; }
-        .footer-link.discord { color: #D4B5E8; }
-        .footer-link.topgg { color: #FFE5B5; }
-        .footer-link:hover { background-color: rgba(181, 229, 119, 0.2); color: #B5E577; }
+        .footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .footer-link {
+            font-size: 14px; font-weight: 500; text-decoration: none;
+            transition: all 0.2s; padding: 8px 16px; border-radius: 8px;
+            border: 1px solid rgba(226,225,235,0.1);
+        }
+        .footer-link.discord { color: #D4B5E8; background: rgba(212,181,232,0.08); }
+        .footer-link.topgg { color: #FFE5B5; background: rgba(255,229,181,0.08); }
+        .footer-link:hover { background-color: rgba(181, 229, 119, 0.15); color: #B5E577; border-color: rgba(181,229,119,0.2); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .footer-logo-big { display: flex; align-items: center; gap: 12px; }
+        .footer-logo-big img { width: 52px; height: 52px; border-radius: 50%; box-shadow: 0 0 20px rgba(251,189,195,0.35); }
+        .footer-logo-big span { font-size: 26px; font-weight: 700; color: #F5DFE1; letter-spacing: -0.5px; }
+        .footer-tagline { font-size: 13px; color: #5a5870; text-align: right; }
     </style>
 </head>
 <body>
@@ -616,7 +634,7 @@
         </div>
     </div>
 
-    <footer class="reveal">
+    <footer>
         <div class="footer-content">
             <div class="footer-left">
                 <div class="footer-creator">
@@ -629,7 +647,13 @@
                     <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
                 </div>
             </div>
-            <img src="https://github.com/vqru/bahh-gifs/blob/main/Citlali_gif_.gif?raw=true" alt="Citlali" class="footer-gif">
+            <div class="footer-right">
+                <div class="footer-logo-big">
+                    <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
+                    <span>Citlali</span>
+                </div>
+                <p class="footer-tagline">Your adorable genshin companion</p>
+            </div>
         </div>
     </footer>
 
