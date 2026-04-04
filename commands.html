@@ -4,845 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commands - Citlali</title>
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/emojis/1440775765531820112.webp?size=40&quality=lossless">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #1B1A21;
+            background-color: #0a0a0a;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             color: #E2E1EB;
             min-height: 100vh;
             transition: background-color 0.3s ease;
             position: relative;
         }
+        body.light-mode { background-color: #f5f5f5; color: #1B1A21; }
 
-        body.light-mode {
-            background-color: #f5f5f5;
-            color: #1B1A21;
-        }
-
-        body.light-mode nav {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        body.light-mode .logo {
-            color: #1B1A21;
-        }
-
-        body.light-mode .nav-links a {
-            color: #5f6368;
-        }
-
-        body.light-mode .nav-links a:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-            color: #D4B5E8;
-        }
-
-        body.light-mode .theme-toggle:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-        }
-
-        body.light-mode .theme-toggle:hover svg {
-            color: #D4B5E8;
-        }
-
-        body.light-mode .animation-toggle:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-        }
-
-        body.light-mode .animation-toggle:hover .snowflake-icon,
-        body.light-mode .animation-toggle:hover .bubble-icon {
-            filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(260deg) brightness(96%) contrast(87%);
-        }
-
-        body.light-mode .snowflake {
-            color: rgba(200, 200, 220, 0.7);
-        }
-
-        body.light-mode .bubble {
-            background: radial-gradient(circle at 30% 30%, rgba(100, 150, 255, 0.6), rgba(150, 200, 255, 0.3));
-        }
-
-        /* Background Image Layer */
         .background-image-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://github.com/vqru/bahh-gifs/blob/main/content.png?raw=true');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.35;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(226, 225, 235, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(226, 225, 235, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none; z-index: 0;
         }
-
         body.light-mode .background-image-layer {
-            opacity: 0.2;
+            background-image:
+                linear-gradient(rgba(27, 26, 33, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(27, 26, 33, 0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
         nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(27, 26, 33, 0.8);
+            position: fixed; top: 0; left: 0; right: 0;
+            background-color: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(10px);
             padding: 12px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(226, 225, 235, 0.1);
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid rgba(226, 225, 235, 0.08);
             z-index: 1000;
         }
+        body.light-mode nav { background-color: rgba(255, 255, 255, 0.85); }
+        .nav-left { display: flex; align-items: center; gap: 40px; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; color: #E2E1EB; text-decoration: none; }
+        body.light-mode .logo { color: #1B1A21; }
+        .text-citlali { color: #F5DFE1; }
+        .logo img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 15px rgba(251, 189, 195, 0.4); }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: #E2E1EB; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.2s; cursor: pointer; padding: 8px 16px; border-radius: 8px; }
+        .nav-links a:hover, .nav-links a.active { background-color: rgba(212, 181, 232, 0.2); color: #D4B5E8; }
+        body.light-mode .nav-links a { color: #5f6368; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .theme-toggle, .animation-toggle { background: none; border: 1px solid rgba(226, 225, 235, 0.15); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; font-size: 20px; }
+        .theme-toggle:hover, .animation-toggle:hover { background-color: rgba(212, 181, 232, 0.2); }
+        .theme-toggle svg { width: 20px; height: 20px; color: #E2E1EB; }
+        body.light-mode .theme-toggle svg { color: #5f6368; }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
+        .animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
+        .snowflake { position: absolute; top: -10px; color: rgba(255,255,255,0.8); font-size: 20px; animation: fall linear infinite; opacity: 0; }
+        @keyframes fall { 0%{opacity:0;transform:translateY(0) rotate(0)} 10%{opacity:1} 90%{opacity:1} 100%{opacity:0;transform:translateY(100vh) rotate(360deg)} }
+        .bubble { position: absolute; bottom: -10px; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(200,220,255,0.4)); border-radius: 50%; animation: rise linear infinite; opacity: 0; box-shadow: inset 0 0 10px rgba(255,255,255,0.5); }
+        @keyframes rise { 0%{opacity:0;transform:translateY(0)} 10%{opacity:0.8} 90%{opacity:0.8} 100%{opacity:0;transform:translateY(-100vh) translateX(20px)} }
+        .bubble::before { content:''; position:absolute; top:10%; left:15%; width:30%; height:30%; background:rgba(255,255,255,0.6); border-radius:50%; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 20px;
-            font-weight: 600;
-            color: #E2E1EB;
-            text-decoration: none;
-        }
+        .commands-container { padding-top: 80px; max-width: 1300px; margin: 0 auto; padding-left: 40px; padding-right: 40px; position: relative; z-index: 1; }
 
-        .text-citlali {
-            color: #F5DFE1;
-        }
-
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(251, 189, 195, 0.4);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #E2E1EB;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.2s;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 8px;
-        }
-
-        .nav-links a:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-            color: #D4B5E8;
-        }
-        
-       .nav-links a.active {
-            background-color: rgba(212, 181, 232, 0.2);
-            color: #D4B5E8;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 1px solid rgba(226, 225, 235, 0.15);
-            cursor: pointer;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .theme-toggle:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-        }
-
-        .theme-toggle:hover svg {
-            color: #D4B5E8;
-        }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            color: #E2E1EB;
-        }
-
-        body.light-mode .theme-toggle svg {
-            color: #5f6368;
-        }
-
-        .animation-toggle {
-            background: none;
-            border: 1px solid rgba(226, 225, 235, 0.15);
-            cursor: pointer;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            transition: all 0.2s;
-            font-size: 20px;
-        }
-
-        .animation-toggle:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-        }
-
-        .animation-toggle:hover .snowflake-icon,
-        .animation-toggle:hover .bubble-icon {
-            filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(260deg) brightness(96%) contrast(87%);
-        }
-
-        /* Commands Page Layout */
-        .commands-container {
-            padding-top: 80px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-left: 40px;
-            padding-right: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .commands-header {
-            padding: 60px 0 40px;
-        }
-
+        .commands-header { padding: 60px 0 40px; }
         .commands-header h1 {
-            font-size: 48px;
-            font-weight: 700;
-            color: #B5D8FF;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 52px; font-weight: 800;
+            color: #E2E1EB; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 16px;
+            letter-spacing: -0.5px; line-height: 1.1;
         }
+        .commands-header h1 span { color: #C9B8F5; }
+        .commands-emoji { width: 48px; height: 48px; }
+        .commands-header p { font-size: 17px; color: #A8A7B8; }
 
-        .commands-emoji {
-            width: 52px;
-            height: 52px;
-        }
+        .commands-content { display: grid; grid-template-columns: 300px 1fr; gap: 32px; padding-bottom: 80px; }
 
-        .commands-header p {
-            font-size: 18px;
-            color: #A8A7B8;
-        }
-
-        .commands-content {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 40px;
-            padding-bottom: 80px;
-        }
-
-        /* Categories Sidebar */
         .categories-sidebar {
-            background: rgba(226, 225, 235, 0.03);
-            border: 1px solid rgba(226, 225, 235, 0.1);
-            border-radius: 16px;
-            padding: 24px;
-            height: fit-content;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(226, 225, 235, 0.08);
+            border-radius: 14px; padding: 20px;
+            height: fit-content; position: sticky; top: 90px;
         }
+        .categories-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a5870; margin-bottom: 16px; }
+        .category-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-radius: 8px; margin-bottom: 4px; cursor: pointer; transition: all 0.2s; color: #7a7990; font-size: 14px; font-weight: 500; }
+        .category-item:hover { background: rgba(212, 181, 232, 0.12); color: #D4B5E8; }
+        .category-item.active { background: rgba(201, 184, 245, 0.15); color: #C9B8F5; font-weight: 600; }
+        .category-count { font-size: 11px; font-weight: 600; background: rgba(226,225,235,0.08); padding: 2px 8px; border-radius: 10px; color: #5a5870; }
+        .category-item.active .category-count { background: rgba(201,184,245,0.2); color: #C9B8F5; }
 
-        .categories-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #FFE5B5;
-            margin-bottom: 20px;
-        }
+        .commands-list { display: flex; flex-direction: column; gap: 8px; }
+        .search-bar { background: rgba(255,255,255,0.03); border: 1px solid rgba(226,225,235,0.08); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; transition: all 0.2s; }
+        .search-bar:focus-within { border-color: rgba(201,184,245,0.4); }
+        .search-bar svg { width: 18px; height: 18px; color: #5a5870; flex-shrink: 0; }
+        .search-bar input { background: none; border: none; outline: none; color: #E2E1EB; font-size: 14px; width: 100%; }
+        .search-bar input::placeholder { color: #5a5870; }
 
-        .category-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: transparent;
-            color: #A8A7B8;
-        }
+        .command-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(226,225,235,0.07); border-radius: 10px; padding: 16px 20px; cursor: pointer; transition: all 0.2s; }
+        .command-card-header { display: flex; align-items: center; gap: 14px; width: 100%; }
+        .command-card:hover { background: rgba(201,184,245,0.06); border-color: rgba(201,184,245,0.2); }
+        .command-icon { width: 40px; height: 40px; background: rgba(226,225,235,0.06); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .command-info { flex: 1; }
+        .command-name { font-size: 15px; font-weight: 600; color: #C9B8F5; margin-bottom: 2px; font-family: 'Courier New', monospace; }
+        .command-description { font-size: 13px; color: #7a7990; }
+        .command-arrow { color: #5a5870; transition: transform 0.2s; flex-shrink: 0; }
+        .command-card.expanded .command-arrow { transform: rotate(180deg); }
+        .command-card:hover .command-arrow { color: #C9B8F5; }
 
-        .category-item:hover {
-            background: rgba(212, 181, 232, 0.2);
-            color: #D4B5E8;
-        }
+        .command-details { display: none; width: 100%; padding-top: 14px; margin-top: 14px; border-top: 1px solid rgba(226,225,235,0.07); animation: slideDown 0.2s ease; }
+        .command-card.expanded .command-details { display: block; }
+        @keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
-        .category-item.active {
-            background: #D4B5E8;
-            color: #1B1A21;
-            font-weight: 600;
-        }
+        .detail-section { margin-bottom: 14px; }
+        .detail-section:last-child { margin-bottom: 0; }
+        .detail-title { font-size: 10px; font-weight: 700; color: #5a5870; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .requirement-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; color: #A8A7B8; font-size: 13px; }
+        .requirement-badge { background: rgba(251,189,195,0.12); color: #FBBDC3; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .voting-badge { background: rgba(255,210,100,0.12); color: #FFD264; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .option-item { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: 13px; }
+        .option-name { color: #C9B8F5; font-weight: 600; font-family: 'Courier New', monospace; }
+        .option-required { background: rgba(255,100,100,0.15); color: #ff7070; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+        .option-optional { background: rgba(100,200,255,0.12); color: #64c8ff; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+        .option-desc { color: #7a7990; }
+        .usage-code { background: rgba(0,0,0,0.4); padding: 10px 14px; border-radius: 8px; font-family: 'Courier New', monospace; color: #B5E577; font-size: 13px; border: 1px solid rgba(226,225,235,0.07); }
 
-        .category-count {
-            background: rgba(226, 225, 235, 0.15);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .category-item.active .category-count {
-            background: rgba(27, 26, 33, 0.2);
-        }
-
-        /* Commands List Area */
-        .commands-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .search-bar {
-            background: rgba(226, 225, 235, 0.05);
-            border: 1px solid rgba(226, 225, 235, 0.1);
-            border-radius: 12px;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            transition: all 0.2s;
-        }
-
-        .search-bar:focus-within {
-            border-color: #D4B5E8;
-            box-shadow: 0 0 0 2px rgba(212, 181, 232, 0.2);
-        }
-
-        .search-bar svg {
-            width: 20px;
-            height: 20px;
-            color: #A8A7B8;
-        }
-
-        .search-bar input {
-            background: none;
-            border: none;
-            outline: none;
-            color: #E2E1EB;
-            font-size: 15px;
-            width: 100%;
-        }
-
-        .search-bar input::placeholder {
-            color: #A8A7B8;
-        }
-
-        .command-card {
-            background: rgba(226, 225, 235, 0.03);
-            border: 1px solid rgba(226, 225, 235, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .command-card-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            width: 100%;
-        }
-
-        .command-card:hover {
-            background: rgba(212, 181, 232, 0.1);
-            transform: translateY(-2px);
-            border-color: rgba(212, 181, 232, 0.3);
-        }
-
-        .command-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(226, 225, 235, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .command-info {
-            flex: 1;
-        }
-
-        .command-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #B5FFE8;
-            margin-bottom: 4px;
-        }
-
-        .command-description {
-            font-size: 14px;
-            color: #A8A7B8;
-        }
-
-        .command-arrow {
-            color: #A8A7B8;
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-
-        .command-card.expanded .command-arrow {
-            transform: rotate(180deg);
-        }
-
-        .command-card:hover .command-arrow {
-            color: #D4B5E8;
-        }
-
-        .command-details {
-            display: none;
-            width: 100%;
-            padding-top: 16px;
-            border-top: 1px solid rgba(226, 225, 235, 0.1);
-            animation: slideDown 0.2s ease;
-        }
-
-        .command-card.expanded .command-details {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .detail-section {
-            margin-bottom: 16px;
-        }
-
-        .detail-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .detail-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #FFE5B5;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .requirement-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 0;
-            color: #A8A7B8;
-            font-size: 14px;
-        }
-
-        .requirement-badge {
-            background: rgba(251, 189, 195, 0.2);
-            color: #FBBDC3;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        /* Voting badge — same pink style as NSFW badge */
-        .voting-badge {
-            background: rgba(251, 189, 195, 0.2);
-            color: #FBBDC3;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .option-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 14px;
-        }
-
-        .option-name {
-            color: #D4B5E8;
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
-        }
-
-        .option-required {
-            background: rgba(255, 100, 100, 0.2);
-            color: #ff6464;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .option-optional {
-            background: rgba(100, 200, 255, 0.2);
-            color: #64c8ff;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .option-desc {
-            color: #A8A7B8;
-        }
-
-        .usage-code {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 12px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            color: #B5E577;
-            font-size: 13px;
-            border: 1px solid rgba(226, 225, 235, 0.1);
-        }
-
-        /* Animation Container */
-        .animation-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 999;
-            overflow: hidden;
-        }
-
-        /* Snowflake Styles */
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 20px;
-            animation: fall linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes fall {
-            0% {
-                opacity: 0;
-                transform: translateY(0) rotate(0deg);
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(360deg);
-            }
-        }
-
-        /* Bubble Styles */
-        .bubble {
-            position: absolute;
-            bottom: -10px;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(200, 220, 255, 0.4));
-            border-radius: 50%;
-            animation: rise linear infinite;
-            opacity: 0;
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes rise {
-            0% {
-                opacity: 0;
-                transform: translateY(0) translateX(0);
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100vh) translateX(20px);
-            }
-        }
-
-        .bubble::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 15%;
-            width: 30%;
-            height: 30%;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-        }
-
-        /* Footer Styles */
-        footer {
-            position: relative;
-            z-index: 1;
-            padding: 60px 40px 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        /* FOOTER */
+        footer { position: relative; z-index: 1; padding: 40px 40px 40px; max-width: 1300px; margin: 0 auto; }
         .footer-content {
-            background: rgba(27, 26, 33, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(226, 225, 235, 0.15);
-            border-radius: 20px;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 40px;
-            align-items: center;
-            max-width: 950px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(226,225,235,0.08);
+            border-radius: 16px; padding: 32px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 40px; max-width: 900px;
         }
+        body.light-mode .footer-content { background: rgba(255,255,255,0.5); }
+        .footer-left { display: flex; flex-direction: column; gap: 14px; }
+        .footer-creator { display: flex; align-items: center; gap: 12px; }
+        .footer-pfp { width: 44px; height: 44px; border-radius: 50%; }
+        .footer-username { font-size: 18px; font-weight: 600; color: #FFE8EC; }
+        .footer-text { font-size: 13px; color: #5a5870; }
+        .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
+        .footer-link { font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(226,225,235,0.08); }
+        .footer-link.discord { color: #D4B5E8; background: rgba(212,181,232,0.06); }
+        .footer-link.topgg { color: #FFE5B5; background: rgba(255,229,181,0.06); }
+        .footer-link:hover { background-color: rgba(181,229,119,0.12); color: #B5E577; border-color: rgba(181,229,119,0.2); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .footer-logo-big { display: flex; align-items: center; gap: 10px; }
+        .footer-logo-big img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.3); }
+        .footer-logo-big span { font-size: 22px; font-weight: 700; color: #F5DFE1; }
+        .footer-tagline { font-size: 12px; color: #3a3850; }
 
-        body.light-mode .footer-content {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .footer-creator {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .footer-pfp {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 232, 236, 0.4);
-        }
-
-        .footer-username {
-            font-size: 20px;
-            font-weight: 600;
-            color: #FFE8EC;
-        }
-
-        .footer-text {
-            font-size: 14px;
-            color: #A8A7B8;
-            margin: 0;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .footer-link {
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s;
-            padding: 6px 12px;
-            border-radius: 8px;
-            width: fit-content;
-        }
-
-        .footer-link.discord {
-            color: #D4B5E8;
-        }
-
-        .footer-link.topgg {
-            color: #FFE5B5;
-        }
-
-        .footer-link:hover {
-            background-color: rgba(212, 181, 232, 0.2);
-            color: #D4B5E8;
-        }
-
-        .footer-gif {
-            width: 350px;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(127, 96, 189, 0.3);
-        }
-
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            nav {
-                padding: 12px 20px;
-            }
-
-            .nav-left {
-                gap: 20px;
-            }
-
-            .logo {
-                font-size: 18px;
-            }
-
-            .logo img {
-                width: 35px;
-                height: 35px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
-                font-size: 14px;
-                padding: 6px 12px;
-            }
-
-            .commands-container {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .commands-header {
-                padding: 40px 0 30px;
-            }
-
-            .commands-header h1 {
-                font-size: 32px;
-            }
-
-            .commands-emoji {
-                width: 40px;
-                height: 40px;
-            }
-
-            .commands-header p {
-                font-size: 16px;
-            }
-
-            .commands-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .categories-sidebar {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                padding: 16px;
-            }
-
-            .categories-title {
-                grid-column: 1 / -1;
-                font-size: 16px;
-                margin-bottom: 8px;
-            }
-
-            .category-item {
-                padding: 10px 12px;
-                margin-bottom: 0;
-            }
-
-            .command-card {
-                padding: 16px;
-            }
-
-            .command-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .command-name {
-                font-size: 16px;
-            }
-
-            .command-description {
-                font-size: 13px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                padding: 30px 20px;
-                gap: 30px;
-            }
-
-            .footer-gif {
-                width: 100%;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .commands-header h1 {
-                font-size: 28px;
-                flex-wrap: wrap;
-            }
-
-            .categories-sidebar {
-                grid-template-columns: 1fr;
-            }
-
-            .search-bar {
-                padding: 12px 16px;
-            }
-
-            .command-card-header {
-                flex-wrap: wrap;
-            }
-
-            .command-arrow {
-                margin-left: auto;
-            }
-        }
+        @media (max-width: 900px) { .commands-content { grid-template-columns: 1fr; } .categories-sidebar { position: static; display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; } .categories-title { grid-column: 1/-1; } .category-item { margin-bottom: 0; } }
+        @media (max-width: 768px) { nav { padding: 12px 20px; } .commands-container { padding-left: 20px; padding-right: 20px; } .commands-header h1 { font-size: 36px; } footer { padding: 20px; } .footer-content { flex-direction: column; align-items: flex-start; } .footer-right { align-items: flex-start; } }
+        @media (max-width: 480px) { .commands-header h1 { font-size: 28px; } .categories-sidebar { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
-    <!-- Background Image Layer -->
     <div class="background-image-layer"></div>
-
-    <!-- Animation Container -->
     <div class="animation-container" id="animationContainer"></div>
 
     <nav>
@@ -853,686 +175,332 @@
             </a>
             <div class="nav-links">
                 <a href="commands.html" class="active">Commands</a>
-               <a href="stats.html">Stats</a>
-           </div>
+                <a href="stats.html">Stats</a>
+            </div>
         </div>
         <div class="nav-right">
             <button class="theme-toggle" onclick="toggleTheme()">
-                <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                </svg>
-                <svg class="sun-icon" style="display: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
+                <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                <svg class="sun-icon" style="display:none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
             </button>
             <button class="animation-toggle" onclick="toggleAnimation()">
                 <span class="snowflake-icon">❆</span>
-                <span class="bubble-icon" style="display: none;">🫧</span>
+                <span class="bubble-icon" style="display:none">🫧</span>
             </button>
         </div>
     </nav>
 
     <div class="commands-container">
         <div class="commands-header">
-            <h1><img src="https://cdn.discordapp.com/emojis/1451143459862876170.webp?size=40&quality=lossless" alt="Commands" class="commands-emoji">Commands</h1>
+            <h1><img src="https://cdn.discordapp.com/emojis/1451143459862876170.webp?size=40&quality=lossless" alt="Commands" class="commands-emoji"> All <span>Commands</span></h1>
             <p>View all available commands for <span class="text-citlali">Citlali</span></p>
         </div>
 
         <div class="commands-content">
-            <!-- Categories Sidebar -->
             <div class="categories-sidebar">
                 <div class="categories-title">Categories</div>
-                <div class="category-item active" data-category="all" onclick="filterCategory('all')">
-                    <span>All Commands</span>
-                    <span class="category-count">24</span>
-                </div>
-                <div class="category-item" data-category="ai-chat" onclick="filterCategory('ai-chat')">
-                    <span>AI Chat</span>
-                    <span class="category-count">2</span>
-                </div>
-                <div class="category-item" data-category="fun" onclick="filterCategory('fun')">
-                    <span>Fun</span>
-                    <span class="category-count">5</span>
-                </div>
-                <div class="category-item" data-category="utility" onclick="filterCategory('utility')">
-                    <span>Utility</span>
-                    <span class="category-count">7</span>
-                </div>
-                <div class="category-item" data-category="nsfw" onclick="filterCategory('nsfw')">
-                    <span>NSFW</span>
-                    <span class="category-count">10</span>
-                </div>
-                <div class="category-item" data-category="guide" onclick="filterCategory('guide')">
-                    <span>Guide</span>
-                    <span class="category-count">0</span>
-                </div>
+                <div class="category-item active" data-category="all" onclick="filterCategory('all')"><span>All Commands</span><span class="category-count">24</span></div>
+                <div class="category-item" data-category="ai-chat" onclick="filterCategory('ai-chat')"><span>AI Chat</span><span class="category-count">2</span></div>
+                <div class="category-item" data-category="fun" onclick="filterCategory('fun')"><span>Fun</span><span class="category-count">5</span></div>
+                <div class="category-item" data-category="utility" onclick="filterCategory('utility')"><span>Utility</span><span class="category-count">7</span></div>
+                <div class="category-item" data-category="nsfw" onclick="filterCategory('nsfw')"><span>NSFW</span><span class="category-count">10</span></div>
             </div>
 
-            <!-- Commands List -->
             <div class="commands-list">
                 <div class="search-bar">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                    <input type="text" placeholder="Search commands..." id="searchInput">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" placeholder="Search commands…" id="searchInput">
                 </div>
-
                 <div id="commandsList">
-                    <!-- NSFW Commands -->
+
+                    <!-- NSFW -->
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🎱</div>
-                            <div class="command-info">
-                                <div class="command-name">/8ball</div>
-                                <div class="command-description">Ask Citlali's magic 8-ball for naughty predictions</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/8ball</div><div class="command-description">Ask Citlali's magic 8-ball for naughty predictions</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">question</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- The question you want to ask</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/8ball &lt;question&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="requirement-badge">Server Only</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">question</span><span class="option-required">Required</span><span class="option-desc">— The question you want to ask</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/8ball &lt;question&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🍑</div>
-                            <div class="command-info">
-                                <div class="command-name">/anal</div>
-                                <div class="command-description">The other hole... need we say more?</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/anal</div><div class="command-description">The other hole… need we say more?</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/anal</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/anal</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🤖</div>
-                            <div class="command-info">
-                                <div class="command-name">/autobooru gelbooru</div>
-                                <div class="command-description"><strong>Automatically post</strong> Gelbooru content to your channel</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/autobooru gelbooru</div><div class="command-description">Automatically post Gelbooru content to your channel</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/autobooru gelbooru</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/autobooru gelbooru</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🤖</div>
-                            <div class="command-info">
-                                <div class="command-name">/autobooru safebooru</div>
-                                <div class="command-description"><strong>Automatically post</strong> Safebooru content (safer option)</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/autobooru safebooru</div><div class="command-description">Automatically post Safebooru content (safer option)</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/autobooru safebooru</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/autobooru safebooru</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">💦</div>
-                            <div class="command-info">
-                                <div class="command-name">/bukkake</div>
-                                <div class="command-description">Sticky situation incoming...</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/bukkake</div><div class="command-description">Sticky situation incoming…</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/bukkake</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/bukkake</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🍰</div>
-                            <div class="command-info">
-                                <div class="command-name">/creampie</div>
-                                <div class="command-description">You already know what this is</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/creampie</div><div class="command-description">You already know what this is</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/creampie</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/creampie</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🔥</div>
-                            <div class="command-info">
-                                <div class="command-name">/hentai</div>
-                                <div class="command-description">Get a <strong>hot hentai GIF</strong> straight from the best sources</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/hentai</div><div class="command-description">Get a hot hentai GIF straight from the best sources</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">tag</span>
-                                    <span class="option-optional">Optional</span>
-                                    <span class="option-desc">- Specific tag to search for</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/hentai [tag]</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">tag</span><span class="option-optional">Optional</span><span class="option-desc">— Specific tag to search for</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/hentai [tag]</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🔍</div>
-                            <div class="command-info">
-                                <div class="command-name">/nh search</div>
-                                <div class="command-description"><strong>Search for doujins</strong> by title or tags</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/nh search</div><div class="command-description">Search for doujins by title or tags</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">query</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- Search term (title or tags)</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/nh search &lt;query&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">query</span><span class="option-required">Required</span><span class="option-desc">— Search term (title or tags)</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/nh search &lt;query&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">👁️</div>
-                            <div class="command-info">
-                                <div class="command-name">/nh view</div>
-                                <div class="command-description">View a doujin by its 6-digit code</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/nh view</div><div class="command-description">View a doujin by its 6-digit code</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">code</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- 6-digit doujin code</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/nh view &lt;code&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">code</span><span class="option-required">Required</span><span class="option-desc">— 6-digit doujin code</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/nh view &lt;code&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="nsfw" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">👭</div>
-                            <div class="command-info">
-                                <div class="command-name">/yuri</div>
-                                <div class="command-description">Lesbians. That's it. That's the description.</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/yuri</div><div class="command-description">Lesbians. That's it. That's the description.</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                                <div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div>
-                                <div class="requirement-item"><span class="requirement-badge">Server Only (No DMs)</span></div>
-                                <div class="requirement-item"><span class="voting-badge">Voting Required</span></div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/yuri</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Requirements</div><div class="requirement-item"><span class="requirement-badge">NSFW Channel Only</span></div><div class="requirement-item"><span class="voting-badge">Voting Required</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/yuri</div></div>
                         </div>
                     </div>
 
-                    <!-- AI Chat Commands -->
+                    <!-- AI Chat -->
                     <div class="command-card" data-category="ai-chat" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">📊</div>
-                            <div class="command-info">
-                                <div class="command-name">/citlali-stats</div>
-                                <div class="command-description">View Citlali's <strong>current statistics</strong> and performance</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/citlali-stats</div><div class="command-description">View Citlali's current statistics and performance</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/citlali-stats</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/citlali-stats</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="ai-chat" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">💕</div>
-                            <div class="command-info">
-                                <div class="command-name">/personality</div>
-                                <div class="command-description"><strong>Change the bot's response personality!</strong> Pick your vibe or create custom</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/personality</div><div class="command-description">Change the bot's response personality — pick your vibe</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Requirements</div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/personality</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/personality</div></div>
                         </div>
                     </div>
 
-                    <!-- Fun Commands -->
+                    <!-- Fun -->
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">📖</div>
-                            <div class="command-info">
-                                <div class="command-name">/define</div>
-                                <div class="command-description">Get a word's definition from <strong>Urban Dictionary</strong></div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/define</div><div class="command-description">Get a word's definition from Urban Dictionary</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">word</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- The word to define</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/define &lt;word&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">word</span><span class="option-required">Required</span><span class="option-desc">— The word to define</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/define &lt;word&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">📚</div>
-                            <div class="command-info">
-                                <div class="command-name">/manga</div>
-                                <div class="command-description"><strong>Search and read manga</strong> right in Discord</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/manga</div><div class="command-description">Search and read manga right in Discord</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">title</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- Manga title to search</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/manga &lt;title&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">title</span><span class="option-required">Required</span><span class="option-desc">— Manga title to search</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/manga &lt;title&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">💬</div>
-                            <div class="command-info">
-                                <div class="command-name">/quote</div>
-                                <div class="command-description">Create a <strong>quote image</strong> from any message</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/quote</div><div class="command-description">Create a quote image from any message</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">message</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- Message ID or reply to a message</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/quote &lt;message&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">message</span><span class="option-required">Required</span><span class="option-desc">— Message ID or reply to a message</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/quote &lt;message&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🎲</div>
-                            <div class="command-info">
-                                <div class="command-name">/randomnick</div>
-                                <div class="command-description">Get a <strong>chaotically random funny nickname!</strong></div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/randomnick</div><div class="command-description">Get a chaotically random funny nickname</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/randomnick</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/randomnick</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="fun" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">❌⭕</div>
-                            <div class="command-info">
-                                <div class="command-name">/tictactoe</div>
-                                <div class="command-description">Play Tic-Tac-Toe against Citlali or friends</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/tictactoe</div><div class="command-description">Play Tic-Tac-Toe against Citlali or friends</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/tictactoe</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/tictactoe</div></div>
                         </div>
                     </div>
 
-                    <!-- Utility Commands -->
+                    <!-- Utility -->
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">❓</div>
-                            <div class="command-info">
-                                <div class="command-name">/help</div>
-                                <div class="command-description">Shows <strong>all available commands and categories</strong></div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/help</div><div class="command-description">Shows all available commands and categories</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
-                        <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/help</div>
-                            </div>
-                        </div>
+                        <div class="command-details"><div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/help</div></div></div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">💕</div>
-                            <div class="command-info">
-                                <div class="command-name">/profile</div>
-                                <div class="command-description">View your <strong>relationship stats</strong> with Citlali!</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/profile</div><div class="command-description">View your relationship stats with Citlali</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
-                        <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/profile</div>
-                            </div>
-                        </div>
+                        <div class="command-details"><div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/profile</div></div></div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">📮</div>
-                            <div class="command-info">
-                                <div class="command-name">/report</div>
-                                <div class="command-description">Submit <strong>feedback or report</strong> to the bot owner</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/report</div><div class="command-description">Submit feedback or report to the bot owner</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">message</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- Your feedback or report</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/report &lt;message&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">message</span><span class="option-required">Required</span><span class="option-desc">— Your feedback or report</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/report &lt;message&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🔧</div>
-                            <div class="command-info">
-                                <div class="command-name">/toggle removechannel</div>
-                                <div class="command-description">Remove channel restriction (bot responds <strong>anywhere</strong>)</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/toggle removechannel</div><div class="command-description">Remove channel restriction — bot responds anywhere</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
-                        <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/toggle removechannel</div>
-                            </div>
-                        </div>
+                        <div class="command-details"><div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/toggle removechannel</div></div></div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🔧</div>
-                            <div class="command-info">
-                                <div class="command-name">/toggle setchannel</div>
-                                <div class="command-description">Set the <strong>channel where bot will respond</strong></div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/toggle setchannel</div><div class="command-description">Set the channel where bot will respond</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">channel</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- The channel to set</span>
-                                </div>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/toggle setchannel &lt;channel&gt;</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Options</div><div class="option-item"><span class="option-name">channel</span><span class="option-required">Required</span><span class="option-desc">— The channel to set</span></div></div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/toggle setchannel &lt;channel&gt;</div></div>
                         </div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">ℹ️</div>
-                            <div class="command-info">
-                                <div class="command-name">/toggle status</div>
-                                <div class="command-description">Check <strong>current channel settings</strong></div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/toggle status</div><div class="command-description">Check current channel settings</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
-                        <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/toggle status</div>
-                            </div>
-                        </div>
+                        <div class="command-details"><div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/toggle status</div></div></div>
                     </div>
 
                     <div class="command-card" data-category="utility" onclick="toggleExpand(this)">
                         <div class="command-card-header">
                             <div class="command-icon">🌐</div>
-                            <div class="command-info">
-                                <div class="command-name">/translate</div>
-                                <div class="command-description"><strong>Advanced translation</strong> with auto-detection and multiple options</div>
-                            </div>
-                            <svg class="command-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
+                            <div class="command-info"><div class="command-name">/translate</div><div class="command-description">Advanced translation with auto-detection and multiple options</div></div>
+                            <svg class="command-arrow" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </div>
                         <div class="command-details">
-                            <div class="detail-section">
-                                <div class="detail-title">Options</div>
-                                <div class="option-item">
-                                    <span class="option-name">text</span>
-                                    <span class="option-required">Required</span>
-                                    <span class="option-desc">- Text to translate</span>
-                                </div>
-                                <div class="option-item">
-                                    <span class="option-name">language</span>
-                                    <span class="option-optional">Optional</span>
-                                    <span class="option-desc">- Target language code (e.g., es, fr, ja)</span>
-                                </div>
+                            <div class="detail-section"><div class="detail-title">Options</div>
+                                <div class="option-item"><span class="option-name">text</span><span class="option-required">Required</span><span class="option-desc">— Text to translate</span></div>
+                                <div class="option-item"><span class="option-name">language</span><span class="option-optional">Optional</span><span class="option-desc">— Target language code (e.g. es, fr, ja)</span></div>
                             </div>
-                            <div class="detail-section">
-                                <div class="detail-title">Usage</div>
-                                <div class="usage-code">/translate &lt;text&gt; [language]</div>
-                            </div>
+                            <div class="detail-section"><div class="detail-title">Usage</div><div class="usage-code">/translate &lt;text&gt; [language]</div></div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-left">
@@ -1542,150 +510,84 @@
                 </div>
                 <p class="footer-text">Created by vqru</p>
                 <div class="footer-links">
-                    <a href="https://discord.gg/qRwS8gMVBj" target="_blank" rel="noopener noreferrer" class="footer-link discord">Discord Support</a>
-                    <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
+                    <a href="https://discord.gg/qRwS8gMVBj" target="_blank" class="footer-link discord">Discord Support</a>
+                    <a href="https://top.gg/bot/1333324950127378453" target="_blank" class="footer-link topgg">Top.gg</a>
                 </div>
             </div>
-            <img src="https://cdn.discordapp.com/attachments/1439519276787830916/1463446747379662891/Character_Trailer_4.gif?ex=6994237e&is=6992d1fe&hm=1853a9ee613fbe750ab35d21b7d2d816b4a1f95d6936b30e335db7310bc6bc1f&" alt="Citlali" class="footer-gif">
+            <div class="footer-right">
+                <div class="footer-logo-big">
+                    <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
+                    <span>Citlali</span>
+                </div>
+                <p class="footer-tagline">Your adorable genshin companion</p>
+            </div>
         </div>
     </footer>
 
     <script>
         let animationType = 'snowflake';
-
         function createSnowflakes() {
-            const container = document.getElementById('animationContainer');
+            const c = document.getElementById('animationContainer');
             for (let i = 0; i < 9; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.innerHTML = '❆';
-                snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.fontSize = (Math.random() * 8 + 14) + 'px';
-                container.appendChild(snowflake);
+                const s = document.createElement('div'); s.className = 'snowflake'; s.innerHTML = '❆';
+                s.style.left = Math.random() * 100 + '%';
+                s.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                s.style.animationDelay = Math.random() * 5 + 's';
+                s.style.fontSize = (Math.random() * 8 + 14) + 'px';
+                c.appendChild(s);
             }
         }
-
         function createBubbles() {
-            const container = document.getElementById('animationContainer');
-            
-            for (let cluster = 0; cluster < 3; cluster++) {
-                const clusterX = Math.random() * 90 + 5;
-                const bubblesInCluster = Math.floor(Math.random() * 2) + 2;
-                
-                for (let i = 0; i < bubblesInCluster; i++) {
-                    const bubble = document.createElement('div');
-                    bubble.className = 'bubble';
-                    bubble.style.left = (clusterX + (Math.random() * 5 - 2.5)) + '%';
-                    bubble.style.animationDuration = (Math.random() * 3 + 7) + 's';
-                    bubble.style.animationDelay = Math.random() * 3 + 's';
-                    const size = Math.random() * 25 + 20;
-                    bubble.style.width = size + 'px';
-                    bubble.style.height = size + 'px';
-                    container.appendChild(bubble);
+            const c = document.getElementById('animationContainer'); c.innerHTML = '';
+            for (let cl = 0; cl < 3; cl++) {
+                const cx = Math.random() * 90 + 5;
+                for (let i = 0; i < Math.floor(Math.random()*2)+2; i++) {
+                    const b = document.createElement('div'); b.className = 'bubble';
+                    b.style.left = (cx + (Math.random()*5-2.5)) + '%';
+                    b.style.animationDuration = (Math.random()*3+7) + 's';
+                    b.style.animationDelay = Math.random()*3 + 's';
+                    const sz = Math.random()*25+20; b.style.width = sz+'px'; b.style.height = sz+'px';
+                    c.appendChild(b);
                 }
             }
-            
             for (let i = 0; i < 6; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'bubble';
-                bubble.style.left = Math.random() * 100 + '%';
-                bubble.style.animationDuration = (Math.random() * 4 + 7) + 's';
-                bubble.style.animationDelay = Math.random() * 5 + 's';
-                const size = Math.random() * 30 + 20;
-                bubble.style.width = size + 'px';
-                bubble.style.height = size + 'px';
-                container.appendChild(bubble);
+                const b = document.createElement('div'); b.className = 'bubble';
+                b.style.left = Math.random()*100 + '%';
+                b.style.animationDuration = (Math.random()*4+7) + 's';
+                b.style.animationDelay = Math.random()*5 + 's';
+                const sz = Math.random()*30+20; b.style.width = sz+'px'; b.style.height = sz+'px';
+                c.appendChild(b);
             }
         }
-
-        function clearAnimations() {
-            const container = document.getElementById('animationContainer');
-            container.innerHTML = '';
-        }
-
         function toggleAnimation() {
-            const snowflakeIcon = document.querySelector('.snowflake-icon');
-            const bubbleIcon = document.querySelector('.bubble-icon');
-            
-            clearAnimations();
-            
-            if (animationType === 'snowflake') {
-                animationType = 'bubble';
-                snowflakeIcon.style.display = 'none';
-                bubbleIcon.style.display = 'block';
-                createBubbles();
-            } else {
-                animationType = 'snowflake';
-                snowflakeIcon.style.display = 'block';
-                bubbleIcon.style.display = 'none';
-                createSnowflakes();
-            }
+            const si = document.querySelector('.snowflake-icon'), bi = document.querySelector('.bubble-icon');
+            document.getElementById('animationContainer').innerHTML = '';
+            if (animationType === 'snowflake') { animationType = 'bubble'; si.style.display = 'none'; bi.style.display = 'block'; createBubbles(); }
+            else { animationType = 'snowflake'; si.style.display = 'block'; bi.style.display = 'none'; createSnowflakes(); }
         }
-
         function toggleTheme() {
-            const body = document.body;
-            const moonIcon = document.querySelector('.moon-icon');
-            const sunIcon = document.querySelector('.sun-icon');
-            
-            body.classList.toggle('light-mode');
-            
-            if (body.classList.contains('light-mode')) {
-                moonIcon.style.display = 'none';
-                sunIcon.style.display = 'block';
-            } else {
-                moonIcon.style.display = 'block';
-                sunIcon.style.display = 'none';
-            }
+            document.body.classList.toggle('light-mode');
+            const moon = document.querySelector('.moon-icon'), sun = document.querySelector('.sun-icon');
+            if (document.body.classList.contains('light-mode')) { moon.style.display = 'none'; sun.style.display = 'block'; }
+            else { moon.style.display = 'block'; sun.style.display = 'none'; }
         }
-
-        // Category filtering
         function filterCategory(category) {
-            const allCategories = document.querySelectorAll('.category-item');
-            const allCommands = document.querySelectorAll('.command-card');
-            
-            // Update active category
-            allCategories.forEach(cat => cat.classList.remove('active'));
+            document.querySelectorAll('.category-item').forEach(c => c.classList.remove('active'));
             document.querySelector(`[data-category="${category}"]`).classList.add('active');
-            
-            // Filter commands
-            allCommands.forEach(cmd => {
-                if (category === 'all' || cmd.dataset.category === category) {
-                    cmd.style.display = 'flex';
-                } else {
-                    cmd.style.display = 'none';
-                }
+            document.querySelectorAll('.command-card').forEach(cmd => {
+                cmd.style.display = (category === 'all' || cmd.dataset.category === category) ? 'block' : 'none';
             });
         }
-
-        // Command card expand/collapse
-        function toggleExpand(card) {
-            card.classList.toggle('expanded');
-        }
-
-        // Search functionality
+        function toggleExpand(card) { card.classList.toggle('expanded'); }
         document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const allCommands = document.querySelectorAll('.command-card');
-            
-            allCommands.forEach(cmd => {
-                const name = cmd.querySelector('.command-name').textContent.toLowerCase();
-                const desc = cmd.querySelector('.command-description').textContent.toLowerCase();
-                
-                if (name.includes(searchTerm) || desc.includes(searchTerm)) {
-                    cmd.style.display = 'flex';
-                } else {
-                    cmd.style.display = 'none';
-                }
+            const q = e.target.value.toLowerCase();
+            document.querySelectorAll('.command-card').forEach(cmd => {
+                const n = cmd.querySelector('.command-name').textContent.toLowerCase();
+                const d = cmd.querySelector('.command-description').textContent.toLowerCase();
+                cmd.style.display = (n.includes(q) || d.includes(q)) ? 'block' : 'none';
             });
         });
-
-        // Start snowflakes on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            createSnowflakes();
-            filterCategory('all');
-        });
+        window.addEventListener('DOMContentLoaded', () => { createSnowflakes(); filterCategory('all'); });
     </script>
 </body>
 </html>
