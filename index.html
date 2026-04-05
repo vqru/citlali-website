@@ -122,6 +122,25 @@
         @keyframes rise { to { transform: translateY(-100vh) rotate(-360deg); } }
         .hidden { display: none !important; }
 
+        /* HERO LOAD ANIMATION */
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-left > * {
+            opacity: 0;
+            animation: heroFadeUp 0.65s ease forwards;
+        }
+        .hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+        .hero-left > *:nth-child(2) { animation-delay: 0.18s; }
+        .hero-left > *:nth-child(3) { animation-delay: 0.28s; }
+        .hero-left > *:nth-child(4) { animation-delay: 0.38s; }
+        .hero-left > *:nth-child(5) { animation-delay: 0.48s; }
+        .hero-right {
+            opacity: 0;
+            animation: heroFadeUp 0.8s ease 0.25s forwards;
+        }
+
         /* HERO */
         .hero {
             padding: 120px 40px;
@@ -480,7 +499,7 @@
                         </div>
                     </div>
                     <div class="message-card">
-                        <img src="https://github.com/vqru/bahh-gifs/blob/main/sample_24a52853e33d077e58fd9cfcc4d4be7e.jpg?raw=true" alt="NSFW feature showcase" style="width: 75%; display: block; margin: 0 auto; border-radius: 8px;" loading="lazy">
+                        <img src="https://github.com/vqru/bahh-gifs/blob/main/top%20gg%20img.webp?raw=true" alt="NSFW feature showcase" style="width: 100%; display: block; border-radius: 8px;" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -564,10 +583,6 @@
                     <strong>5 rarity tiers</strong> from Common (40%) to Legendary (5%). Earn Sigils by voting on top.gg — <em>+2 bonus on weekends.</em>
                 </p>
                 <div class="feat-tags">
-                    <span class="feat-tag">⭐⭐⭐⭐⭐ Legendary 5%</span>
-                    <span class="feat-tag">🔄 Trade</span>
-                    <span class="feat-tag">🎁 Gift</span>
-                    <span class="feat-tag">📋 Wishlist pings</span>
                     <span class="feat-tag">/cd</span>
                     <span class="feat-tag">/cc</span>
                 </div>
@@ -586,9 +601,6 @@
                     Progress through <strong>5 bond tiers</strong>: 🩶 Stranger → 🤍 Acquainted → 💛 Friend → 🩷 Close → ❤️ Devoted. Use <span class="cmd">/cbreakup</span> to reset and re-roll their personality — if you dare.
                 </p>
                 <div class="feat-tags">
-                    <span class="feat-tag">❤️ 5 bond tiers</span>
-                    <span class="feat-tag">💬 Interactive dates</span>
-                    <span class="feat-tag">🔔 DM reminders</span>
                     <span class="feat-tag">/cdate</span>
                     <span class="feat-tag">/cbreakup</span>
                 </div>
@@ -607,30 +619,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Content Samples Gallery -->
-    <div class="gallery-section reveal">
-        <div class="gallery-header">
-            <h2 class="gallery-title"><img src="https://media.tenor.com/tsY-tHPaDS0AAAAj/citlali-genshin-impact.gif" alt="Citlali" style="width: 50px; height: 50px; vertical-align: middle; margin-right: 10px;"> <span class="text-content-samples">Content Samples</span></h2>
-            <span class="content-warning"><span class="warn-icon">⚠</span> 18+ content — view at your own discretion</span>
-        </div>
-        <div class="gallery-container">
-            <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(-1)" aria-label="Scroll left">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-            <div class="gallery-scroll" id="galleryScroll">
-                <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/top%20gg%20img.webp?raw=true" alt="NSFW content sample 1" loading="lazy"></div>
-                <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://images-ext-1.discordapp.net/external/KOAffabvwMCKBzUPYAMw6448qcsuxH3xbDCvn5lrToU/https/img2.gelbooru.com/images/cd/e4/cde45655bfd8c7f081176bd019fdad42.jpg?format=webp&width=555&height=818" alt="NSFW content sample 2" loading="lazy"></div>
-                <div class="gallery-card" onclick="toggleBlur(this)" style="min-width: 600px;"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/website%20img.jpg?raw=true" alt="NSFW content sample 3" loading="lazy" style="object-fit: cover; object-position: center;"></div>
-                <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/webstie%20img%202.webp?raw=true" alt="NSFW content sample 4" loading="lazy"></div>
-                <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/sample_0cf7589a92b6880e5e10e6dd4c559864.jpg?raw=true" alt="NSFW content sample 5" loading="lazy"></div>
-                <div class="gallery-card" onclick="toggleBlur(this)"><div class="spoiler-overlay"></div><img src="https://github.com/vqru/bahh-gifs/blob/main/website%20img%203.png?raw=true" alt="NSFW content sample 6" loading="lazy"></div>
-            </div>
-            <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(1)" aria-label="Scroll right">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </button>
         </div>
     </div>
 
