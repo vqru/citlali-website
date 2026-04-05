@@ -403,88 +403,66 @@
 
         /* PIXEL GAME */
         .pixel-game {
-            width: 100%;
-            height: 110px;
+            width: 100%; height: 130px;
             background: #0a0a0a;
             border-top: 2px solid rgba(201,184,245,0.15);
-            position: relative;
-            overflow: hidden;
-            image-rendering: pixelated;
+            position: relative; overflow: hidden;
+            image-rendering: pixelated; cursor: pointer; user-select: none;
+            --bg-speed: 14s;
         }
-        /* pixel ground line */
         .pixel-game::before {
-            content: '';
-            position: absolute;
-            bottom: 28px; left: 0; right: 0;
-            height: 2px;
+            content: ''; position: absolute;
+            bottom: 38px; left: 0; right: 0; height: 2px;
             background: repeating-linear-gradient(90deg,
-                rgba(201,184,245,0.3) 0px, rgba(201,184,245,0.3) 8px,
+                rgba(201,184,245,0.25) 0px, rgba(201,184,245,0.25) 8px,
                 transparent 8px, transparent 16px);
         }
-        /* stars / bg dots */
         .pixel-game::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 28px;
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; bottom: 38px;
             background-image:
-                radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
-                radial-gradient(circle, rgba(201,184,245,0.5) 1px, transparent 1px);
+                radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
+                radial-gradient(circle, rgba(201,184,245,0.4) 1px, transparent 1px);
             background-size: 120px 40px, 80px 30px;
             background-position: 0 10px, 40px 5px;
-            animation: bgScroll 12s linear infinite;
+            animation: bgScroll var(--bg-speed) linear infinite;
         }
-        @keyframes bgScroll { from { background-position: 0 10px, 40px 5px; } to { background-position: -120px 10px, -40px 5px; } }
-
-        /* runner */
+        @keyframes bgScroll { from{background-position:0 10px,40px 5px} to{background-position:-120px 10px,-40px 5px} }
         .runner {
-            position: absolute;
-            bottom: 30px;
-            left: 60px;
-            width: 36px;
-            height: 36px;
-            image-rendering: pixelated;
-            animation: runBob 0.35s steps(1) infinite;
-            z-index: 3;
+            position: absolute; bottom: 40px; left: 60px;
+            width: 36px; height: 36px;
+            image-rendering: pixelated; z-index: 3;
         }
-        @keyframes runBob {
-            0%   { transform: translateY(0px) scaleX(1); }
-            50%  { transform: translateY(-3px) scaleX(1); }
-            100% { transform: translateY(0px) scaleX(1); }
+        @keyframes runBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+        .obstacle {
+            position: absolute; border-radius: 50%;
+            z-index: 2; bottom: 40px;
         }
-
-        /* obstacles scrolling from right */
-        .obs {
-            position: absolute;
-            bottom: 30px;
-            font-size: 18px;
-            image-rendering: pixelated;
-            animation: obsMove linear infinite;
-            z-index: 2;
-            line-height: 1;
-        }
-        @keyframes obsMove { from { transform: translateX(0); } to { transform: translateX(-110vw); } }
-
-        /* coins */
-        .coin {
-            position: absolute;
-            width: 8px; height: 8px;
-            background: #FFD264;
-            border-radius: 50%;
-            box-shadow: 0 0 4px rgba(255,210,100,0.8);
-            animation: coinMove linear infinite;
-            z-index: 2;
-        }
-        @keyframes coinMove { from { transform: translateX(0); } to { transform: translateX(-110vw); } }
-
-        /* score */
         .game-score {
-            position: absolute;
-            top: 10px; right: 16px;
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            color: rgba(201,184,245,0.5);
-            letter-spacing: 1px;
-            z-index: 4;
+            position: absolute; top: 10px; right: 16px;
+            font-family: 'Courier New', monospace; font-size: 11px;
+            color: rgba(201,184,245,0.5); letter-spacing: 1px; z-index: 4;
+        }
+        .game-play-btn {
+            position: absolute; bottom: 8px; right: 12px;
+            background: rgba(201,184,245,0.1);
+            border: 1px solid rgba(201,184,245,0.3);
+            color: #C9B8F5; font-size: 10px; font-weight: 700;
+            font-family: 'Courier New', monospace; letter-spacing: 1px;
+            padding: 4px 10px; border-radius: 4px; cursor: pointer; z-index: 5;
+            transition: background 0.2s;
+        }
+        .game-play-btn:hover { background: rgba(201,184,245,0.22); }
+        .game-hint {
+            position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+            font-family: 'Courier New', monospace; font-size: 10px;
+            color: rgba(255,255,255,0.18); letter-spacing: 1px; z-index: 4; white-space: nowrap;
+        }
+        .game-over-msg {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700;
+            color: #FBBDC3; letter-spacing: 2px; z-index: 6;
+            text-align: center; pointer-events: none;
         }
     </style>
 </head>
@@ -716,21 +694,16 @@
                     <a href="https://top.gg/bot/1333324950127378453" target="_blank" rel="noopener noreferrer" class="footer-link topgg">Top.gg</a>
                 </div>
             </div>
-            <div class="footer-right">
-                <div class="footer-logo-big">
-                    <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali">
-                    <span>Citlali</span>
-                </div>
-                <p class="footer-tagline">Your adorable genshin companion</p>
-            </div>
         </div>
 
         <!-- PIXEL GAME -->
         <div class="pixel-game" id="pixelGame">
             <img class="runner" id="runner"
                 src="https://cdn.discordapp.com/emojis/1440775681398276213.webp?size=40&quality=lossless"
-                alt="Citlali running">
+                alt="Citlali">
             <div class="game-score" id="gameScore">00000</div>
+            <div class="game-hint" id="gameHint">[ SPACE / TAP to jump ]</div>
+            <button class="game-play-btn" id="gamePlayBtn" onclick="startGame()">▶ PLAY</button>
         </div>
     </footer>
 
@@ -830,64 +803,244 @@
     });
 
     /* PIXEL GAME */
-    function initPixelGame() {
+    function initPixelGame() { spawnIdleDots(); }
+
+    let gameRunning = false, gameLoop, obsTimer, scoreLoop, idleTimer;
+    let runnerBottom = 40, velY = 0, isJumping = false, score = 0;
+    const GROUND = 40, JUMP_V = -10, GRAV = 0.6;
+    const OBS_COLORS = ['#FBBDC3','#C9B8F5','#FFD264','#B5E577','#A8D8C8'];
+
+    function spawnIdleDots() {
+        if (gameRunning) return;
         const game = document.getElementById('pixelGame');
-        const scoreEl = document.getElementById('gameScore');
-        if (!game) return;
+        const el = document.createElement('div');
+        el.className = 'obstacle idle-dot';
+        const size = 7 + Math.random() * 6;
+        el.style.width = size + 'px'; el.style.height = size + 'px';
+        const col = OBS_COLORS[Math.floor(Math.random() * OBS_COLORS.length)];
+        el.style.background = col;
+        el.style.boxShadow = `0 0 6px ${col}`;
+        el.style.bottom = (40 + Math.random() * 45) + 'px';
+        el.style.right = '-20px'; el.style.left = 'auto';
+        const dur = 7 + Math.random() * 4;
+        el.style.transition = `transform ${dur.toFixed(1)}s linear`;
+        game.appendChild(el);
+        requestAnimationFrame(() => { el.style.transform = `translateX(-${window.innerWidth + 40}px)`; });
+        el.addEventListener('transitionend', () => el.remove());
+        idleTimer = setTimeout(spawnIdleDots, 2200 + Math.random() * 1500);
+    }
 
-        const W = () => game.offsetWidth;
-        const GROUND = 30;
-        const RUNNER_X = 60;
-        const RUNNER_H = 36;
-        let score = 0;
-        let frameId;
+    function clearIdleDots() {
+        clearTimeout(idleTimer);
+        document.querySelectorAll('.idle-dot').forEach(e => e.remove());
+    }
 
-        // obstacles config: emoji + speed
-        const OBS_TYPES = ['⭐','💗','✨','🌸','💫','❄️'];
-        const COIN_COLORS = ['#FFD264','#C9B8F5','#FBBDC3'];
+    function startGame() {
+        if (gameRunning) return;
+        clearIdleDots();
+        document.querySelectorAll('.obstacle').forEach(e => e.remove());
+        document.getElementById('gamePlayBtn').style.display = 'none';
+        document.getElementById('gameHint').style.display = 'none';
 
+        gameRunning = true;
+        score = 0; runnerBottom = GROUND; velY = 0; isJumping = false;
+        document.getElementById('gameScore').textContent = '00000';
+
+        const runner = document.getElementById('runner');
+        runner.style.transform = 'none';
+        runner.style.bottom = GROUND + 'px';
+
+        function doJump() {
+            if (!gameRunning || isJumping) return;
+            velY = JUMP_V; isJumping = true;
+        }
+        function onKey(e) {
+            if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); doJump(); }
+        }
+        document.addEventListener('keydown', onKey);
+        document.getElementById('pixelGame').onclick = doJump;
+
+        // physics — pure up/down, no rotation
+        gameLoop = setInterval(() => {
+            velY += GRAV;
+            runnerBottom -= velY;
+            if (runnerBottom <= GROUND) { runnerBottom = GROUND; velY = 0; isJumping = false; }
+            runner.style.bottom = runnerBottom + 'px';
+
+            // collision
+            const rr = runner.getBoundingClientRect();
+            document.querySelectorAll('.obstacle:not(.idle-dot)').forEach(obs => {
+                const or = obs.getBoundingClientRect();
+                const p = 5;
+                if (or.right-p > rr.left+p && or.left+p < rr.right-p &&
+                    or.bottom-p > rr.top+p && or.top+p < rr.bottom-p) {
+                    endGame(onKey);
+                }
+            });
+        }, 16);
+
+        // spawn obstacles — ground level only, wide spacing
         function spawnObs() {
+            if (!gameRunning) return;
+            const game = document.getElementById('pixelGame');
             const el = document.createElement('div');
-            el.className = 'obs';
-            el.textContent = OBS_TYPES[Math.floor(Math.random() * OBS_TYPES.length)];
-            const speed = 4 + Math.random() * 4;
-            const dur = (W() / speed).toFixed(1);
-            el.style.right = '-40px';
-            el.style.left = 'auto';
+            el.className = 'obstacle';
+            const size = 11 + Math.random() * 7;
+            el.style.width = size + 'px'; el.style.height = size + 'px';
+            const col = OBS_COLORS[Math.floor(Math.random() * OBS_COLORS.length)];
+            el.style.background = col; el.style.boxShadow = `0 0 7px ${col}`;
             el.style.bottom = GROUND + 'px';
-            el.style.animationDuration = dur + 's';
-            el.style.animationDelay = '0s';
-            // remove when done
-            el.addEventListener('animationend', () => el.remove());
+            el.style.right = '-20px'; el.style.left = 'auto';
+            const dur = (window.innerWidth / 280).toFixed(2);
+            el.style.transition = `transform ${dur}s linear`;
             game.appendChild(el);
+            requestAnimationFrame(() => { el.style.transform = `translateX(-${window.innerWidth + 40}px)`; });
+            el.addEventListener('transitionend', () => el.remove());
+            obsTimer = setTimeout(spawnObs, 2200 + Math.random() * 1400);
         }
+        obsTimer = setTimeout(spawnObs, 1400);
 
-        function spawnCoin() {
-            const el = document.createElement('div');
-            el.className = 'coin';
-            el.style.right = '-10px';
-            el.style.left = 'auto';
-            el.style.bottom = (GROUND + 12 + Math.random() * 30) + 'px';
-            el.style.background = COIN_COLORS[Math.floor(Math.random() * COIN_COLORS.length)];
-            el.style.boxShadow = `0 0 4px ${el.style.background}`;
-            const dur = (3 + Math.random() * 2).toFixed(1);
-            el.style.animationDuration = dur + 's';
-            el.addEventListener('animationend', () => el.remove());
-            game.appendChild(el);
-        }
+        // speed up background stars
+        document.getElementById('pixelGame').style.setProperty('--bg-speed', '4s');
 
-        // score ticker
-        setInterval(() => {
+        scoreLoop = setInterval(() => {
             score++;
-            scoreEl.textContent = String(score).padStart(5, '0');
+            document.getElementById('gameScore').textContent = String(score).padStart(5, '0');
         }, 100);
 
-        // spawn loops
-        function schedObs() { spawnObs(); setTimeout(schedObs, 1200 + Math.random() * 2000); }
-        function schedCoin() { spawnCoin(); setTimeout(schedCoin, 800 + Math.random() * 1200); }
-        setTimeout(schedObs, 600);
-        setTimeout(schedCoin, 300);
+        function endGame(onKey) {
+            if (!gameRunning) return;
+            gameRunning = false;
+            clearInterval(gameLoop); clearTimeout(obsTimer); clearInterval(scoreLoop);
+            document.removeEventListener('keydown', onKey);
+            document.getElementById('pixelGame').onclick = null;
+
+            runner.style.bottom = GROUND + 'px';
+            document.getElementById('pixelGame').style.setProperty('--bg-speed', '14s');
+
+            const msg = document.createElement('div');
+            msg.className = 'game-over-msg';
+            msg.innerHTML = `GAME OVER<br><span style="font-size:10px;color:rgba(255,255,255,0.35)">SCORE: ${score}</span>`;
+            document.getElementById('pixelGame').appendChild(msg);
+
+            setTimeout(() => {
+                document.querySelectorAll('.obstacle').forEach(e => e.remove());
+                msg.remove();
+                document.getElementById('gamePlayBtn').style.display = 'block';
+                document.getElementById('gameHint').style.display = 'block';
+                spawnIdleDots();
+            }, 1800);
+        }
     }
+    /* DVD EMOJI BOUNCER */
+    (function() {
+        const EMOJIS = [
+            'https://cdn.discordapp.com/emojis/1440773720913346561.webp?size=40&quality=lossless',
+            'https://cdn.discordapp.com/emojis/1440774098392453140.webp?size=40&quality=lossless',
+            'https://cdn.discordapp.com/emojis/1451143271740084224.webp?size=40&quality=lossless',
+            'https://cdn.discordapp.com/emojis/1451143459862876170.webp?size=40&quality=lossless',
+        ];
+        const SIZE = 40, COUNT = 1;
+        const MODES = ['bounce','drift','spin','tilt'];
+        function rand(a,b){return Math.random()*(b-a)+a;}
+        function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+        function createBouncer() {
+            const img = document.createElement('img');
+            img.src = pick(EMOJIS);
+            img.style.cssText = `position:fixed;width:${SIZE}px;height:${SIZE}px;pointer-events:none;z-index:9990;border-radius:4px;`;
+            document.body.appendChild(img);
+
+            let x = rand(SIZE, window.innerWidth-SIZE);
+            let y = rand(SIZE, window.innerHeight-SIZE);
+            let vx=0, vy=0, angle=0, spinSpeed=0, slammed=false;
+            let spinWindup=false;
+
+            function setMode(m) {
+                if (m==='bounce') {
+                    const sp=rand(0.5,1.2), a=rand(0,Math.PI*2);
+                    vx=Math.cos(a)*sp; vy=Math.sin(a)*sp; spinSpeed=0; spinWindup=false;
+                } else if (m==='drift') {
+                    vx=rand(-0.2,0.2); vy=rand(-0.2,0.2); spinSpeed=0; spinWindup=false;
+                } else if (m==='spin') {
+                    const sp=rand(0.4,1.0), a=rand(0,Math.PI*2);
+                    vx=Math.cos(a)*sp; vy=Math.sin(a)*sp;
+                    spinSpeed=rand(0.6,1.8)*(Math.random()<0.5?1:-1); spinWindup=false;
+                } else if (m==='tilt') {
+                    vx=rand(0.3,0.8)*(Math.random()<0.5?1:-1);
+                    vy=rand(0.3,0.8)*(Math.random()<0.5?1:-1);
+                    spinSpeed=0; spinWindup=false;
+                } else if (m==='windupcrash') {
+                    const a=rand(0,Math.PI*2);
+                    vx=Math.cos(a)*rand(0.5,1.0); vy=Math.sin(a)*rand(0.5,1.0);
+                    spinSpeed=rand(0.3,0.8)*(Math.random()<0.5?1:-1);
+                    spinWindup=true;
+                }
+            }
+            setMode(pick(MODES));
+
+            function schedChange() {
+                const next = Math.random()<0.30 ? 'windupcrash' : pick(MODES);
+                setTimeout(()=>{ img.src=pick(EMOJIS); setMode(next); schedChange(); }, rand(5000,12000));
+            }
+            schedChange();
+
+            let t0 = Date.now();
+            function tick() {
+                const W=window.innerWidth, H=window.innerHeight;
+
+                if(spinWindup) {
+                    const target = (spinSpeed>0?1:-1)*rand(3.5,6);
+                    spinSpeed += (target - spinSpeed) * 0.012;
+                }
+
+                const mode = spinSpeed!==0 ? 'spin' : (Math.abs(vx)<0.6&&Math.abs(vy)<0.6?'drift':'bounce');
+                x+=vx; y+=vy;
+                angle += spinSpeed || (mode==='tilt'? Math.sin((Date.now()-t0)/300)*0.5 : 0);
+
+                let bounced=false;
+                if(x<=0){x=0;vx=Math.abs(vx);bounced=true;}
+                if(x>=W-SIZE){x=W-SIZE;vx=-Math.abs(vx);bounced=true;}
+                if(y<=0){y=0;vy=Math.abs(vy);bounced=true;}
+                if(y>=H-SIZE){y=H-SIZE;vy=-Math.abs(vy);bounced=true;}
+
+                if(bounced && !slammed) {
+                    const isCrash = spinWindup && Math.abs(spinSpeed)>2;
+                    if(isCrash || Math.random()<0.22) {
+                        slammed=true;
+                        const scale = isCrash ? 1.9 : 1.5;
+                        img.style.transform=`rotate(${angle}deg) scale(${scale})`;
+                        setTimeout(()=>{
+                            img.style.transform=`rotate(${angle}deg) scale(1)`;
+                            slammed=false;
+                            if(isCrash) {
+                                spinWindup=false;
+                                const dir = spinSpeed>0?1:-1;
+                                spinSpeed = dir*rand(1.5,2.5);
+                                const coast = setInterval(()=>{
+                                    spinSpeed *= 0.93;
+                                    if(Math.abs(spinSpeed)<0.15){ spinSpeed=0; clearInterval(coast); }
+                                }, 40);
+                            } else if(Math.random()<0.35) {
+                                const burst=rand(1.5,3.5)*(Math.random()<0.5?1:-1);
+                                const prev=spinSpeed;
+                                spinSpeed=burst;
+                                setTimeout(()=>spinSpeed=prev, 600);
+                            }
+                        }, 150);
+                    }
+                }
+                img.style.left=x+'px'; img.style.top=y+'px';
+                if(!slammed) img.style.transform=`rotate(${angle}deg)`;
+                requestAnimationFrame(tick);
+            }
+            tick();
+        }
+
+        window.addEventListener('DOMContentLoaded',()=>{
+            for(let i=0;i<COUNT;i++) setTimeout(()=>createBouncer(), i*700);
+        });
+    })();
 </script>
 </body>
 </html>
