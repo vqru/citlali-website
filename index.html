@@ -19,8 +19,9 @@
     <meta property="og:title" content="Citlali - Your adorable genshin companion!">
     <meta property="og:description" content="The cutest Discord bot with 20+ NSFW commands, AI chatbot, and lewd features. Add Citlali to your server for premium adult content and interactive fun!">
     <meta property="og:image" content="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:site_name" content="Citlali Discord Bot">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
@@ -373,38 +374,118 @@
         }
 
         /* FOOTER */
-        footer { position: relative; z-index: 1; padding: 60px 40px 40px; max-width: 1400px; margin: 0 auto; }
-        .footer-content {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(226, 225, 235, 0.1);
-            border-radius: 20px;
-            padding: 40px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        footer { position: relative; z-index: 1; padding: 40px 40px 0; max-width: 1400px; margin: 0 auto; }
+
+        .footer-info {
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 900px; padding: 0 0 32px;
             gap: 40px;
-            max-width: 900px;
         }
-        body.light-mode .footer-content { background: rgba(255, 255, 255, 0.5); }
-        .footer-left { display: flex; flex-direction: column; gap: 16px; }
+        .footer-left { display: flex; flex-direction: column; gap: 14px; }
         .footer-creator { display: flex; align-items: center; gap: 14px; }
-        .footer-pfp { width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 0 15px rgba(255, 232, 236, 0.3); }
-        .footer-username { font-size: 20px; font-weight: 600; color: #FFE8EC; }
-        .footer-text { font-size: 14px; color: #A8A7B8; margin: 0; }
-        .footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .footer-pfp { width: 44px; height: 44px; border-radius: 50%; }
+        .footer-username { font-size: 18px; font-weight: 600; color: #FFE8EC; }
+        .footer-text { font-size: 13px; color: #5a5870; margin: 0; }
+        .footer-links { display: flex; gap: 10px; flex-wrap: wrap; }
         .footer-link {
-            font-size: 14px; font-weight: 500; text-decoration: none;
-            transition: all 0.2s; padding: 8px 16px; border-radius: 8px;
-            border: 1px solid rgba(226,225,235,0.1);
+            font-size: 13px; font-weight: 500; text-decoration: none;
+            transition: all 0.2s; padding: 7px 14px; border-radius: 8px;
+            border: 1px solid rgba(226,225,235,0.08);
         }
-        .footer-link.discord { color: #D4B5E8; background: rgba(212,181,232,0.08); }
-        .footer-link.topgg { color: #FFE5B5; background: rgba(255,229,181,0.08); }
-        .footer-link:hover { background-color: rgba(181, 229, 119, 0.15); color: #B5E577; border-color: rgba(181,229,119,0.2); }
-        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-        .footer-logo-big { display: flex; align-items: center; gap: 12px; }
-        .footer-logo-big img { width: 52px; height: 52px; border-radius: 50%; box-shadow: 0 0 20px rgba(251,189,195,0.35); }
-        .footer-logo-big span { font-size: 26px; font-weight: 700; color: #F5DFE1; letter-spacing: -0.5px; }
-        .footer-tagline { font-size: 13px; color: #5a5870; text-align: right; }
+        .footer-link.discord { color: #D4B5E8; background: rgba(212,181,232,0.06); }
+        .footer-link.topgg { color: #FFE5B5; background: rgba(255,229,181,0.06); }
+        .footer-link:hover { background-color: rgba(181,229,119,0.12); color: #B5E577; border-color: rgba(181,229,119,0.2); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .footer-logo-big { display: flex; align-items: center; gap: 10px; }
+        .footer-logo-big img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 15px rgba(251,189,195,0.3); }
+        .footer-logo-big span { font-size: 22px; font-weight: 700; color: #F5DFE1; }
+        .footer-tagline { font-size: 12px; color: #3a3850; }
+
+        /* PIXEL GAME */
+        .pixel-game {
+            width: 100%;
+            height: 110px;
+            background: #0a0a0a;
+            border-top: 2px solid rgba(201,184,245,0.15);
+            position: relative;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+        /* pixel ground line */
+        .pixel-game::before {
+            content: '';
+            position: absolute;
+            bottom: 28px; left: 0; right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(90deg,
+                rgba(201,184,245,0.3) 0px, rgba(201,184,245,0.3) 8px,
+                transparent 8px, transparent 16px);
+        }
+        /* stars / bg dots */
+        .pixel-game::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 28px;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+                radial-gradient(circle, rgba(201,184,245,0.5) 1px, transparent 1px);
+            background-size: 120px 40px, 80px 30px;
+            background-position: 0 10px, 40px 5px;
+            animation: bgScroll 12s linear infinite;
+        }
+        @keyframes bgScroll { from { background-position: 0 10px, 40px 5px; } to { background-position: -120px 10px, -40px 5px; } }
+
+        /* runner */
+        .runner {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            width: 36px;
+            height: 36px;
+            image-rendering: pixelated;
+            animation: runBob 0.35s steps(1) infinite;
+            z-index: 3;
+        }
+        @keyframes runBob {
+            0%   { transform: translateY(0px) scaleX(1); }
+            50%  { transform: translateY(-3px) scaleX(1); }
+            100% { transform: translateY(0px) scaleX(1); }
+        }
+
+        /* obstacles scrolling from right */
+        .obs {
+            position: absolute;
+            bottom: 30px;
+            font-size: 18px;
+            image-rendering: pixelated;
+            animation: obsMove linear infinite;
+            z-index: 2;
+            line-height: 1;
+        }
+        @keyframes obsMove { from { transform: translateX(0); } to { transform: translateX(-110vw); } }
+
+        /* coins */
+        .coin {
+            position: absolute;
+            width: 8px; height: 8px;
+            background: #FFD264;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(255,210,100,0.8);
+            animation: coinMove linear infinite;
+            z-index: 2;
+        }
+        @keyframes coinMove { from { transform: translateX(0); } to { transform: translateX(-110vw); } }
+
+        /* score */
+        .game-score {
+            position: absolute;
+            top: 10px; right: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: rgba(201,184,245,0.5);
+            letter-spacing: 1px;
+            z-index: 4;
+        }
     </style>
 </head>
 <body>
@@ -623,7 +704,7 @@
     </div>
 
     <footer>
-        <div class="footer-content">
+        <div class="footer-info">
             <div class="footer-left">
                 <div class="footer-creator">
                     <img src="https://images-ext-1.discordapp.net/external/7EJEnMkp3Nz7ftq-KorGskRNBNG6qJJNMIDw1G1A6h8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/819817532579905557/a7685183be101337a904301e1165a44f.png?format=webp&quality=lossless&width=320&height=320" alt="vqru" class="footer-pfp">
@@ -642,6 +723,14 @@
                 </div>
                 <p class="footer-tagline">Your adorable genshin companion</p>
             </div>
+        </div>
+
+        <!-- PIXEL GAME -->
+        <div class="pixel-game" id="pixelGame">
+            <img class="runner" id="runner"
+                src="https://cdn.discordapp.com/emojis/1440775681398276213.webp?size=40&quality=lossless"
+                alt="Citlali running">
+            <div class="game-score" id="gameScore">00000</div>
         </div>
     </footer>
 
@@ -737,7 +826,68 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         createSnowflakes();
+        initPixelGame();
     });
+
+    /* PIXEL GAME */
+    function initPixelGame() {
+        const game = document.getElementById('pixelGame');
+        const scoreEl = document.getElementById('gameScore');
+        if (!game) return;
+
+        const W = () => game.offsetWidth;
+        const GROUND = 30;
+        const RUNNER_X = 60;
+        const RUNNER_H = 36;
+        let score = 0;
+        let frameId;
+
+        // obstacles config: emoji + speed
+        const OBS_TYPES = ['⭐','💗','✨','🌸','💫','❄️'];
+        const COIN_COLORS = ['#FFD264','#C9B8F5','#FBBDC3'];
+
+        function spawnObs() {
+            const el = document.createElement('div');
+            el.className = 'obs';
+            el.textContent = OBS_TYPES[Math.floor(Math.random() * OBS_TYPES.length)];
+            const speed = 4 + Math.random() * 4;
+            const dur = (W() / speed).toFixed(1);
+            el.style.right = '-40px';
+            el.style.left = 'auto';
+            el.style.bottom = GROUND + 'px';
+            el.style.animationDuration = dur + 's';
+            el.style.animationDelay = '0s';
+            // remove when done
+            el.addEventListener('animationend', () => el.remove());
+            game.appendChild(el);
+        }
+
+        function spawnCoin() {
+            const el = document.createElement('div');
+            el.className = 'coin';
+            el.style.right = '-10px';
+            el.style.left = 'auto';
+            el.style.bottom = (GROUND + 12 + Math.random() * 30) + 'px';
+            el.style.background = COIN_COLORS[Math.floor(Math.random() * COIN_COLORS.length)];
+            el.style.boxShadow = `0 0 4px ${el.style.background}`;
+            const dur = (3 + Math.random() * 2).toFixed(1);
+            el.style.animationDuration = dur + 's';
+            el.addEventListener('animationend', () => el.remove());
+            game.appendChild(el);
+        }
+
+        // score ticker
+        setInterval(() => {
+            score++;
+            scoreEl.textContent = String(score).padStart(5, '0');
+        }, 100);
+
+        // spawn loops
+        function schedObs() { spawnObs(); setTimeout(schedObs, 1200 + Math.random() * 2000); }
+        function schedCoin() { spawnCoin(); setTimeout(schedCoin, 800 + Math.random() * 1200); }
+        setTimeout(schedObs, 600);
+        setTimeout(schedCoin, 300);
+    }
 </script>
 </body>
 </html>
