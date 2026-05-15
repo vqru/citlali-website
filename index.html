@@ -708,7 +708,7 @@
     </footer>
 
    <script>
-    let animationType = 'snowflake';
+    let animationState = 'off'; // off -> snow -> bubble -> off
     function createSnowflakes() {
         const container = document.getElementById('animationContainer');
         for (let i = 0; i < 9; i++) {
@@ -753,10 +753,17 @@
         const snowflakeIcon = document.querySelector('.snowflake-icon');
         const bubbleIcon = document.querySelector('.bubble-icon');
         clearAnimations();
-        if (animationType === 'snowflake') {
-            animationType = 'bubble'; snowflakeIcon.style.display = 'none'; bubbleIcon.style.display = 'block'; createBubbles();
+        if (animationState === 'off') {
+            animationState = 'snow';
+            snowflakeIcon.style.display = 'block'; bubbleIcon.style.display = 'none';
+            createSnowflakes();
+        } else if (animationState === 'snow') {
+            animationState = 'bubble';
+            snowflakeIcon.style.display = 'none'; bubbleIcon.style.display = 'block';
+            createBubbles();
         } else {
-            animationType = 'snowflake'; snowflakeIcon.style.display = 'block'; bubbleIcon.style.display = 'none'; createSnowflakes();
+            animationState = 'off';
+            snowflakeIcon.style.display = 'block'; bubbleIcon.style.display = 'none';
         }
     }
     function toggleTheme() {
@@ -798,7 +805,6 @@
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     window.addEventListener('DOMContentLoaded', () => {
-        createSnowflakes();
         initPixelGame();
     });
 
@@ -932,115 +938,7 @@
             }, 1800);
         }
     }
-    /* DVD EMOJI BOUNCER */
-    (function() {
-        const EMOJIS = [
-            'https://cdn.discordapp.com/emojis/1440773720913346561.webp?size=40&quality=lossless',
-            'https://cdn.discordapp.com/emojis/1440774098392453140.webp?size=40&quality=lossless',
-            'https://cdn.discordapp.com/emojis/1451143271740084224.webp?size=40&quality=lossless',
-            'https://cdn.discordapp.com/emojis/1451143459862876170.webp?size=40&quality=lossless',
-        ];
-        const SIZE = 40, COUNT = 1;
-        const MODES = ['bounce','drift','spin','tilt'];
-        function rand(a,b){return Math.random()*(b-a)+a;}
-        function pick(a){return a[Math.floor(Math.random()*a.length)];}
 
-        function createBouncer() {
-            const img = document.createElement('img');
-            img.src = pick(EMOJIS);
-            img.style.cssText = `position:fixed;width:${SIZE}px;height:${SIZE}px;pointer-events:none;z-index:9990;border-radius:4px;`;
-            document.body.appendChild(img);
-
-            let x = rand(SIZE, window.innerWidth-SIZE);
-            let y = rand(SIZE, window.innerHeight-SIZE);
-            let vx=0, vy=0, angle=0, spinSpeed=0, slammed=false;
-            let spinWindup=false;
-
-            function setMode(m) {
-                if (m==='bounce') {
-                    const sp=rand(0.5,1.2), a=rand(0,Math.PI*2);
-                    vx=Math.cos(a)*sp; vy=Math.sin(a)*sp; spinSpeed=0; spinWindup=false;
-                } else if (m==='drift') {
-                    vx=rand(-0.2,0.2); vy=rand(-0.2,0.2); spinSpeed=0; spinWindup=false;
-                } else if (m==='spin') {
-                    const sp=rand(0.4,1.0), a=rand(0,Math.PI*2);
-                    vx=Math.cos(a)*sp; vy=Math.sin(a)*sp;
-                    spinSpeed=rand(0.6,1.8)*(Math.random()<0.5?1:-1); spinWindup=false;
-                } else if (m==='tilt') {
-                    vx=rand(0.3,0.8)*(Math.random()<0.5?1:-1);
-                    vy=rand(0.3,0.8)*(Math.random()<0.5?1:-1);
-                    spinSpeed=0; spinWindup=false;
-                } else if (m==='windupcrash') {
-                    const a=rand(0,Math.PI*2);
-                    vx=Math.cos(a)*rand(0.5,1.0); vy=Math.sin(a)*rand(0.5,1.0);
-                    spinSpeed=rand(0.3,0.8)*(Math.random()<0.5?1:-1);
-                    spinWindup=true;
-                }
-            }
-            setMode(pick(MODES));
-
-            function schedChange() {
-                const next = Math.random()<0.30 ? 'windupcrash' : pick(MODES);
-                setTimeout(()=>{ img.src=pick(EMOJIS); setMode(next); schedChange(); }, rand(5000,12000));
-            }
-            schedChange();
-
-            let t0 = Date.now();
-            function tick() {
-                const W=window.innerWidth, H=window.innerHeight;
-
-                if(spinWindup) {
-                    const target = (spinSpeed>0?1:-1)*rand(3.5,6);
-                    spinSpeed += (target - spinSpeed) * 0.012;
-                }
-
-                const mode = spinSpeed!==0 ? 'spin' : (Math.abs(vx)<0.6&&Math.abs(vy)<0.6?'drift':'bounce');
-                x+=vx; y+=vy;
-                angle += spinSpeed || (mode==='tilt'? Math.sin((Date.now()-t0)/300)*0.5 : 0);
-
-                let bounced=false;
-                if(x<=0){x=0;vx=Math.abs(vx);bounced=true;}
-                if(x>=W-SIZE){x=W-SIZE;vx=-Math.abs(vx);bounced=true;}
-                if(y<=0){y=0;vy=Math.abs(vy);bounced=true;}
-                if(y>=H-SIZE){y=H-SIZE;vy=-Math.abs(vy);bounced=true;}
-
-                if(bounced && !slammed) {
-                    const isCrash = spinWindup && Math.abs(spinSpeed)>2;
-                    if(isCrash || Math.random()<0.22) {
-                        slammed=true;
-                        const scale = isCrash ? 1.9 : 1.5;
-                        img.style.transform=`rotate(${angle}deg) scale(${scale})`;
-                        setTimeout(()=>{
-                            img.style.transform=`rotate(${angle}deg) scale(1)`;
-                            slammed=false;
-                            if(isCrash) {
-                                spinWindup=false;
-                                const dir = spinSpeed>0?1:-1;
-                                spinSpeed = dir*rand(1.5,2.5);
-                                const coast = setInterval(()=>{
-                                    spinSpeed *= 0.93;
-                                    if(Math.abs(spinSpeed)<0.15){ spinSpeed=0; clearInterval(coast); }
-                                }, 40);
-                            } else if(Math.random()<0.35) {
-                                const burst=rand(1.5,3.5)*(Math.random()<0.5?1:-1);
-                                const prev=spinSpeed;
-                                spinSpeed=burst;
-                                setTimeout(()=>spinSpeed=prev, 600);
-                            }
-                        }, 150);
-                    }
-                }
-                img.style.left=x+'px'; img.style.top=y+'px';
-                if(!slammed) img.style.transform=`rotate(${angle}deg)`;
-                requestAnimationFrame(tick);
-            }
-            tick();
-        }
-
-        window.addEventListener('DOMContentLoaded',()=>{
-            for(let i=0;i<COUNT;i++) setTimeout(()=>createBouncer(), i*700);
-        });
-    })();
 </script>
 
 
