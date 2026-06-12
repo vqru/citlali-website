@@ -30,37 +30,35 @@ module.exports = async (req, res) => {
 	try {
 		await connectDb()
 
-		const tokenRes = await axios.post('https://api.instagram.com/oauth/access_token',
-			new URLSearchParams({
+		const tokenRes = await axios.get('https://graph.facebook.com/v19.0/oauth/access_token', {
+			params: {
 				client_id: process.env.META_APP_ID,
 				client_secret: process.env.META_APP_SECRET,
-				grant_type: 'authorization_code',
 				redirect_uri: process.env.OAUTH_REDIRECT_URI,
 				code
-			}),
-			{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-		)
-
-		const { access_token, user_id } = tokenRes.data
-
-		const longRes = await axios.get('https://graph.facebook.com/v19.0/oauth/access_token', {
-			params: {
-				grant_type: 'fb_exchange_token',
-				client_id: process.env.META_APP_ID,
-				client_secret: process.env.META_APP_SECRET,
-				fb_exchange_token: access_token
 			}
 		})
 
-		const longToken = longRes.data.access_token
+		const accessToken = tokenRes.data.access_token
 
-		const profileRes = await axios.get(`https://graph.facebook.com/v19.0/${user_id}`, {
-			params: { fields: 'username', access_token: longToken }
+		const igRes = await axios.get('https://graph.facebook.com/v19.0/me/accounts', {
+			params: { access_token: accessToken, fields: 'instagram_business_account' }
+		})
+
+		const page = igRes.data.data?.find(p => p.instagram_business_account)
+		if (!page) {
+			return res.setHeader('Content-Type', 'text/html') && res.send('<h2 style="font-family:sans-serif;text-align:center;margin-top:80px">No Instagram Business/Creator account found linked to your Facebook. Please link your Instagram to a Facebook Page first, then try again.</h2>')
+		}
+
+		const igId = page.instagram_business_account.id
+
+		const profileRes = await axios.get(`https://graph.facebook.com/v19.0/${igId}`, {
+			params: { fields: 'username', access_token: accessToken }
 		})
 
 		await IgAccount.findOneAndUpdate(
 			{ userId: state },
-			{ userId: state, igUserId: String(user_id), igUsername: profileRes.data.username, accessToken: longToken },
+			{ userId: state, igUserId: igId, igUsername: profileRes.data.username, accessToken },
 			{ upsert: true, new: true }
 		)
 
