@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy – ClipForge</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; line-height: 1.8; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 60px 24px; }
+  h1 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .sub { color: #888; font-size: 0.9rem; margin-bottom: 48px; }
+  h2 { font-size: 1.1rem; font-weight: 600; color: #fff; margin: 36px 0 12px; }
+  p { color: #bbb; margin-bottom: 12px; }
+  ul { color: #bbb; padding-left: 20px; margin-bottom: 12px; }
+  ul li { margin-bottom: 6px; }
+  a { color: #7c9cff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .divider { border: none; border-top: 1px solid #1e1e1e; margin: 40px 0; }
+  .badge { display: inline-block; background: #1a1a1a; border: 1px solid #2a2a2a; color: #888; font-size: 0.78rem; padding: 4px 10px; border-radius: 4px; margin-bottom: 32px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Privacy Policy</h1>
+  <p class="sub">ClipForge Discord Bot</p>
+  <span class="badge">Last updated: June 2026</span>
+
+  <p>ClipForge is a Discord bot that lets users submit Instagram clip links, track their performance stats, and manage payouts. This page explains what data we collect, why we collect it, and how it's handled.</p>
+
+  <hr class="divider">
+
+  <h2>What We Collect</h2>
+  <p>We only collect what's necessary for the bot to function:</p>
+  <ul>
+    <li><strong>Discord user ID and username</strong> — to identify who submitted a clip and who owns which account data.</li>
+    <li><strong>Instagram account information</strong> — when you link your Instagram via OAuth, we store your Instagram user ID, username, and access token. This is used to fetch your clip stats through the official Meta API.</li>
+    <li><strong>Clip links</strong> — the Instagram post or reel URLs you submit through the bot.</li>
+    <li><strong>Clip stats</strong> — views, likes, and comments fetched from the Instagram API for your submitted clips.</li>
+    <li><strong>Payment information</strong> — your TRC20 wallet address or UPI ID if you choose to add a payment method for payouts.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>Why We Need Instagram Access</h2>
+  <p>ClipForge uses the official Instagram Graph API provided by Meta. When you link your Instagram account, we request the following permissions:</p>
+  <ul>
+    <li><strong>instagram_basic</strong> — to read your account profile and confirm your identity.</li>
+    <li><strong>instagram_manage_insights</strong> — to fetch view counts and engagement data for your submitted clips.</li>
+    <li><strong>pages_show_list</strong> — required by Meta to access Instagram Business/Creator accounts connected to a Facebook Page.</li>
+    <li><strong>pages_read_engagement</strong> — required alongside the above to properly authenticate and retrieve media insights.</li>
+  </ul>
+  <p>We do not post anything to your Instagram. We do not read your messages, followers, or any content beyond the specific clips you submit through the bot.</p>
+
+  <hr class="divider">
+
+  <h2>How We Use Your Data</h2>
+  <ul>
+    <li>Your Discord ID is used to link your submissions, stats, and payment info together in our database.</li>
+    <li>Your Instagram access token is used solely to call the Meta API and retrieve stats for clips you submitted.</li>
+    <li>Your payment info is stored so the bot owner can reference it when processing payouts. It is never shared with third parties.</li>
+    <li>Clip stats are cached in our database each time you run <code>/stats</code>.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>Data Storage</h2>
+  <p>All data is stored in a private MongoDB database. It is not shared with anyone outside of the ClipForge team. Access tokens are stored encrypted at rest by the database provider.</p>
+
+  <hr class="divider">
+
+  <h2>Data Deletion</h2>
+  <p>You can unlink your Instagram account at any time using the <code>/link-instagram</code> command in Discord, which removes your access token and Instagram account info from our database immediately.</p>
+  <p>To request full deletion of all your data including submissions and payment info, contact us at the email below and we'll remove everything within 7 days.</p>
+
+  <hr class="divider">
+
+  <h2>Third Parties</h2>
+  <p>ClipForge uses the following third-party services:</p>
+  <ul>
+    <li><strong>Meta (Instagram Graph API)</strong> — to fetch clip performance data. Subject to <a href="https://developers.facebook.com/terms/" target="_blank">Meta's Platform Terms</a>.</li>
+    <li><strong>Discord</strong> — the platform the bot operates on. Subject to <a href="https://discord.com/privacy" target="_blank">Discord's Privacy Policy</a>.</li>
+    <li><strong>MongoDB Atlas</strong> — database hosting. Subject to <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank">MongoDB's Privacy Policy</a>.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>Contact</h2>
+  <p>If you have any questions about this policy or want your data removed, reach out at <a href="mailto:vqruwork@gmail.com">vqruwork@gmail.com</a>.</p>
+</div>
+</body>
+</html>
