@@ -32,13 +32,24 @@ h2{color:${color};margin:0 0 12px;}p{color:#aaa;margin:0;line-height:1.6;}</styl
 <body><div class="card"><h2>${title}</h2><p>${message}</p></div></body></html>`
 }
 
+// Strip any whitespace/invisible chars and force a single canonical form.
+// This is the actual fix: even if the Vercel env var has a stray space,
+// trailing slash, or was pasted with a non-breaking space, this guarantees
+// the value sent to Instagram is byte-identical every time.
+function cleanRedirectUri(raw) {
+	if (!raw) return raw
+	return raw.trim().replace(/\/+$/, '')
+}
+
 module.exports = async (req, res) => {
 	const { code, state, error } = req.query
 
-	console.log('[callback] redirect_uri:', process.env.OAUTH_REDIRECT_URI)
+	const redirectUri = cleanRedirectUri(process.env.OAUTH_REDIRECT_URI)
+
+	console.log('[callback] redirect_uri (raw):', JSON.stringify(process.env.OAUTH_REDIRECT_URI))
+	console.log('[callback] redirect_uri (cleaned):', JSON.stringify(redirectUri))
+	console.log('[callback] redirect_uri length:', redirectUri?.length)
 	console.log('[callback] code length:', code?.length)
-	console.log('[callback] code has state?', code?.includes('state'))
-	console.log('[callback] full code:', code)
 
 	if (error) {
 		res.setHeader('Content-Type', 'text/html')
@@ -57,7 +68,7 @@ module.exports = async (req, res) => {
 			client_id:     process.env.META_APP_ID,
 			client_secret: process.env.META_APP_SECRET,
 			grant_type:    'authorization_code',
-			redirect_uri:  process.env.OAUTH_REDIRECT_URI,
+			redirect_uri:  redirectUri,
 			code
 		})
 
@@ -69,6 +80,7 @@ module.exports = async (req, res) => {
 		const tokenData = await tokenRes.json()
 		if (!tokenData.access_token) {
 			console.error('[callback] token exchange failed:', tokenData)
+			console.error('[callback] redirect_uri sent was:', JSON.stringify(redirectUri))
 			res.setHeader('Content-Type', 'text/html')
 			return res.status(500).send(html('Something Went Wrong', 'Could not complete Instagram login. Please try again from Discord.', '#ED4245'))
 		}
