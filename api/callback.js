@@ -36,7 +36,9 @@ module.exports = async (req, res) => {
 	const { code, state, error } = req.query
 
 	console.log('[callback] redirect_uri:', process.env.OAUTH_REDIRECT_URI)
-	console.log('[callback] code prefix:', code?.slice(0, 20))
+	console.log('[callback] code length:', code?.length)
+	console.log('[callback] code has state?', code?.includes('state'))
+	console.log('[callback] full code:', code)
 
 	if (error) {
 		res.setHeader('Content-Type', 'text/html')
