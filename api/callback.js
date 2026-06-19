@@ -57,7 +57,7 @@ module.exports = async (req, res) => {
 			code
 		})
 
-		const tokenRes = await fetch('https://graph.facebook.com/v21.0/oauth/access_token', {
+		const tokenRes = await fetch('https://api.instagram.com/oauth/access_token', {
 			method: 'POST',
 			body:   tokenParams
 		})
