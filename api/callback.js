@@ -49,17 +49,16 @@ module.exports = async (req, res) => {
 		await connectDb()
 
 		// Step 1: exchange code for short-lived token
-		const tokenParams = new URLSearchParams({
-			client_id:     process.env.META_APP_ID,
-			client_secret: process.env.META_APP_SECRET,
-			grant_type:    'authorization_code',
-			redirect_uri:  process.env.OAUTH_REDIRECT_URI,
-			code
-		})
-
 		const tokenRes = await fetch('https://graph.facebook.com/v21.0/oauth/access_token', {
-			method: 'POST',
-			body:   tokenParams
+			method:  'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body:    JSON.stringify({
+				client_id:     process.env.META_APP_ID,
+				client_secret: process.env.META_APP_SECRET,
+				grant_type:    'authorization_code',
+				redirect_uri:  process.env.OAUTH_REDIRECT_URI,
+				code
+			})
 		})
 
 		const tokenData = await tokenRes.json()
@@ -101,7 +100,7 @@ module.exports = async (req, res) => {
 		const igUsername       = profileData.username.toLowerCase()
 		const resolvedIgUserId = igUserId || profileData.id?.toString()
 
-		// Step 4: upsert — compound unique (userId + igUserId) allows multiple accounts per Discord user
+		// Step 4: upsert
 		await IgAccount.findOneAndUpdate(
 			{ userId: state, igUserId: resolvedIgUserId },
 			{
