@@ -46,10 +46,22 @@ module.exports = async (req, res) => {
 
 	const redirectUri = cleanRedirectUri(process.env.OAUTH_REDIRECT_URI)
 
+	console.log('[callback] method:', req.method)
+	console.log('[callback] user-agent:', req.headers['user-agent'])
+	console.log('[callback] full query:', JSON.stringify(req.query))
 	console.log('[callback] redirect_uri (raw):', JSON.stringify(process.env.OAUTH_REDIRECT_URI))
 	console.log('[callback] redirect_uri (cleaned):', JSON.stringify(redirectUri))
 	console.log('[callback] redirect_uri length:', redirectUri?.length)
 	console.log('[callback] code length:', code?.length)
+	console.log('[callback] code (last 20 chars):', code?.slice(-20))
+
+	// HEAD requests are link-preview crawlers (Discord, antivirus, etc), not
+	// real user navigation. They can consume the single-use code before the
+	// real browser GET arrives. Don't process them at all.
+	if (req.method === 'HEAD') {
+		console.log('[callback] ignoring HEAD request (likely a crawler/prefetch)')
+		return res.status(200).end()
+	}
 
 	if (error) {
 		res.setHeader('Content-Type', 'text/html')
