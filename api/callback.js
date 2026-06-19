@@ -1,6 +1,7 @@
 const fetch = require('node-fetch')
 const mongoose = require('mongoose')
-
+console.log('[callback] redirect_uri:', process.env.OAUTH_REDIRECT_URI)
+console.log('[callback] code:', req.query.code?.slice(0, 20))
 const igAccountSchema = new mongoose.Schema({
 	userId:         { type: String, required: true },
 	igUserId:       { type: String, required: true },
