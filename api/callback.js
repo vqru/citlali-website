@@ -1,7 +1,6 @@
 const fetch = require('node-fetch')
 const mongoose = require('mongoose')
-console.log('[callback] redirect_uri:', process.env.OAUTH_REDIRECT_URI)
-console.log('[callback] code:', req.query.code?.slice(0, 20))
+
 const igAccountSchema = new mongoose.Schema({
 	userId:         { type: String, required: true },
 	igUserId:       { type: String, required: true },
@@ -36,6 +35,9 @@ h2{color:${color};margin:0 0 12px;}p{color:#aaa;margin:0;line-height:1.6;}</styl
 module.exports = async (req, res) => {
 	const { code, state, error } = req.query
 
+	console.log('[callback] redirect_uri:', process.env.OAUTH_REDIRECT_URI)
+	console.log('[callback] code prefix:', code?.slice(0, 20))
+
 	if (error) {
 		res.setHeader('Content-Type', 'text/html')
 		return res.status(400).send(html('Authorization Cancelled', 'You cancelled the Instagram login. You can close this tab and try again from Discord.', '#ED4245'))
@@ -49,7 +51,6 @@ module.exports = async (req, res) => {
 	try {
 		await connectDb()
 
-		// Step 1: exchange code for short-lived token
 		const tokenParams = new URLSearchParams({
 			client_id:     process.env.META_APP_ID,
 			client_secret: process.env.META_APP_SECRET,
@@ -73,7 +74,6 @@ module.exports = async (req, res) => {
 		const shortLivedToken = tokenData.access_token
 		const igUserId        = tokenData.user_id?.toString()
 
-		// Step 2: exchange for long-lived token (60 days)
 		const longRes = await fetch(
 			`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.META_APP_SECRET}&access_token=${shortLivedToken}`
 		)
@@ -88,7 +88,6 @@ module.exports = async (req, res) => {
 		const expiresIn      = longData.expires_in ?? 5184000
 		const tokenExpiresAt = new Date(Date.now() + expiresIn * 1000)
 
-		// Step 3: fetch username
 		const profileRes = await fetch(
 			`https://graph.instagram.com/v21.0/me?fields=id,username&access_token=${accessToken}`
 		)
@@ -102,7 +101,6 @@ module.exports = async (req, res) => {
 		const igUsername       = profileData.username.toLowerCase()
 		const resolvedIgUserId = igUserId || profileData.id?.toString()
 
-		// Step 4: upsert
 		await IgAccount.findOneAndUpdate(
 			{ userId: state, igUserId: resolvedIgUserId },
 			{
