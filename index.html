@@ -114,13 +114,9 @@
         body.light-mode .theme-toggle svg { color: #5f6368; }
         .animation-toggle { background: none; border: 1px solid rgba(226, 225, 235, 0.15); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; font-size: 20px; }
         .animation-toggle:hover { background-color: rgba(181, 229, 119, 0.2); }
-        .animation-toggle:hover .snowflake-icon, .animation-toggle:hover .bubble-icon { filter: brightness(0) saturate(100%) invert(85%) sepia(26%) saturate(507%) hue-rotate(39deg) brightness(96%) contrast(87%); }
+        .animation-toggle .confetti-icon { display: inline-block; transition: opacity 0.2s, filter 0.2s; }
+        .animation-toggle.is-off .confetti-icon { opacity: 0.35; filter: grayscale(100%); }
         body.light-mode .animation-toggle:hover { background-color: rgba(181, 229, 119, 0.2); }
-
-        .snowflake { position: fixed; top: -10px; color: white; font-size: 20px; pointer-events: none; animation: fall linear infinite; z-index: 9999; opacity: 0.8; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-        .bubble { position: fixed; bottom: -10px; color: rgba(255, 255, 255, 0.6); font-size: 20px; pointer-events: none; animation: rise linear infinite; z-index: 9999; opacity: 0.8; }
-        @keyframes rise { to { transform: translateY(-100vh) rotate(-360deg); } }
         .hidden { display: none !important; }
 
         /* HERO LOAD ANIMATION */
@@ -229,21 +225,14 @@
 
         /* ANIMATION CONTAINER */
         .animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
-        .snowflake { position: absolute; top: -10px; color: rgba(255, 255, 255, 0.8); font-size: 20px; animation: fall linear infinite; opacity: 0; }
-        body.light-mode .snowflake { color: rgba(200, 200, 220, 0.7); }
-        @keyframes fall {
-            0% { opacity: 0; transform: translateY(0) rotate(0deg); }
-            10% { opacity: 1; } 90% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
+        .confetti { position: absolute; top: 0; opacity: 0; border-radius: 2px; will-change: transform, opacity; }
+        @keyframes confettiFall {
+            0%   { transform: translateY(-5vh) translateX(0) rotate(0deg); opacity: 0; }
+            8%   { opacity: 1; }
+            50%  { transform: translateY(50vh) translateX(14px) rotate(180deg); }
+            92%  { opacity: 1; }
+            100% { transform: translateY(108vh) translateX(-8px) rotate(360deg); opacity: 0; }
         }
-        .bubble { position: absolute; bottom: -10px; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(200, 220, 255, 0.4)); border-radius: 50%; animation: rise linear infinite; opacity: 0; box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5); }
-        body.light-mode .bubble { background: radial-gradient(circle at 30% 30%, rgba(100, 150, 255, 0.6), rgba(150, 200, 255, 0.3)); }
-        @keyframes rise {
-            0% { opacity: 0; transform: translateY(0) translateX(0); }
-            10% { opacity: 0.8; } 90% { opacity: 0.8; }
-            100% { opacity: 0; transform: translateY(-100vh) translateX(20px); }
-        }
-        .bubble::before { content: ''; position: absolute; top: 10%; left: 15%; width: 30%; height: 30%; background: rgba(255, 255, 255, 0.6); border-radius: 50%; }
 
         /* GALLERY */
         .gallery-section { padding: 80px 40px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
@@ -507,9 +496,8 @@
                 <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                 <svg class="sun-icon" style="display: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
             </button>
-            <button class="animation-toggle" onclick="toggleAnimation()" aria-label="Toggle animation">
-                <span class="snowflake-icon">&#10054;</span>
-                <span class="bubble-icon" style="display: none;">🫧</span>
+            <button class="animation-toggle" id="animationToggleBtn" onclick="toggleAnimation()" aria-label="Toggle confetti">
+                <span class="confetti-icon">🎊</span>
             </button>
         </div>
     </nav>
@@ -708,64 +696,42 @@
     </footer>
 
    <script>
-    let animationState = 'off'; // off -> snow -> bubble -> off
-    function createSnowflakes() {
+    let animationState = 'on'; // on -> off -> on
+    const confettiColors = ['#b0b0e8', '#f8d0dc', '#f0c4d4', '#c8a0d8', '#7070c8', '#f0a8bc'];
+    function createConfetti() {
         const container = document.getElementById('animationContainer');
-        for (let i = 0; i < 9; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.className = 'snowflake'; snowflake.innerHTML = '❆';
-            snowflake.style.left = Math.random() * 100 + '%';
-            snowflake.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            snowflake.style.animationDelay = Math.random() * 5 + 's';
-            snowflake.style.fontSize = (Math.random() * 8 + 14) + 'px';
-            container.appendChild(snowflake);
-        }
-    }
-    function createBubbles() {
-        const container = document.getElementById('animationContainer');
-        for (let cluster = 0; cluster < 3; cluster++) {
-            const clusterX = Math.random() * 90 + 5;
-            const bubblesInCluster = Math.floor(Math.random() * 2) + 2;
-            for (let i = 0; i < bubblesInCluster; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'bubble';
-                bubble.style.left = (clusterX + (Math.random() * 5 - 2.5)) + '%';
-                bubble.style.animationDuration = (Math.random() * 3 + 7) + 's';
-                bubble.style.animationDelay = Math.random() * 3 + 's';
-                const size = Math.random() * 25 + 20;
-                bubble.style.width = size + 'px'; bubble.style.height = size + 'px';
-                container.appendChild(bubble);
-            }
-        }
-        for (let i = 0; i < 6; i++) {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            bubble.style.left = Math.random() * 100 + '%';
-            bubble.style.animationDuration = (Math.random() * 4 + 7) + 's';
-            bubble.style.animationDelay = Math.random() * 5 + 's';
-            const size = Math.random() * 30 + 20;
-            bubble.style.width = size + 'px'; bubble.style.height = size + 'px';
-            container.appendChild(bubble);
+        const count = 40;
+        for (let i = 0; i < count; i++) {
+            const piece = document.createElement('div');
+            piece.className = 'confetti';
+            const left = (Math.random() * 96 + 2).toFixed(1);
+            const size = (Math.random() * 4 + 10).toFixed(0); // 10-14px square, matches reference
+            const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+            const duration = (Math.random() * 3 + 8).toFixed(1); // 8-11s, matches reference
+            const delay = (Math.random() * 4.8).toFixed(1); // 0-4.8s, matches reference
+            piece.style.left = left + '%';
+            piece.style.width = size + 'px';
+            piece.style.height = size + 'px';
+            piece.style.background = color;
+            piece.style.animation = `confettiFall ${duration}s linear ${delay}s infinite`;
+            container.appendChild(piece);
         }
     }
     function clearAnimations() { document.getElementById('animationContainer').innerHTML = ''; }
     function toggleAnimation() {
-        const snowflakeIcon = document.querySelector('.snowflake-icon');
-        const bubbleIcon = document.querySelector('.bubble-icon');
+        const toggleBtn = document.getElementById('animationToggleBtn');
         clearAnimations();
-        if (animationState === 'off') {
-            animationState = 'snow';
-            snowflakeIcon.style.display = 'block'; bubbleIcon.style.display = 'none';
-            createSnowflakes();
-        } else if (animationState === 'snow') {
-            animationState = 'bubble';
-            snowflakeIcon.style.display = 'none'; bubbleIcon.style.display = 'block';
-            createBubbles();
-        } else {
+        if (animationState === 'on') {
             animationState = 'off';
-            snowflakeIcon.style.display = 'block'; bubbleIcon.style.display = 'none';
+            toggleBtn.classList.add('is-off');
+        } else {
+            animationState = 'on';
+            toggleBtn.classList.remove('is-off');
+            createConfetti();
         }
     }
+    createConfetti(); // confetti is on by default
+
     function toggleTheme() {
         const body = document.body;
         const moonIcon = document.querySelector('.moon-icon');
