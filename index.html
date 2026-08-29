@@ -151,7 +151,6 @@
         .hero h1 { font-size: 52px; font-weight: 700; line-height: 1.1; color: #E2E1EB; margin: 0; }
         .hero p { font-size: 18px; line-height: 1.6; color: #A8A7B8; margin: 0; }
 
-        /* ── GRADIENT TEXT ON "Citlali" ── */
         .text-citlali-gradient {
             background: linear-gradient(90deg, #C9B8F5 0%, #A8D8C8 100%);
             -webkit-background-clip: text;
@@ -159,7 +158,6 @@
             background-clip: text;
         }
 
-        /* ── TSUNDERE QUOTE ── */
         .hero-quote {
             font-size: 15px;
             font-style: italic;
@@ -189,7 +187,51 @@
         .features-section { padding: 70px 40px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
         .feature-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .feature-left { display: flex; justify-content: center; }
-        .discord-mockup { background: rgba(30, 28, 38, 0.85); border: 1px solid rgba(226, 225, 235, 0.08); border-radius: 12px; padding: 16px; max-width: 420px; width: 100%; }
+
+        /* ── NSFW MOCKUP WRAPPER ── */
+        .nsfw-mockup-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 420px;
+            width: 100%;
+        }
+
+        /* ── NSFW PREVIEW LABEL — simple pastel static line ── */
+        .nsfw-preview-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+        }
+        .nsfw-preview-label .preview-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,184,245,0.35), transparent);
+        }
+        .nsfw-preview-label .preview-text {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #C9B8F5;
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+
+        .discord-mockup {
+            background: rgba(30, 28, 38, 0.85);
+            border: 1px solid rgba(226, 225, 235, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            max-width: 420px;
+            width: 100%;
+        }
+        /* Mockup inside wrapper — keep normal radius */
+        .nsfw-mockup-wrapper .discord-mockup {
+            border-radius: 12px;
+        }
+
         .mockup-header { margin-bottom: 12px; }
         .bot-info { display: flex; align-items: center; gap: 10px; }
         .bot-avatar { width: 36px; height: 36px; border-radius: 50%; box-shadow: 0 0 12px rgba(251, 189, 195, 0.5); }
@@ -210,7 +252,6 @@
         }
         .desc-text { color: #A8A7B8; font-size: 16px; line-height: 1.75; margin: 0; }
         .desc-text strong { color: #D0CDE0; font-weight: 600; }
-        /* inline command code tags */
         .cmd { display: inline-block; background: rgba(226,225,235,0.07); border: 1px solid rgba(226,225,235,0.14); border-radius: 5px; padding: 1px 7px; font-family: 'Courier New', monospace; font-size: 13px; color: #C9B8F5; white-space: nowrap; }
         .learn-more-btn { background: rgba(226, 225, 235, 0.05); border: 1px solid rgba(226, 225, 235, 0.15); padding: 14px 28px; border-radius: 10px; color: #E2E1EB; font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.2s; width: fit-content; margin-top: 12px; }
         .learn-more-btn:hover { background: rgba(226, 225, 235, 0.08); }
@@ -226,6 +267,154 @@
         .label-date        { background: rgba(255,160,185,0.1); color: #FFB3C8; }
         .feat-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
         .feat-tag { font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); }
+
+        /* ── NSFW IMAGE SPOILER + PAGINATION ── */
+        .nsfw-image-viewer {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0f0d14;
+            user-select: none;
+        }
+
+        /* The actual image */
+        .nsfw-image-viewer .viewer-img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+            transition: filter 0.45s ease, transform 0.35s ease;
+            filter: blur(22px) brightness(0.6);
+        }
+        .nsfw-image-viewer.revealed .viewer-img {
+            filter: blur(0) brightness(1);
+        }
+
+        /* Spoiler overlay */
+        .spoiler-cover {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(15, 10, 20, 0.55);
+            backdrop-filter: blur(2px);
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .nsfw-image-viewer.revealed .spoiler-cover {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .spoiler-cover .spoiler-icon {
+            font-size: 32px;
+            line-height: 1;
+            filter: drop-shadow(0 0 12px rgba(255,80,110,0.6));
+        }
+        .spoiler-cover .spoiler-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ff7090;
+        }
+        .spoiler-cover .spoiler-sub {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.5px;
+        }
+        .spoiler-cover .spoiler-btn {
+            margin-top: 6px;
+            background: rgba(255,80,110,0.18);
+            border: 1px solid rgba(255,80,110,0.45);
+            color: #ff7090;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            padding: 7px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .spoiler-cover .spoiler-btn:hover {
+            background: rgba(255,80,110,0.32);
+            box-shadow: 0 0 14px rgba(255,80,110,0.35);
+        }
+
+        /* Re-hide button (top-right corner when revealed) */
+        .rehide-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(10,8,16,0.7);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.5);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background 0.2s;
+            z-index: 5;
+        }
+        .nsfw-image-viewer.revealed .rehide-btn {
+            opacity: 1;
+            visibility: visible;
+        }
+        .rehide-btn:hover { background: rgba(255,80,110,0.2); color: #ff7090; }
+
+        /* Pagination arrows — sit outside image, on the sides of the viewer */
+        .nsfw-viewer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nsfw-viewer-row .viewer-arrow {
+            flex-shrink: 0;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(255,80,110,0.1);
+            border: 1px solid rgba(255,80,110,0.25);
+            color: #ff7090;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+            font-size: 16px;
+            line-height: 1;
+        }
+        .nsfw-viewer-row .viewer-arrow:hover {
+            background: rgba(255,80,110,0.25);
+            box-shadow: 0 0 12px rgba(255,80,110,0.3);
+            transform: scale(1.08);
+        }
+        .nsfw-viewer-row .viewer-arrow:active { transform: scale(0.95); }
+
+        /* Pagination dots */
+        .viewer-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 0 4px;
+        }
+        .viewer-dots .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: rgba(255,80,110,0.25);
+            transition: background 0.25s, transform 0.25s;
+            cursor: pointer;
+        }
+        .viewer-dots .dot.active {
+            background: #ff7090;
+            transform: scale(1.35);
+            box-shadow: 0 0 6px rgba(255,80,110,0.5);
+        }
 
         /* ANIMATION CONTAINER */
         .animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
@@ -343,6 +532,7 @@
             .feature-right h2 { font-size: 28px; }
             .desc-text { font-size: 15px; }
             .discord-mockup { max-width: 100%; }
+            .nsfw-mockup-wrapper { max-width: 100%; }
             .music-fab { bottom: 20px; right: 20px; }
             .music-toggle-btn { width: 60px; height: 60px; min-width: 60px; min-height: 60px; }
             .music-toggle-btn img { width: 45px; height: 45px; }
@@ -350,6 +540,7 @@
             footer { padding: 40px 20px 30px; }
             .footer-content { padding: 25px 20px; }
             .hero-quote { font-size: 14px; }
+            .nsfw-viewer-row .viewer-arrow { width: 30px; height: 30px; font-size: 14px; }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 32px; }
@@ -513,10 +704,7 @@
                 <span class="text-cutest">The cutest bot</span>
             </div>
             <h1>Your adorable <span class="text-genshin">genshin</span> companion for Discord — meet <span class="text-citlali-gradient">Citlali</span></h1>
-
-            <!-- ── TSUNDERE QUOTE ── -->
             <p class="hero-quote">"Hmph… don't get the wrong idea. I'm only here because no one else would put up with you. You're welcome, by the way."</p>
-
             <p>Create a vibrant community with the all-in-one AI chatbot. Many NSFW commands and lewd features in one place. Simple, adorable, and designed to connect.</p>
             <a href="https://discord.com/oauth2/authorize?client_id=1333324950127378453&permissions=277025771520&scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer" class="add-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/></svg>
@@ -541,21 +729,68 @@
     <div class="features-section reveal">
         <div class="feature-content">
             <div class="feature-left">
-                <div class="discord-mockup">
-                    <div class="mockup-header">
-                        <div class="bot-info">
-                            <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali bot avatar" class="bot-avatar">
-                            <span class="bot-name text-citlali">Citlali</span>
-                            <span class="app-badge">&#10003; APP</span>
+
+                <!-- NSFW preview label + mockup wrapper -->
+                <div class="nsfw-mockup-wrapper">
+
+                    <!-- ── PREVIEW LABEL ── -->
+                    <div class="nsfw-preview-label">
+                        <span class="preview-line"></span>
+                        <span class="preview-text">✦ nsfw content preview ✦</span>
+                        <span class="preview-line"></span>
+                    </div>
+
+                    <!-- ── DISCORD MOCKUP ── -->
+                    <div class="discord-mockup">
+                        <div class="mockup-header">
+                            <div class="bot-info">
+                                <img src="https://github.com/vqru/citlali-website/blob/main/7ac79be08e6d2f474b683797e1956adf.jpg?raw=true" alt="Citlali bot avatar" class="bot-avatar">
+                                <span class="bot-name text-citlali">Citlali</span>
+                                <span class="app-badge">&#10003; APP</span>
+                            </div>
+                        </div>
+                        <div class="message-card">
+
+                            <!-- ── IMAGE VIEWER: arrows + spoiler ── -->
+                            <div class="nsfw-viewer-row">
+                                <!-- Left arrow -->
+                                <button class="viewer-arrow" onclick="nsfwPrev()" aria-label="Previous image">&#8592;</button>
+
+                                <!-- Image + spoiler -->
+                                <div class="nsfw-image-viewer" id="nsfwViewer">
+                                    <img id="nsfwImg"
+                                        src="https://github.com/vqru/bahh-gifs/blob/main/top%20gg%20img.webp?raw=true"
+                                        alt="NSFW feature showcase"
+                                        style="width: 100%; display: block; border-radius: 8px;"
+                                        loading="lazy">
+
+                                    <!-- Spoiler overlay -->
+                                    <div class="spoiler-cover" id="spoilerCover" onclick="revealNsfw()">
+                                        <span class="spoiler-icon">👁️</span>
+                                        <span class="spoiler-title">Spoiler</span>
+                                        <span class="spoiler-sub">Click to reveal</span>
+                                        <button class="spoiler-btn">Reveal image</button>
+                                    </div>
+
+                                    <!-- Re-hide button -->
+                                    <button class="rehide-btn" onclick="rehideNsfw(event)">hide ✕</button>
+                                </div>
+
+                                <!-- Right arrow -->
+                                <button class="viewer-arrow" onclick="nsfwNext()" aria-label="Next image">&#8594;</button>
+                            </div>
+
+                            <!-- Pagination dots -->
+                            <div class="viewer-dots" id="viewerDots"></div>
+
                         </div>
                     </div>
-                    <div class="message-card">
-                        <img src="https://github.com/vqru/bahh-gifs/blob/main/top%20gg%20img.webp?raw=true" alt="NSFW feature showcase" style="width: 100%; display: block; border-radius: 8px;" loading="lazy">
-                    </div>
                 </div>
+                <!-- end nsfw-mockup-wrapper -->
+
             </div>
             <div class="feature-right">
-                <span class="feat-label label-lewd">🔞 &nbsp;<span class="nsfw-word">NSFW</span> &nbsp;— no limits. no shame.</span>
+                <span class="feat-label label-lewd">🔞 &nbsp;<span class="nsfw-word">NSFW</span> &nbsp;~ no limits. no shame.</span>
                 <h2 style="font-size: 52px; line-height: 1.1; margin: 10px 0 16px;">filthy, degenerate,<br>and completely <span class="nsfw-word">NSFW</span> —<br><span class="text-lewd" style="font-size: 42px;">just how you like it ♡</span></h2>
                 <p class="desc-text" style="font-size: 16.5px; margin-bottom: 14px;">
                     citlali doesn't judge. she just <em>delivers</em>. pull dripping-wet content straight from Gelbooru across <strong style="color:#D0CDE0;">20+ dedicated <span class="nsfw-word">NSFW</span> commands</strong> — each one hitting a precision tag query for exactly what gets you going.
@@ -701,12 +936,79 @@
                 alt="Citlali">
             <div class="game-score" id="gameScore">00000</div>
             <div class="game-hint" id="gameHint">[ SPACE / TAP to jump ]</div>
-            <button class="game-play-btn" id="gamePlayBtn" onclick="startGame()">▶ PLAY</button>
+            <button class="game-play-btn" id="gamePlayBtn" onclick="startGame()">&#9654; PLAY</button>
         </div>
     </footer>
 
    <script>
-    let animationState = 'on'; // on -> off -> on
+    /* ── NSFW IMAGE VIEWER ── */
+    // Add your image URLs here — just push more into this array
+    const nsfwImages = [
+        'https://github.com/vqru/citlali-website/blob/main/nsfw1.png?raw=true',
+        'https://github.com/vqru/citlali-website/blob/main/nsfw2.png?raw=true',
+        'https://github.com/vqru/citlali-website/blob/main/nsfw3.png?raw=true',
+        'https://github.com/vqru/citlali-website/blob/main/nsfw4.png?raw=true',
+    ];
+
+    let nsfwIndex = 0;
+    let nsfwRevealed = false;
+
+    function buildDots() {
+        const dotsEl = document.getElementById('viewerDots');
+        dotsEl.innerHTML = '';
+        nsfwImages.forEach((_, i) => {
+            const d = document.createElement('span');
+            d.className = 'dot' + (i === nsfwIndex ? ' active' : '');
+            d.onclick = () => nsfwGoTo(i);
+            dotsEl.appendChild(d);
+        });
+    }
+
+    function updateDots() {
+        document.querySelectorAll('#viewerDots .dot').forEach((d, i) => {
+            d.classList.toggle('active', i === nsfwIndex);
+        });
+    }
+
+    function nsfwGoTo(index) {
+        nsfwIndex = (index + nsfwImages.length) % nsfwImages.length;
+        const img = document.getElementById('nsfwImg');
+        // Fade swap
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.22s ease';
+        setTimeout(() => {
+            img.src = nsfwImages[nsfwIndex];
+            img.style.opacity = '1';
+        }, 220);
+        // Re-apply spoiler on image change
+        rehideNsfwSilent();
+        updateDots();
+    }
+
+    function nsfwNext() { nsfwGoTo(nsfwIndex + 1); }
+    function nsfwPrev() { nsfwGoTo(nsfwIndex - 1); }
+
+    function revealNsfw() {
+        document.getElementById('nsfwViewer').classList.add('revealed');
+        nsfwRevealed = true;
+    }
+
+    function rehideNsfw(e) {
+        if (e) e.stopPropagation();
+        document.getElementById('nsfwViewer').classList.remove('revealed');
+        nsfwRevealed = false;
+    }
+
+    function rehideNsfwSilent() {
+        document.getElementById('nsfwViewer').classList.remove('revealed');
+        nsfwRevealed = false;
+    }
+
+    // Init dots on load
+    buildDots();
+
+    /* ── CONFETTI ── */
+    let animationState = 'on';
     const confettiColors = ['#b0b0e8', '#f8d0dc', '#f0c4d4', '#c8a0d8', '#7070c8', '#f0a8bc'];
     function createConfetti() {
         const container = document.getElementById('animationContainer');
@@ -715,10 +1017,10 @@
             const piece = document.createElement('div');
             piece.className = 'confetti';
             const left = (Math.random() * 96 + 2).toFixed(1);
-            const size = (Math.random() * 4 + 10).toFixed(0); // 10-14px square, matches reference
+            const size = (Math.random() * 4 + 10).toFixed(0);
             const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-            const duration = (Math.random() * 3 + 8).toFixed(1); // 8-11s, matches reference
-            const delay = (Math.random() * 4.8).toFixed(1); // 0-4.8s, matches reference
+            const duration = (Math.random() * 3 + 8).toFixed(1);
+            const delay = (Math.random() * 4.8).toFixed(1);
             piece.style.left = left + '%';
             piece.style.width = size + 'px';
             piece.style.height = size + 'px';
@@ -740,7 +1042,7 @@
             createConfetti();
         }
     }
-    createConfetti(); // confetti is on by default
+    createConfetti();
 
     function toggleTheme() {
         const body = document.body;
@@ -770,19 +1072,15 @@
         btn.classList.toggle('playing', card.classList.contains('open'));
     }
 
-    /* SCROLL REVEAL — stays visible once triggered */
+    /* SCROLL REVEAL */
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    window.addEventListener('DOMContentLoaded', () => {
-        initPixelGame();
-    });
+    window.addEventListener('DOMContentLoaded', () => { initPixelGame(); });
 
     /* PIXEL GAME */
     function initPixelGame() { spawnIdleDots(); }
@@ -800,8 +1098,7 @@
         const size = 7 + Math.random() * 6;
         el.style.width = size + 'px'; el.style.height = size + 'px';
         const col = OBS_COLORS[Math.floor(Math.random() * OBS_COLORS.length)];
-        el.style.background = col;
-        el.style.boxShadow = `0 0 6px ${col}`;
+        el.style.background = col; el.style.boxShadow = `0 0 6px ${col}`;
         el.style.bottom = (40 + Math.random() * 45) + 'px';
         el.style.right = '-20px'; el.style.left = 'auto';
         const dur = 7 + Math.random() * 4;
@@ -842,14 +1139,12 @@
         document.addEventListener('keydown', onKey);
         document.getElementById('pixelGame').onclick = doJump;
 
-        // physics — pure up/down, no rotation
         gameLoop = setInterval(() => {
             velY += GRAV;
             runnerBottom -= velY;
             if (runnerBottom <= GROUND) { runnerBottom = GROUND; velY = 0; isJumping = false; }
             runner.style.bottom = runnerBottom + 'px';
 
-            // collision
             const rr = runner.getBoundingClientRect();
             document.querySelectorAll('.obstacle:not(.idle-dot)').forEach(obs => {
                 const or = obs.getBoundingClientRect();
@@ -861,7 +1156,6 @@
             });
         }, 16);
 
-        // spawn obstacles — ground level only, wide spacing
         function spawnObs() {
             if (!gameRunning) return;
             const game = document.getElementById('pixelGame');
@@ -882,7 +1176,6 @@
         }
         obsTimer = setTimeout(spawnObs, 1400);
 
-        // speed up background stars
         document.getElementById('pixelGame').style.setProperty('--bg-speed', '4s');
 
         scoreLoop = setInterval(() => {
@@ -914,11 +1207,7 @@
             }, 1800);
         }
     }
-
 </script>
-
-
-
 
 </body>
 </html>
