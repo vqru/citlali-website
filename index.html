@@ -275,18 +275,21 @@
             overflow: hidden;
             background: #0f0d14;
             user-select: none;
+            min-height: 460px;
         }
 
         /* The actual image */
         .nsfw-image-viewer .viewer-img {
             width: 100%;
+            height: 460px;
+            object-fit: cover;
             display: block;
             border-radius: 8px;
-            transition: filter 0.45s ease, transform 0.35s ease;
-            filter: blur(22px) brightness(0.6);
+            transition: filter 0.5s ease;
+            filter: blur(28px) brightness(0.45) saturate(0.5);
         }
         .nsfw-image-viewer.revealed .viewer-img {
-            filter: blur(0) brightness(1);
+            filter: blur(0) brightness(1) saturate(1);
         }
 
         /* Spoiler overlay */
@@ -298,9 +301,8 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: rgba(15, 10, 20, 0.55);
-            backdrop-filter: blur(2px);
-            transition: opacity 0.35s ease, visibility 0.35s ease;
+            background: rgba(10, 6, 18, 0.45);
+            transition: opacity 0.4s ease, visibility 0.4s ease;
             cursor: pointer;
             border-radius: 8px;
         }
@@ -308,11 +310,6 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-        }
-        .spoiler-cover .spoiler-icon {
-            font-size: 32px;
-            line-height: 1;
-            filter: drop-shadow(0 0 12px rgba(255,80,110,0.6));
         }
         .spoiler-cover .spoiler-title {
             font-size: 13px;
@@ -373,11 +370,16 @@
         .nsfw-viewer-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            width: 100%;
+        }
+        .nsfw-viewer-row .nsfw-image-viewer {
+            flex: 1;
+            min-width: 0;
         }
         .nsfw-viewer-row .viewer-arrow {
             flex-shrink: 0;
-            width: 36px; height: 36px;
+            width: 34px; height: 34px;
             border-radius: 50%;
             background: rgba(255,80,110,0.1);
             border: 1px solid rgba(255,80,110,0.25);
@@ -385,7 +387,7 @@
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1;
         }
         .nsfw-viewer-row .viewer-arrow:hover {
@@ -766,7 +768,6 @@
 
                                     <!-- Spoiler overlay -->
                                     <div class="spoiler-cover" id="spoilerCover" onclick="revealNsfw()">
-                                        <span class="spoiler-icon">👁️</span>
                                         <span class="spoiler-title">Spoiler</span>
                                         <span class="spoiler-sub">Click to reveal</span>
                                         <button class="spoiler-btn">Reveal image</button>
@@ -973,15 +974,13 @@
     function nsfwGoTo(index) {
         nsfwIndex = (index + nsfwImages.length) % nsfwImages.length;
         const img = document.getElementById('nsfwImg');
-        // Fade swap
         img.style.opacity = '0';
         img.style.transition = 'opacity 0.22s ease';
         setTimeout(() => {
             img.src = nsfwImages[nsfwIndex];
             img.style.opacity = '1';
         }, 220);
-        // Re-apply spoiler on image change
-        rehideNsfwSilent();
+        // keep revealed state — don't re-hide if already unlocked
         updateDots();
     }
 
@@ -995,11 +994,6 @@
 
     function rehideNsfw(e) {
         if (e) e.stopPropagation();
-        document.getElementById('nsfwViewer').classList.remove('revealed');
-        nsfwRevealed = false;
-    }
-
-    function rehideNsfwSilent() {
         document.getElementById('nsfwViewer').classList.remove('revealed');
         nsfwRevealed = false;
     }
