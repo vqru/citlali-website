@@ -216,12 +216,16 @@
         .learn-more-btn:hover { background: rgba(226, 225, 235, 0.08); }
 
         .feat-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; width: fit-content; margin-bottom: 4px; }
-        .label-lewd        { background: rgba(255,100,130,0.1); color: #FF8FAB; }
+        .label-lewd { background: rgba(255,80,110,0.15); color: #ff6b8a; border: 1px solid rgba(255,80,110,0.35); box-shadow: 0 0 14px rgba(255,80,110,0.25); animation: nsfwPulse 2.4s ease-in-out infinite; }
+        @keyframes nsfwPulse { 0%,100% { box-shadow: 0 0 10px rgba(255,80,110,0.2); } 50% { box-shadow: 0 0 24px rgba(255,80,110,0.55); } }
+        .nsfw-word { color: #ff7090; text-shadow: 0 0 18px rgba(255,80,110,0.7), 0 0 40px rgba(255,80,110,0.3); font-style: italic; }
+        .feat-tag-nsfw { font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(255,80,110,0.3); color: #ff7090; background: rgba(255,80,110,0.08); transition: all 0.2s; cursor: default; }
+        .feat-tag-nsfw:hover { background: rgba(255,80,110,0.18); box-shadow: 0 0 12px rgba(255,80,110,0.3); }
         .label-personality { background: rgba(181,181,255,0.1); color: #B5B5FF; }
         .label-gacha       { background: rgba(255,210,100,0.1); color: #FFD264; }
         .label-date        { background: rgba(255,160,185,0.1); color: #FFB3C8; }
-        .feat-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-        .feat-tag { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); }
+        .feat-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .feat-tag { font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: #C0BFD0; background: rgba(255,255,255,0.04); }
 
         /* ANIMATION CONTAINER */
         .animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
@@ -551,20 +555,26 @@
                 </div>
             </div>
             <div class="feature-right">
-                <span class="feat-label label-lewd">🔞 NSFW</span>
-                <h2>Anything, everything —<br><span class="text-lewd">just tag it</span></h2>
-                <p class="desc-text">
-                    <span class="cmd">/hentai</span>, <span class="cmd">/yuri</span>, <span class="cmd">/anal</span>, <span class="cmd">/bukkake</span> and 20+ more lewd commands pulling straight from Gelbooru — <strong>20k images and videos</strong> at your fingertips.<br><br>
-                    Our built-in filters already handle guro, inflation, and AI-generated content so you never have to worry. <strong>AND/OR tag logic</strong> supported — chain as many tags as you like.<br><br>
-                    <span class="cmd">/autobooru</span> auto-posts on a timer. Set your tags, pick an interval (4 min / 10 min / 1 hr), and let her run.
+                <span class="feat-label label-lewd">🔞 &nbsp;<span class="nsfw-word">NSFW</span> &nbsp;— no limits. no shame.</span>
+                <h2 style="font-size: 52px; line-height: 1.1; margin: 10px 0 16px;">filthy, degenerate,<br>and completely <span class="nsfw-word">NSFW</span> —<br><span class="text-lewd" style="font-size: 42px;">just how you like it ♡</span></h2>
+                <p class="desc-text" style="font-size: 16.5px; margin-bottom: 14px;">
+                    citlali doesn't judge. she just <em>delivers</em>. pull dripping-wet content straight from Gelbooru across <strong style="color:#D0CDE0;">20+ dedicated <span class="nsfw-word">NSFW</span> commands</strong> — each one hitting a precision tag query for exactly what gets you going.
+                </p>
+                <p class="desc-text" style="font-size: 16px; margin-bottom: 14px;">
+                    <span class="cmd">/thighjob</span> <span class="cmd">/femdom</span> <span class="cmd">/creampie</span> <span class="cmd">/kemonomimi</span> <span class="cmd">/femboy</span> <span class="cmd">/yuri</span> <span class="cmd">/genshin</span> <span class="cmd">/honkai</span> — and that's just the warm-up. <strong style="color:#D0CDE0;">AND/OR tag chaining</strong> so you can get as specific and degenerate as your heart desires. guro, inflation, and AI-gen auto-blocked — quality filth only.
+                </p>
+                <p class="desc-text" style="font-size: 15.5px; margin-bottom: 20px;">
+                    <span class="cmd">/autobooru</span> — set it and forget it. picks your tags, picks an interval, keeps your <span class="nsfw-word">NSFW</span> channel stocked and dripping <strong style="color:#D0CDE0;">24/7</strong> without you lifting a single finger. your server never runs dry again.
                 </p>
                 <div class="feat-tags">
-                    <span class="feat-tag">/hentai</span>
-                    <span class="feat-tag">/yuri</span>
-                    <span class="feat-tag">/anal</span>
-                    <span class="feat-tag">/bukkake</span>
-                    <span class="feat-tag">/autobooru</span>
-                    <span class="feat-tag">Load More</span>
+                    <span class="feat-tag-nsfw">/thighjob</span>
+                    <span class="feat-tag-nsfw">/femdom</span>
+                    <span class="feat-tag-nsfw">/creampie</span>
+                    <span class="feat-tag-nsfw">/kemonomimi</span>
+                    <span class="feat-tag-nsfw">/femboy</span>
+                    <span class="feat-tag-nsfw">/yuri</span>
+                    <span class="feat-tag-nsfw">/autobooru</span>
+                    <span class="feat-tag">20+ more 🔞</span>
                 </div>
             </div>
         </div>
